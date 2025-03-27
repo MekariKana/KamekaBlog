@@ -1,22 +1,25 @@
 class SpecialHeader extends HTMLElement {
     connectedCallback() {
+        // 現在のサイトのルートURLを取得（例: "https://example.com"）
+        const baseUrl = window.location.origin + "/";
+
         this.innerHTML = `
             <header class="header w_inner">
                 <div class="logo">
-                    <img src="img/logo.svg" alt="KamekaBlog_logo">
+                    <img src="${baseUrl}img/logo.svg" alt="KamekaBlog_logo">
                     <h1>KamekaBlog</h1>
                 </div>
             </header>
             <nav class="w_inner">
                 <ul>
-                    <li><a class="nav-link" href="index.html">Home</a></li>
-                    <li><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                    <li><a class="nav-link" href="study.html">Study</a></li>
-                    <li><a class="nav-link" href="profile.html">Profile</a></li>
-                    <li><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li><a class="nav-link" href="${baseUrl}index.html">Home</a></li>
+                    <li><a class="nav-link" href="${baseUrl}portfolio.html">Portfolio</a></li>
+                    <li><a class="nav-link" href="${baseUrl}study.html">Study</a></li>
+                    <li><a class="nav-link" href="${baseUrl}profile.html">Profile</a></li>
+                    <li><a class="nav-link" href="${baseUrl}contact.html">Contact</a></li>
                 </ul>
             </nav>
-        `
+        `;
     }
 }
 

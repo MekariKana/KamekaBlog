@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>HTML/css</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="right">
+                            作成日: 2025.3.22
+                        </div>
+                        <p class="study_ttl">
+                            要素の一番下に配置
+                        </p>
+
+                        <div class="study_flex">
+                            <p class="study_detail">
+                                このHPを更新しているとき、右の画像のように<a href="../../index.html">Homeページ</a>のUpdatingの「続きはこちら>>」のリンクを枠内の一番下に移動した。<br>
+                                まずはこの設定方法から説明していく。<br>
+                                <br>
+                                特定の範囲の一番下に部品を配置する手順は以下のとおり。<br>
+                                1. 基準となる範囲（右の画像でいうグレーの範囲）のcssにposition: relative;を指定<br>
+                                2. 配置する部品（右の画像では「続きはこちら>>」）のcssにposition: abusolute;を設定<br>
+                                3. 基準となる範囲のどの位置に配置するかは"bottom: 0;"、 "right: 0;" のように指定する。<br>          
+                            </p>                            
+                            <img class="sample" src="../../img/study/2_sample.png" alt="sample">
+                        </div>                            
+
+                        <div data-filename="index.html">
+                            <span>index.html</span>
+<!--コードを記載-->
+<pre><code class="language-html">
+&lt;!--指定する範囲となる要素--&gt;
+&lt;div class="menu"&gt;
+
+    &lt;!--menuクラスの範囲の一番右下に配置したい子要素--&gt;
+    &lt;a class="link_btm_rgt" href="study.html"&gt;続きはこちら&gt;&gt;&lt;/a&gt;
+
+&lt;/div&gt;
+
+</code></pre>
+                        </div>
+                        <div data-filename="style.css">
+                            <span>style.css</span>
+<!--コード記載-->
+<pre><code class="language-css">
+/* 親要素（基準となる範囲）*/
+.menu {
+    position: relative;
+}
+
+/* 親要素の中のどの位置に配置するか指定 */
+.link_btm_rgt {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+}
+
+</code></pre>
+                        </div>
+
+
+
+
+                        <p class="study_detail">
+                            またpositionには上記以外にもオプションがある。<br>
+                            今回は使わないので概要だけまとめとく。
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">position: fiexed;</div>
+                        </div>
+                        <p class="study_detail">
+                            範囲を限定せず、画面全体に対して位置が指定される。スクロールしても固定された場所にとどまる。ヘッダーとかに使用されることが多い。
+                        </p>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">z-index: [数字];</div>
+                        </div>
+                        <p class="study_detail">
+                            デザインソフトなどでいうレイヤーの重ね順を設定できる。<br>
+                            どのpositionを表面に表示するか数字で指定できる。数字が大きいほど重なった時に一番上に表示される。<br>
+                        </p>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">position: stiky;</div>
+                        </div>
+                        <p class="study_detail">
+                            スクロールした際、特定の範囲内でのみ固定された場所に留まり、範囲を抜けるとスクロールと一緒に動く。<br>
+                            よくネット記事とか読むときについてくる邪魔な広告とかはこれかな？<br>
+                            たとえば、containerやmainの範囲ではスクロールしても固定された位置に留まってて、フッターまでいくと消えたり。<br>
+                        </p>
+                        <br>
+                        <p class="red_highlight study_detail">
+                            この後、navを画面に固定する設定をしたとき、position: sticky;を使いました。
+                            興味のある方は<a href="3_fixed_nav_at_top_of_the_page.html">こちら</a>
+                        </p>
+                        <br>
+                        <p class="study_detail">                        
+                            以上。<br>
+                            また使うときがあったら詳しく調べてみようかな〜<br>
+                            <br>
+                        </p>
+                    </div>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+
+        <special-footer></special-footer>
+
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

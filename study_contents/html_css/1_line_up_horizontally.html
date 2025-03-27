@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>HTML/css</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="right">
+                            作成日: 2025.3.23
+                        </div>
+                        <p class="study_ttl">
+                            横並び配置はflex
+                        </p>
+
+                        <p class="study_detail">
+                            このHPを作成した際、一番重宝したのが "display: flex;" というcssの設定。<br>
+                            <a href="../../index.html">Homeページ</a>のUpdatingの各項目やその中の日付と更新内容の横並び、
+                            <a href="../../profile.html">profileページ</a>の経歴の画像と文字の横並び、
+                            <a href="../../portfolio.html">portfolioページ</a>の作品集の横並びなど、なにかと横並び場面で使用してきた。<br>
+                            今後もページ更新の際は多様しそうなので、
+                            <a href="../../portfolio.html">portfolioページ</a>を例としてメモしておく。
+                        </p>
+                        <p class="study_detail">
+                            ＜使い方＞<br>
+                            1. htmlで横並びさせたい要素をdivで囲む<br>
+                        </p>
+
+                        <div data-filename="index.html">
+                            <span>index.html</span>
+<!--コード記載-->
+<pre><code class="language-html">
+&lt;div class="w_inner"&gt;
+    &lt;!--横配置したい要素をdivで囲む--&gt;
+    &lt;div class="portfolio_block"&gt;
+
+        &lt;!--横に並べたい要素たち--&gt;
+        &lt;div class="portfolio"&gt;
+            &lt;!--作品1--&gt;
+        &lt;/dix&gt;
+
+        &lt;div class="portfolio"&gt;
+            &lt;!--作品2--&gt;
+        &lt;/dix&gt;
+        
+        &lt;div class="portfolio"&gt;
+            &lt;!--作品3--&gt;
+        &lt;/dix&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                        </div>
+
+                        <p class="study_detail">
+                            2. cssで親要素&lt;portfolio_block&gt;クラスに "display: flex;" を指定する<br>
+                            3. divの中の子要素&lt;portfolio&gt;が横並びになるので、親要素&lt;w_iiner&gt;クラスのwidthに合わせて&lt;portfolio&gt;のwidthを設定する<br>
+                            ※ここではjustify-content: space-betweenを使用しているため、等間隔に配置される
+                        </p>
+
+                        <div data-filename="style.css">
+                            <span>style.css</span>
+
+<!--コード記載-->
+<pre><code class="language-css">
+/* 全体の横幅は1200pxで指定 */
+.w_iiner {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* .portfolioの親要素でdisplay: flex;を設定 */
+.portfolio_block {
+    display: flex; /* 子要素が横並びになる設定 */
+    flex-wrap: wrap; /* 要素を折り返して表示 */
+    justify-content: space-between; /* 両端揃えで均等に配置 */
+    text-align: center;
+}
+
+/* 各portfolioブロックのスタイル */
+.portfolio_block .portfolio {
+    width: 380px; /* 3つが横に並べるサイズに設定 */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+</code></pre>
+                        </div>
+                        <p class="study_detail">これで<a href="../../portfolio.html#prg">portfolioページ</a>みたいな横配置になりました〜</p>
+                        <br>
+                    </div>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--シンタックスハイライトcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+
+</html>
+

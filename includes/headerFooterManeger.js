@@ -1,7 +1,10 @@
 class SpecialHeader extends HTMLElement {
     connectedCallback() {
-        // 現在のサイトのルートURLを取得（例: "https://example.com"）
-        const baseUrl = window.location.origin + "/";
+        // 現在のサイトのルートURLを取得
+        // ローカル環境
+        // const baseUrl = window.location.origin + "/";
+        //　実行環境
+        const baseUrl = window.location.origin + "/KamekaBlog/";
 
         this.innerHTML = `
             <header class="header w_inner">

@@ -1,15 +1,10 @@
-// 現在のサイトのルートURLを取得
-// ローカル環境
-//const baseUrl = window.location.origin + "/";
-//let currentPath = window.location.pathname;
-//　実行環境
-const baseUrl = window.location.origin + "/KamekaBlog/";
-let currentPath = window.location.pathname + "/KamekaBlog/";
-console.log(baseUrl);
-console.log(currentPath);
-
 class SpecialHeader extends HTMLElement {
     connectedCallback() {
+        // 現在のサイトのルートURLを取得
+        // ローカル環境
+        const baseUrl = window.location.origin + "/";
+        //　実行環境
+        // const baseUrl = window.location.origin + "/KamekaBlog/";
 
         this.innerHTML = `
             <header class="header w_inner">
@@ -48,10 +43,19 @@ customElements.define("special-footer", SpecialFooter)
 
 //current pageのcssを付与
 document.querySelectorAll('.nav-link').forEach(link => {
+    let currentPath = window.location.pathname;
 
+    //ローカル環境
     // ルートパス (`/`) の場合は `index.html` として処理
+    /*
     if (currentPath === "/") {
         currentPath = "/index.html";
+    }
+    */
+    //実行環境
+    // ルートパス (`/`) の場合は `index.html` として処理
+    if (currentPath === "/KamekaBlog/") {
+        currentPath = "/KamekaBlog/index.html";
     }
     //.nav-linkのpathnameと現在のパスが一致していたらclassにcurrentを付与
     if (link.pathname === currentPath) {

@@ -1,0 +1,439 @@
+@charset "UTF-8";
+html {
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+    font-size: 15px;
+    border-top: 15px solid #79a1b1 !important;
+    min-height: 98.6vh;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    opacity:0.5;
+}
+
+p {
+    line-height: 1.5;
+}
+
+.w_inner {
+    width: 1200px;
+    margin: 0 auto;
+    /* background: #eee; */
+}
+
+nav {
+    position: sticky;
+    position: -webkit-sticky; /* safari対応 */
+    top: 0;
+    z-index: 999;
+}
+
+nav ul {
+    display: flex;
+    margin-bottom: 10px;
+    background-color: white;
+    height: 30px;
+}
+
+nav ul li {
+    width: 240px;
+    /* flexは自動で幅を計算してくれる機能があるが、
+    指定したwidthより小さくなくことがある。
+    その際はmin-widthを指定する。 今回は必要ない。*/
+   /* min-width: 240px; */
+   text-align: center;
+   border-right: 1px solid #ddd;
+   padding: 5px;
+}
+
+/* liの最初の要素だけ、cssを指定するにはfirst-childを使用*/
+nav ul li:first-child {
+    border-left: 1px solid #ddd;
+}
+
+nav ul li a {
+    display: block;
+    color: #9b9a9a;
+}
+
+nav ul li a:hover {
+    color: #333;
+    font-weight: bold;
+}
+
+nav ul li a.current {
+    color: #333;
+    font-weight: bold;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.logo img{
+    display: inline-block;
+    margin-bottom: 5px;
+    width: 100px;
+    height: auto;
+}
+
+.header_img{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header_img img{
+    width: 1200px;
+    height: auto;
+    display: inline-block;
+}
+
+.container_block h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.container_block .menu_block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.container_block .menu {
+    width: 390px;
+    height: 390px;
+    margin-bottom: 20px;
+    background: #eee;
+    border-radius: 10px;
+    position: relative;
+}
+
+.container_block .menu .menu_ttl {
+    text-align: left;
+    margin: 10px;
+}
+
+.container_block .menu_ttl img {
+    /* position: relative;  */
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    z-index: 50;
+}
+
+.container_block .menu .ttl {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.container_block .menu_update {
+    margin: 10px;
+    width: 370px;
+    text-align: left;
+}
+
+.container_block .menu_update .explain {
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.container_block .menu_update .explain_date {
+    width: 100px;
+}
+
+.container_block .menu_update .explain_detail {
+    line-break: anywhere;
+    width: 270px;
+}
+
+.link_btn {
+    background-color: #79a1b1;
+    border: none;
+    padding: 15px 20px 12px;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: inline-block;
+    box-shadow: 1px 1px 3px black;
+    cursor: pointer;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 10px;
+}
+
+.right {
+    position: absolute;
+    right: 10px;
+}
+
+.link_btn:hover {
+    opacity: 0.7;
+}
+
+.footer {
+    margin-top: 30px;
+    position: sticky;
+    top: 100%;
+    z-index: 800;
+}
+
+.footer .pp_link {
+    text-align: right;
+    margin-bottom: 7px;
+}
+
+.footer .copy {
+    text-align: center;
+    background: #79a1b1;
+    color: #fff;
+    font-size: 12px;
+    padding: 7px 0 3px;
+}
+
+/* portfolio.html--------------------------- */
+
+.portfolio_block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.portfolio_block .portfolio {
+    width: 380px;
+    text-align: center;
+    margin-bottom: 30px;
+    /* background: #eee;  */
+}
+
+.portfolio_block .portfolio img {
+    width: 300px;
+    margin: 10px 0 10px;
+}
+
+.portfolio_block .portfolio .explain {
+    margin-bottom: 20px;
+}
+
+.portfolio_block .portfolio a {
+    background: #79a1b1;
+    color: #fff;
+    padding: 15px 20px 12px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+/* background-colorは親要素にかけて、
+色をつけたい範囲は余白やサイズで子要素(padding)で指定*/
+.content_ttl {
+    background: #eee;
+    margin-bottom: 10px;
+}
+
+.content_ttl h3 {
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 20px 15px 20px;
+    border-left: 20px solid #79a1b1;
+}
+
+.content_detail {
+    margin: 20px 15px 20px;
+}
+
+/* profile.html--------------------------- */
+
+.profile {
+    display: flex;
+}
+
+.profile img {
+    width: 380px;
+    margin: 0 0 10px 10px;
+}
+
+.profile .explain {
+    margin-bottom: 20px;
+}
+
+.profile .explain p {
+   margin-bottom: 10px;
+}
+
+/* contact.html--------------------------- */
+
+.contact_block {
+    display: flex;
+    /* ボーダーの余白をdivタグに含めることができる */
+    box-sizing: boder-box;
+}
+
+.item {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.label {
+    float: left;
+    margin: 10px;
+    width: 135px;
+    border-left: 3px solid #79a1b1;
+    padding-left: 10px;
+}
+
+.inputs {
+    float: left;
+}
+
+input[type="text"], 
+input[type="email"] {
+    width: 300px;
+    border: solid 1px #79a1b1;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 600px;
+    height: 300px;
+    border: solid 1px #79a1b1;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.radio_block {
+    margin: 10px 0 10px;
+}
+
+input[type="submit"], .btn {
+    background-color: #79a1b1;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 5px;
+    box-shadow: 1px 1px 3px black;
+    cursor: pointer;
+}
+
+input[type="reset"] {
+    background-color: #eee;
+    border: none;
+    padding: 10px 20px;
+    color: #79a1b1;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 5px;
+    box-shadow: 1px 1px 3px black;
+    cursor: pointer;
+}
+
+/* study_contents.html--------------------------- */
+
+.study_block {
+    position: relative;
+}
+
+.study_block .study_ttl {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+pre {
+    overflow-x: auto;
+    /* margin-top: 16px; */
+    margin-bottom: 0px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+  }
+  
+/* コードブロック(ファイル名が入力ありの場合) */
+div[data-filename] {
+    /* margin-top: 16px; */
+    margin-bottom: 20px;
+}
+
+div[data-filename] > span {
+    display: inline-block;
+    background-color: #dfdfdf;
+    text-align: center;
+    padding: 3px 15px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+div[data-filename] > pre {
+    margin-top: 0px;
+    border-top-left-radius: 0px;
+}
+
+.study_detail {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.study_sub_ttl {
+    margin: 10px 0 10px;
+    display: flex;
+    align-items: center
+}
+
+.study_point {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.study_dot {
+    font-size: 25px;
+    margin: 0 5px 0;
+}
+
+.study_reference {
+    background-color: #eee;
+    padding: 3px 15px;
+    border-radius: 5px;
+}
+
+.study_flex {
+    display: flex;
+}
+
+.study_flex .study_detail {
+    width: 890px;
+}
+
+.study_flex .sample {
+    height: 300px;
+    margin: 10px 10px 0 0;
+}
+
+video {
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+.red_highlight, .red_highlight a {
+    color: red;
+}

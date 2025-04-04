@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KamekaBlog</title>
+    <meta name="description" content="初心者エンジニアの知識プログです。">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <special-header></special-header>
+
+    <div class="container w_inner">
+        <div class="container_block">
+            <div class="content_ttl">
+                <h3>お問い合わせフォーム</h3>
+            </div>
+            <div class="contact_block">
+                <div class="contact_form">
+                    <form action="https://api.staticforms.xyz/submit" method="post">
+                        <input type="hidden" name="accessKey" value="ba78584c-5d02-47f2-b6ef-5f58417957ec">
+                        <div class="item">
+                            <label class="label">お名前</label>
+                            <input type="text" class="inputs" name="name" required />
+                        </div>
+                        <div class="item">
+                            <label class="label">メールアドレス</label>
+                            <input type="email" class="inputs" name="email" required />
+                        </div>
+                        <div class="item">
+                            <p class="label">タイプ</p>
+                            <div class="inputs">
+                                <div class="radio_block">
+                                    <input type="radio" name="menu" id="ご質問" value="ご質問" />
+                                        <label for="ご質問">ご質問</label>
+                                    <input type="radio" name="menu" id="ご意見" value="ご意見"/>
+                                        <label for="ご意見">ご意見</label>
+                                    <input type="radio" name="menu" id="アドバイス" value="アドバイス" />
+                                        <label for="アドバイス">アドバイス</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label class="label">メッセージ</label>
+                            <textarea name="message" placeholder="メッセージはこちら" required></textarea>
+                        </div> 
+                        
+                        <div class="botton_area">
+                            <label class="label"></label>
+                            <input type="submit" value="送信" />
+                            <input type="reset" value="リセット" />
+                        </div>
+                        <input type="hidden" name="redirectTo" value="http://127.0.0.1:5500/contact_success.html">
+                    </form>
+                </div>
+            </div>
+        </div>     
+    </div>
+
+    <special-footer></special-footer> 
+    <script src="includes/headerFooterManeger.js"></script>
+</body>
+</html>

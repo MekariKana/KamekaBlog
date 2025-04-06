@@ -434,6 +434,13 @@ video {
     margin-bottom: 20px;
 }
 
-.red_highlight, .red_highlight a {
+.red_highlight a {
     color: red;
+}
+
+.yellow_highlight {
+    font-weight: bold;
+    background: linear-gradient(transparent 60%, yellow 30%);
+    display: inline-block;
+    margin-bottom: 5px;;
 }

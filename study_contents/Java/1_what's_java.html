@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>Java</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="right">
+                            作成日: 2025.4.6
+                        </div>
+                        <p class="study_ttl">
+                            Javaの基本知識
+                        </p>
+                        <p class="study_ttl">Javaとは</p>
+                        <p class="study_detail">
+                            Javaとはプログラミング言語の一種で、プログラミング言語とはコンピュータにしてほしいことを伝えるための言語。<br>
+                            私たちがプログラミング言語を使って書くプログラムをソースコードという。<br>
+                            しかしコンピュータ（CPU）が理解できる言語は機械語（2進数（0と1の信号））のみなので、機械語以外の言語は必ず機械語に変換される。<br>
+                            この変換する作業をコンパイル、コンパイルするためのツールを「コンパイラ」という。<br>
+                            コンパイラが作成した実行形式のファイルをOS（windows、Mac、Linuxなど）が動かす。
+                        </p>
+
+                        <p class="study_ttl">Javaの特徴</p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                どの環境でも実行できる
+                            </span><br>          
+                            実行形式のファイルはOSによって違うため、windowsのファイルをMacで使ったりはできない。そのため違うOSで動作するときは、そのOSの特性を考えてソースコードを書き直し、そのOS用のコンパイラでコンパイルする必要がある。
+                            このように違う環境で動作できるようにすることを「移植する」という。<br>
+                            しかし、Javaの場合はそれぞれのOSの上に「Java仮想マシン（JVM）」という仮想コンピュータを配置し、このJVMの上でプログラムが動く仕組みになってる。<br>
+                            Javaのコンパイラは、ソースコードをJVMが理解できるコード（バイトコード）へコンパイルする。なのでJVMがある環境では、どこでもJavaのプログラムを動かすことができる。<br>
+                        </p>
+                        <div class="header_img">
+                            <img src="../../img/study/java/1_note.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                オブジェクト指向
+                            </span><br>          
+                            各機能や役割を持ったプログラムごとに分割して部品のように扱う。<br>
+                            このメリットは各機能が独立しているので、役割分担がしやすく大規模開発しやすいこと、部品の再利用がしやすいことが挙げられる。<br>
+                        </p>
+                        <p class="study_detail">
+                            以上〜<br>
+                            現場ではEclipseを使ってたけど、意識しなくても勝手にコンパイルされるので知らなくても作業はできると思う。<br>
+                            でもたまーに「あれ、反映されない」みたいなときはコンパイルできてなかったりしてたから知ってたほうが良いは良い知識かなと思う。
+                        </p>
+
+                    </div>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

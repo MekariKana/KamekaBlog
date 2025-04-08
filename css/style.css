@@ -444,3 +444,13 @@ video {
     display: inline-block;
     margin-bottom: 5px;;
 }
+
+.small_img{
+    margin-bottom: 20px;
+}
+
+.small_img img{
+    width: 70%;
+    height: auto;
+    display: inline-block;
+}

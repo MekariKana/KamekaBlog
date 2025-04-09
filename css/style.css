@@ -395,6 +395,7 @@ div[data-filename] > pre {
 }
 
 .study_sub_ttl {
+    font-weight: bold;
     margin: 10px 0 10px;
     display: flex;
     align-items: center

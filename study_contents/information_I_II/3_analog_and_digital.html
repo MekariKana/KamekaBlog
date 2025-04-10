@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="right">
+                            作成日: 2025.4.8
+                        </div>
+                        <p class="study_ttl">
+                            アナログとデジタル
+                        </p>
+                        <p class="study_detail">
+                            アナログは手作業、手動でデジタルは機械的、自動っていうイメージがあった。でも定義としては違うみたい。<br>
+                            以下にアナログ、デジタルとはどういうことか、まとめる。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">アナログとデジタルの違い</div>
+                        </div>
+                        <p class="study_detail">
+                            アナログとデジタルの違いは「情報の表し方」。<br>
+                            時間や温度のような”量”を表現する場合、アナログは連続的な変化を表現できるのに対し、デジタルは段階的な変化を表現する。<br>
+                            アナログデータは連続的な変化を表すので、正確な量を表現できる。<br>
+                            デジタルデータは段階的な変化を表すので、近似値で表現される。<br>
+                            [例]体温計<br>
+                            アナログ：水銀体温計は体温を水銀の長さで表現するので、なめらかな体温変化を見れる。数字が書かれていないところで温度（水銀）が止まることもある。<br>
+                            デジタル：デジタル体温計は、段階的な温度（数字）で表現するので正確の値ではない。37.5度と表示されても、実際はそれより低かったり、高かったりする。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/3_different_point.jpg">
+                        </div>
+
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                            コンピュータはデジタル表現のみを扱う
+                            </span><br>
+                            ・コンピュータが取り扱う文字、画像、音楽など全ての情報はデジタルで表現<br>
+                            ・取り扱うデータの表現方法は0と1の2段階→この表現方法を「2進法」、表現された数字を「2進数」という<br>
+                            ・文字、画像、音楽などの情報を決められたルールに沿って0と1で処理<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                コンピュータはどのように数字を読み取るのか？
+                            </span><br>
+                            コンピュータの中にあるIC（集積回路）という部品に電圧を流し、その電圧の高さによって0と1を区別している。<br>
+                            直流電圧が0V（0ボルト）なら0、5V（5ボルト）なら1。<br>
+                            一定の間隔で電圧を読み取ることで、0か1の並びを取得している。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/3_ic_img.jpg">
+                        </div>
+
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                情報量
+                            </span><br>
+                            ・情報量の最小単位は1ビット<br>
+                            ・1bitで表される情報量は0か1の2パターン<br>
+                            ・8bitをまとめて扱う=1byte<br>
+                            ・1byte(8bit)で表される情報量は256パターン(2の8乗)ある<br>
+                            ・情報量は1024パターン(2の10乗)毎に単位が変わる<br>
+                        </p>
+                        <table>
+                            <tr>
+                                <th>単位</th>
+                                <th>単位が変わる量</th>
+                            </tr>
+                            <tr>
+                                <td>bit</td>
+                                <td>最小単位</td>
+                            </tr>
+                            <tr>
+                                <td>B</td>
+                                <td>1Byte = 8bit</td>
+                            </tr>
+                            <tr>
+                                <td>KB</td>
+                                <td>1KByte = 1024Byte</td>
+                            </tr>
+                            <tr>
+                                <td>MB</td>
+                                <td>1MByte = 1024KByte</td>
+                            </tr>
+                            <tr>
+                                <td>GB</td>
+                                <td>1GByte = 1024MByte</td>
+                            </tr>
+                            <tr>
+                                <td>TB</td>
+                                <td>1TByte = 1024GByte</td>
+                            </tr>
+                            <tr>
+                                <td>PB</td>
+                                <td>1PByte = 1024TByte</td>
+                            </tr>
+                        </table>
+                        <p class="study_detail">
+                            ここで素朴な疑問、なんで単位の区切りとなる数が1000じゃなくて1024なの？<br>
+                            これについてはChatGPTに質問、以下のように回答を得た。<br> 
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_point">1000は人間（10進数）にとってキリのいい数字</p>
+                            <p class="study_detail">
+                                以下のように2進数の世界ではキリが悪く、メモリの管理やアドレス計算が非効率になる。<br>
+                                1000（10進数） = 1111101000（2進数）
+                            </p>
+                            <p class="study_point">1024がコンピュータ（2進数）の世界でキリがいい数字</p>
+                            <p class="study_detail">
+                                1024（10進数） = 10000000000（2進数）
+                            </p>
+                        </div>
+                        <p class="study_detail">
+                            ちなみに1bit = 8byteなのに1024は11byteじゃん。って少し混乱したので、こちらもChatGPTに質問。<br>
+                            データは8bitづつ扱うのに、データの大きさを表す単位は1024毎なのはなぜか？<br>
+                        </p>
+                        <div class="study_reference">
+                             <p class="study_detail">
+                                これは「データの最小単位（1byte）」と「記憶装置の管理単位（1024byte単位）」が別の役割を持ってるからなんです。<br>
+                                データの「細かい扱い」は1byteごと、でも「大きさの測定」は1024ごとにまとめた方が都合がいい（2進数的に）のです。<br>
+                             </p>
+                            <p class="study_point">データは8bit（=1byte）ごとに扱う → 情報の基本単位</p>
+                            <p class="study_detail">
+                                「8bit = 1byte」は、データをどの単位で扱うか（データのかたまり）の話。<br>
+                                ・例：文字1つ → 1バイト（例：A = 01000001）<br>
+                                ・CPUやメモリはこの1バイト単位でデータを読んだり書いたりする<br>
+                                = これらは「データの粒」の話<br>
+                            </p>
+                            <p class="study_point">容量の単位（KB, MB）は、1024ごと → 管理・記録のための目安</p>
+                            <p class="study_detail">
+                                ・例：メモリが「8GBあります」って言ったら、8×1024×1024×1024バイトってこと<br>
+                                ・なぜ1024かというと → 2進数で管理しやすいから！（2の乗数：2^10）<br>
+                                = これは「どれくらいの大きさをまとめて数えるか」の話
+                            </p>
+                            <p class="study_point">例えてみると・・・郵便局のイメージ</p>
+                            <p class="study_detail">
+                                ・1byte：封筒1通<br>
+                                ・1024byte (1KB)：ダンボール1箱分くらい<br>
+                                データの中身は封筒1通ずつ（byte単位）だけど、倉庫では「ダンボール箱（1024通）」単位で数えてる<br>
+                                → 「封筒は1通ずつ扱うけど、箱に詰める時は1024通ずつね」って感じ！<br>
+                            </p>
+                        </div>
+                        <p class="study_detail">
+                            要はbitはただ数を表すための単位で、大きな数を表すにはbit数も多くなる。<br>
+                            1byte=8bitはデータの最小単位で、8bitづつをコンピュータは1つのデータとして処理している。<br>
+                            1024byteっていうのは容量をまとめて数える時の一塊（区切り）。コンピュータが理解しやすい数でまとめた。<br>
+                        </p>
+                        <br>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                デジタル表現の特徴
+                            </span><br>
+                            <br>
+                            1）ノイズが混じっても修復できる<br>
+                            アナログの波形は連続的で細やに表現されている分ノイズが加わると修復できず、情報が変わってしまう。<br>
+                            デジタルの波形はコンピュータはある一定の電圧以上を1、それ以下を0と読み取るので元の波形に修復できる。<br>
+                            <br>
+                            2）加工できる<br>
+                            文字、画像、音楽など全て0か1で表現されているため、修正・編集などが簡単にできる。<br>
+                            また、圧縮や暗号化しても簡単に元に戻せる。<br>
+                            ※圧縮とは、一定のルールに従ってデータ量を小さくすること<br>
+                            ※可逆圧縮は圧縮前後でデータが完全に同じに展開できる圧縮方法。文書ファイルやプログラムファイルは1bitたりとも変わってはいけないので、可逆圧縮を使用する。<br>
+                            ※非可逆圧縮は画像や音声ファイルに使われる。人間にはわからないレベルで画質を落としたり、音楽の音域をカットする。データを書き換えるので、圧縮後のデータを元には戻せない。<br>
+                            <br>
+                            3）さまざまな機器で取り扱える<br>
+                            例）音楽データ<br>
+                            アナログデータ：レコードやカセット<br>
+                            専用の再生機器が必要。レコードをカセット機器で聞くことはできない。<br>
+                            デジタルデータ：CD<br>
+                            音声データが一定のルールに従って0と1の並びで表現されているので、スマホ、PC、CDプレーヤーなど複数の機器で同じように再生できる。<br>
+                        </p>
+                        <br>
+                        <p class="study_detail">
+                            以上〜
+                            アナログの方が正確っていうけど、結局人間が認識できる範囲で情報が表現されていれば問題ないし、むしろデータ駆動型社会という考え方がある現在ではデータが劣化しないこと、壊れないことのほうが重要だったりするから、デジタルのほうが今は重宝されるんだなぁと理解。<br>
+                            でも脳みそには「手を動かす」ことが大事だし、個人的には人間の暖かみを感じる手作業の方が嬉しいこともあるので、ケースバイケースか。<br>
+                        </p>
+
+                        <br>
+                    </div>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+
+        <special-footer></special-footer>
+
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

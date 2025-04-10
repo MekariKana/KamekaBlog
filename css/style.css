@@ -455,3 +455,27 @@ video {
     height: auto;
     display: inline-block;
 }
+
+table{
+    border-collapse:separate;
+    border-spacing: 5px;
+    width: 30%;
+  }
+  
+  table th,table td{
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  table th{
+    background-color: #79a1b1;
+    color: white;
+    border:solid 1px #9b9a9a;
+  }
+  
+  table td{
+    background-color: #eee;
+    border:solid 1px #9b9a9a;
+  }
+  

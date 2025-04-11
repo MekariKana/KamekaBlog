@@ -535,7 +535,7 @@ table{
     position: absolute;
     top: 35px;
     left: 0;
-    width: 40%;
+    width: 250px;
     z-index: 999;
   }
 
@@ -554,6 +554,7 @@ table{
     padding: 15.5px;
     text-align: left;
     background-color: white;
+    width: 100%;
   }
 
   nav ul li a {

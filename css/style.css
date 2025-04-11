@@ -27,7 +27,27 @@ p {
     max-width: 1200px;
     width: 95%;
     margin: 0 auto;
-  }
+}
+
+/* ハンバーガーメニューのスタイル */
+.hamburger {
+    display: none;
+    width: 30px;
+    height: 25px;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    margin: 10px;
+    z-index: 1000;
+}
+  
+.hamburger span {
+    display: block;
+    height: 4px;
+    background: #79a1b1;
+    border-radius: 2px;
+}
+/*--------------------------*/
 
 nav {
     position: sticky;
@@ -503,23 +523,45 @@ table{
     .w_inner {
       width: 95%;
     }
-  
-    nav ul {
-      flex-direction: column;
-      height: auto;
-      width: 100%;
-    }
-  
-    nav ul li {
-      width: 97.6%;
-      border-right: none;
-      border-bottom: 1px solid #ddd;
-    }
-  
-    nav ul li:first-child {
-      border-left: none;
-    }
-  
+
+  /*ハンバーガーメニューの設定-------*/
+  .hamburger {
+    display: flex;
+  }
+
+  .nav_list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 40%;
+    z-index: 999;
+  }
+
+  .nav_list.active {
+    display: flex;
+  }
+
+  nav ul li:first-child {
+    border-left: none;
+    border-top: 1px solid #ddd;
+  }
+
+  nav ul li {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 15.5px;
+    text-align: left;
+    background-color: white;
+  }
+
+  nav ul li a {
+    display: block;
+    width: 100%;
+  }
+
+  /*--------------*/
     .header_img img {
       width: 100%;
     }

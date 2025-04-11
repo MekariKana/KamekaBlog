@@ -565,9 +565,12 @@ table{
     position: fixed;
     top: 0px;
     left: 0;
-    max-width: 350px;
+    max-width: 255px;
     width: 100%;
     z-index: 999;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    gap: 20px; /* 要素間の余白 */
   }
 
   .nav_list.active {
@@ -596,8 +599,8 @@ table{
     text-align: right;
     border-left: none;
     padding: 5px 7.5px 7.5px;
-    width: 100%;
     background-color: #79a1b1;
+    font-size: 20px;
   }
 
   nav ul li {
@@ -605,8 +608,7 @@ table{
     border-bottom: 1px solid #ddd;
     padding: 15px 0 15px 15px;
     text-align: left;
-    background-color: white;
-    width: 100%;
+    font-size: 20px;
   }
 
   nav ul li a {

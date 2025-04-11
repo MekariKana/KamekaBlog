@@ -23,7 +23,12 @@ class SpecialHeader extends HTMLElement {
                     <span></span>
                     <span></span>
                 </div>
+                <!-- 背景の黒半透明 -->
+                <div class="overlay" id="overlay"></div>
                 <ul class="nav_list" id="nav_list"> 
+                    <li class="close-btn" id="closeBtn">
+                        <span>×</span>
+                    </li>
                     <li><a class="nav-link" href="${baseUrl}index.html">Home</a></li>
                     <li><a class="nav-link" href="${baseUrl}portfolio.html">Portfolio</a></li>
                     <li><a class="nav-link" href="${baseUrl}study.html">Study</a></li>
@@ -54,10 +59,22 @@ customElements.define("special-footer", SpecialFooter)
 //ハンバーガーメニューの変数
 const hamburger = document.getElementById('hamburger');
 const navList = document.getElementById('nav_list');
-//ハンバーガーメニューの追加
+const overlay = document.getElementById('overlay');
+const closeBtn = document.getElementById('closeBtn');
+// メニュー開く
 hamburger.addEventListener('click', () => {
-    navList.classList.toggle('active');
+    navList.classList.add('active');
+    overlay.classList.add('active');
 });
+  
+// メニュー閉じる（×ボタン または 背景クリック）
+closeBtn.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+
+function closeMenu() {
+    navList.classList.remove('active');
+    overlay.classList.remove('active');
+}
 
 //current pageのcssを付与
 document.querySelectorAll('.nav-link').forEach(link => {

@@ -426,6 +426,10 @@ div[data-filename] > pre {
     border-top-left-radius: 0px;
 }
 
+.date {
+    text-align: right;
+}
+
 .study_detail {
     margin-top: 10px;
     margin-bottom: 10px;

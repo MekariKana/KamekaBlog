@@ -428,6 +428,7 @@ div[data-filename] > pre {
 
 .date {
     text-align: right;
+    margin-bottom: 10px;
 }
 
 .study_detail {

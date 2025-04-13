@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.4.12
+                        </div>
+                        <p class="study_ttl">
+                            基数変換
+                        </p>
+                        <p class="study_detail">
+                            いろいろなワードがでてくるけど、一般的な説明ではなく私なりに理解した内容を自分の言葉でまとめていく。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">n進数とは</div>
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                n進数の数え方
+                            </span><br>
+                            [10進数の場合]<br>
+                            以下の画像のように「その桁の大きさの数が何個あるのか」を表している。<br>
+                            例えば345という数は、100が3個、10が4個、1が5個ということ。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_ Decimal_number.jpg">
+                        </div>
+                        <p class="study_detail">
+                            [2進数の場合]<br>
+                            1桁に0と1の2つの大きさの数しか入ってない。<br>
+                            例えば1101(2)という数があったら、8(の位)が1個、4(の位)が1個、2(の位)が0個、1(の位)が1個。<br>
+                            10進数で表現すると8＋4＋1＝13(10)となる。<br>                
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                桁の重み
+                            </span><br>
+                            [10進数の場合]<br>
+                            「前の桁10個分をまとめた桁」ということ。<br>
+                            例えば、百の位は十の位の10個分を1とする、十の位は一の位の10個分を1とする。<br>
+                            このように桁の重みが10倍になるとき、「基数（桁上がりの基準となる数）が10である」という<br>
+                            <br>
+                            [2進数の場合]<br>
+                            「前の桁2つ分をまとめた桁」ということ。<br>
+                            例えば、1が2つ集まって二の位、2が2つ集まって四の位、4が2つ集まって八の位・・・というように前の桁2つ分で桁上がりする。<br>
+                            桁の重みは2倍であり、基数は2である。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                基数変換の計算方法
+                            </span><br>
+                            【10進数→2進数】<br>
+                            10進数の数を10で割っていくと、余りが元の数になる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_Decimal_to_Decimal.jpg">
+                        </div>
+                        <p class="study_detail">
+                            2進数に変換する場合も上記と同様に、10進数で表された数を2で割っていき、その商をまた2で割って、割り切れなくなる（商が1になる）まで割り続ける。<br>
+                            割り切れなくなったら余りを下の桁から並べていく。<br>
+                            10進数を2で割ると余りは必ず0か1なので、2進数に変換できる。<br>
+                        <br>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_Decimal_to_Binary.jpg">
+                        </div>
+                        <p class="study_detail">
+                            【10進数→16進数】<br>
+                            上記と同表に、10進数の数字を16で割っていき、その余りを並べていく。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_Decimal_to_Hexadecimal.jpg">
+                        </div>
+                        <p class="study_detail">
+                            【2進数→16進数】<br>
+                            16進数は2進数の4桁分なので、変換しやすい。2進数の4桁分を16進数では1桁で表現できる。<br>
+                            基数変換するときは、2進数を4桁毎に区切って、16進数に当てはめていく。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_Binary_to_Hexadecimal.jpg">
+                        </div>
+                        <p class="study_detail">
+                            【16進数→2進数】<br>
+                            16進数の1桁を2進数に変換していくだけ。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_Hexadecimal_to_Binary.jpg">
+                        </div>
+
+                        <p class="study_detail">
+                            【小数点の計算[2進数→10進数]】<br>
+                            10進数の小数の数は、1桁下がるごとに1/10倍なっている。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_decimal_point.jpg">
+                        </div>
+                        <p class="study_detail">
+                            2進数の小数の数は、1桁下がるごとに1/2倍になっている。<br>
+                            2進数の桁の重みを桁毎にかけて、足していく。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_Binary_point.jpg">
+                        </div>
+                        <p class="study_detail">
+                            【小数点の計算[10進数→2進数]】<br>
+                            10進数の小数点部分に10を掛けると順番に一の位に桁上がってくる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_ex_Decimal_point.jpg">
+                        </div>
+                        <p class="study_detail">
+                            同じように小数点の基数変換をする場合は、10進数の小数点部分に2を掛け、一の位に上がってくる数が2進数になる。<br><br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/4_DecimalPoint_to_BinaryPoint.jpg">
+                        </div>
+                        <p class="study_detail">
+                            お〜わりっ！
+                        </p>
+                        <br>
+                    </div>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

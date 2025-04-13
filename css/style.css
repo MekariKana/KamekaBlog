@@ -386,6 +386,10 @@ input[type="reset"]:hover {
     opacity: 0.7;
 }
 
+.botton_area {
+    margin-top: 20px;
+}
+
 /* study_contents.html--------------------------- */
 
 .study_block {

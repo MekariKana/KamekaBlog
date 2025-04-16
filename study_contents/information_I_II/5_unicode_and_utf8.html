@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.4.13
+                        </div>
+                        <p class="study_ttl">
+                            文字コードとエンコード方式について
+                        </p>
+                        <p class="study_detail">
+                            文字コードとエンコードはbit変換とも関係しているし、よくでてくるワードなどの整理していく。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">文字コードとは？</div>
+                        </div>
+                        <p class="study_detail">
+                            文字に一意の数字を割り当てた規則のこと。<br>
+                            要は文字と番号の対応を定義したもの。Unicode、JIS、ASCIIなどの規則がある。<br>
+                            例えば、「あ」はUnicodeのルールだと12354(10進数)(16進数だとU+3042)という数が割り当てられている。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">エンコード方式とは？</div>
+                        </div>
+                        <p class="study_detail">
+                            文字に割り当てられた数字を、コンピュータ用にバイナリに変換する時の変換方式のこと。<br>
+                            要は文字に割り当てられた番号をバイナリで表示するための規則のこと。UTF-8、UTF-16、SJISの変換方式がある。<br>
+                            たとえば「あ」とUnicodeの定義で表した「U+3042」をUTF-8でバイナリに変換すると「E3 81 82」(16進数)となる。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">文字「あ」がバイナリに変化するまでの流れ</div>
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                1.文字をUnicodeの定義に当てはめる
+                            </span><br>
+                            「あ」= Unicodeコードポイント：U+3042<br>
+                            ・文字「あ」を番号で表わすのが文字コード(Unicode)の役割<br>
+                            ・「3042」は16進数<br>
+                            ・「3042」を10進数で表すと「12354」<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                2.UTF-8でエンコードする
+                            </span><br>
+                            1）「3042」= 2進数：0011 0000 0100 0010（14ビット）」<br>
+                            2）UTF-8の3バイト構成（下記）に当てはめる<br>
+                            &emsp;1110xxxx 10xxxxxx 10xxxxxx ← 空欄(xxxx)に1）の14ビットを埋め込む<br>
+                            3）1）の14ビットを2）のUTF-8の型に当てはめると：11100011 10000001 10000010<br>
+                            ・「11100011 10000001 10000010」がUTF-8のバイト列<br>
+                            ・「11100011 10000001 10000010」（バイナリ）を16進数で表すと：E3 81 82<br>
+                            ・コンピュータ同士の通信はバイナリ(11100011 10000001 10000010)が使われるけど、人間が「あ」をデコードすると16進数(E3 81 82)で表現される<br>
+                            &emsp;→つまりバイナリを人間に見やすく表示するために16進数が使われる。表示用の進数。<br>
+                        </p>
+                        <table class="table_middle">
+                            <tr>
+                                <th>表現方法</th>
+                                <th>例</th>
+                                <th>使用者</th>
+                                <th>実際の用途</th>
+                            </tr>
+                            <tr>
+                                <td>文字</td>
+                                <td>あ</td>
+                                <td>人間</td>
+                                <td>表示や入力</td>
+                            </tr>
+                            <tr>
+                                <td>バイナリ</td>
+                                <td>11100011…</td>
+                                <td>コンピュータ</td>
+                                <td>保存、通信、処理</td>
+                            </tr>
+                            <tr>
+                                <td>16進数</td>
+                                <td>E3 81 82</td>
+                                <td>技術者</td>
+                                <td>バイナリの表示用、デバックなど</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p class="study_detail">
+                            <span class="study_point">【UTF-8の変換ルール】</span><br>
+                            ・UTF-8は1バイト〜4バイトまでで構成されるけど、1バイト（8ビット）を最小単位として扱う。<br>
+                            ・通常、コンピュータはデータをファイルや通信で受け取るとき、常に8ビット単位に分割し、1バイトずつ読んで処理していく。<br>
+                            ・UTF-8の場合、データストリームから最初の1バイトを読み込んだとき「このバイトは単体で文字か、続くバイトも必要か」を判断する。<br>
+                            ・UTF-8の「8」は “1つの読み取り単位が8ビット”という意味。1バイトずつエンコードし判断していくのでUTF-8という。<br>
+                            &emsp;※ちなみにUTF-16の「16」は2バイト単位でエンコード、UTF-32は4バイト固定でエンコードし、判断していく。
+                        </p>
+                        <table class="table_middle">
+                            <tr>
+                                <th>バイト先頭ビット</th>
+                                <th>意味</th>
+                            </tr>
+                            <tr>
+                                <td>0xxxxxxx</td>
+                                <td>1バイト文字（ASCII）</td>
+                            </tr>
+                            <tr>
+                                <td>110xxxxx</td>
+                                <td>2バイト文字の先頭</td>
+                            </tr>
+                            <tr>
+                                <td>1110xxxx</td>
+                                <td>3バイト文字の先頭（「あ」など）</td>
+                            </tr>
+                            <tr>
+                                <td>11110xxx</td>
+                                <td>4バイト文字の先頭（絵文字など）</td>
+                            </tr>
+                            <tr>
+                                <td>10xxxxxx</td>
+                                <td>後続バイト（先頭じゃないやつ）</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p class="study_ttl">でもでも〜</p>
+                        <p class="study_detail">
+                            現場では「htmlはUTF-8で、バック側のJavaファイルはSJIS」というのをよく見かけた。<br>
+                            文字コードが違うと通信するとき文字化けするから文字コードを指定したり配慮しなきゃいけないから面倒じゃんと思ってた。<br>
+                            バック側はSJISが普通なのかな〜と思ってたんだけど、ChatGPTに聞いたらSJISは日本独自のエンコーディング方式で、今はUTF-8で開発するのが一般的らしい。<br>
+                            以下ChatGPTの回答を記載。<br>
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                今の日本の開発現場では圧倒的にUTF-8が主流になってるよ！<br>
+                                特にWebやクラウド、モダンな開発環境では、ほぼUTF-8一択って感じ。<br>
+                            </p>
+                            <p class="study_point">昔：SJISが多かった理由</p>
+                            <p class="study_detail">
+                                ・日本語Windowsの標準がSJIS<br>
+                                ・メール、Excel、Word、古い業務システムがSJISベース<br>
+                                ・JavaのIDE（Eclipseなど）がデフォルトSJIS<br>
+                                ・社内システムがSJIS前提で作られてた<br>
+                                だから、「ソースコードも、データも、全部SJISで！」って流れが普通だった。<br>
+                            </p>
+                            <p class="study_point">今：UTF-8が主流な理由</p>
+                            <p class="study_detail">
+                                ・Webの標準がUTF-8：HTML, CSS, JS, JSONすべてUTF-8が前提<br>
+                                ・GitやVSCodeがUTF-8前提：マルチOS・マルチ言語で互換性◎<br>
+                                ・国際化・多言語対応が必要：SJISだと日本語しかまともに扱えない<br>
+                                ・JavaやPythonなどもUTF-8推奨：IDEの設定もUTF-8がデフォルト化<br>
+                                ・DockerやクラウドがUTF-8前提：ローカルとサーバーで文字化け回避<br>
+                            </p>
+                            <p class="study_point">でも現場によっては…</p>
+                            <p class="study_detail">
+                                まだこんなところもあるかも：<br>
+                                ・昔からある社内基幹システム：SJISベースのデータやDB設計が残ってる<br>
+                                ・Excel連携：CSVがSJISじゃないと開けないってクレームがくる<br>
+                                ・上司がSJIS脳：「UTF-8って何？SJISで送って」って言われる（笑）<br>
+                            </p>
+                        </div>
+                        <p class="study_detail">
+                            なるほど〜！<br>
+                            バックはSJISが普通だと思ってたけど、新規開発じゃなくて元あるシステムに機能追加したり、改修したりする案件だったからなんだ〜<br>
+                            自分でシステム作る時はUTF-8にしよ！
+                        </p>
+                        <br>
+                    </div>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

@@ -505,29 +505,52 @@ video {
     display: inline-block;
 }
 
-table{
+.table_small{
     border-collapse:separate;
     border-spacing: 5px;
     width: 30%;
   }
   
-  table th,table td{
+.table_small th, .table_small td{
     border-radius: 5px;
     text-align: center;
     padding: 10px 0;
   }
   
-  table th{
+.table_small th{
     background-color: #79a1b1;
     color: white;
     border:solid 1px #9b9a9a;
   }
   
-  table td{
+.table_small td{
     background-color: #eee;
     border:solid 1px #9b9a9a;
   }
+
+.table_middle{
+    border-collapse:separate;
+    border-spacing: 5px;
+    width: 60%;
+  }
   
+.table_middle th, .table_middle td{
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+.table_middle th{
+    background-color: #79a1b1;
+    color: white;
+    border:solid 1px #9b9a9a;
+  }
+  
+.table_middle td{
+    background-color: #eee;
+    border:solid 1px #9b9a9a;
+  }
+
   @media screen and (max-width: 768px) {
 
     html, body {

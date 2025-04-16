@@ -508,7 +508,7 @@ video {
 .table_small{
     border-collapse:separate;
     border-spacing: 5px;
-    width: 30%;
+    width: 360px;
   }
   
 .table_small th, .table_small td{
@@ -531,7 +531,7 @@ video {
 .table_middle{
     border-collapse:separate;
     border-spacing: 5px;
-    width: 60%;
+    width: 720px;
   }
   
 .table_middle th, .table_middle td{
@@ -717,7 +717,7 @@ video {
       margin: 0;
     }
   
-    table {
+    .table_small, .table_middle {
       width: 100%;
     }
   }

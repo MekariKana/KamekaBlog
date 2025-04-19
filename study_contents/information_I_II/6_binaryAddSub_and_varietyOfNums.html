@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.4.17
+                        </div>
+                        <p class="study_ttl">
+                            2進数の計算、浮動小数点、負の数の表現
+                        </p>
+                        <p class="study_detail">
+                            2進数の計算とは浮動小数点とか必要ないと思ってたけど、C言語やセキュリディ系の勉強で必要になってくるらしいので念のためまとめる。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">2進数の加算</div>
+                        </div>
+                        <p class="study_detail">
+                            2進数の加算は簡単。2進数は1桁で0と1しか表せないので、1以上は桁がくり上がる。<br>
+                            10進数も9以上は桁上がりして次の位に1が加算されるように、2進数も1以上は次の位に加算する。<br>
+                        </p>
+                        <p class="study_point">例：0101 + 1001</p>
+                        <p class="study_detail">
+                            ・一の位の1＋1は2（1以上）なので、二の位に1加算します。<br>
+                            ・二の位は0＋0に桁上がりの1を加算し0＋0＋1＝1となります。<br>
+                            ・四の位と八の位はそのまま0と1を足して1となります。<br>
+                        </p>
+                        <div class="hissan">
+                            <p>&emsp;&emsp;0101</p>
+                            <p>＋<u>）1001</u></p>
+                            <p>&emsp;&emsp;1110</p>
+                        </div>
+                    </div>
+                    <div class="study_sub_ttl">
+                        <div class="study_dot">&#9787;</div>
+                        <div class="study_point">2進数の減算</div>
+                    </div>
+                    <p class="study_detail">
+                        2進数の減算も10進数と同じ考え方。<br>
+                        減算する数が足りない場合は次の桁から1借りてきて、桁ごとに減算を行う。<br>
+                    </p>
+                    <p class="study_point">例：1001 + 0101</p>
+                    <p class="study_detail">
+                        ・一の位の1-1と二の位は0-0は0なので、そのまま0。<br>
+                        ・四の位は0-1で引く前の数が足りないので、八の位から繰り下げて2-1＝1となる。<br>
+                        &emsp;※2進数は2倍ずつ桁上がりしているので、八の位の1は四の位の2つ分(4×2=8)。つまり繰り下げてくる数は常に2となる。<br>
+                        ・八の位は繰り下げたので0-0＝0。<br>
+                    </p>
+                    <div class="hissan">
+                        <p>&emsp;&emsp;1001</p>
+                        <p>ー<u>）0101</u></p>
+                        <p>&emsp;&emsp;0100</p>
+                    </div>
+                    <div class="study_sub_ttl">
+                        <div class="study_dot">&#9787;</div>
+                        <div class="study_point">補数を用いた減算</div>
+                    </div>
+                    <p class="study_detail">
+                        コンピュータが計算を行うさい、加算を行う加算器(加算回路)は簡単な仕組みだけど、減算器(減算回路)は設計が複雑になる。<br>
+                        そこで引き算も足し算として計算できるよう考えだされたのが補数。負の数を補数で表すことで、加算回路で処理できる。<br>
+                        つまり、加算回路だけで効率よく減算処理を行うための考え方。<br>
+                        ちなみに処理はCPUにある加算器(ALU-Arithmetic Logic Unit)で行われる。<br>
+                    </p>
+                    <div class="study_point">補数とは</div>
+                    <p class="study_detail">
+                        ある数に対して、1を足すと1桁増える数のこと。<br>
+                        0101 ＋ 補数 = 10000(1桁増えた状態)<br>
+                        補数 ＝ 10000 ー 0101<br>
+                        &emsp;&emsp;&nbsp;＝ 1011<br>
+                        ★簡単な求め方：ある数の0と1を反転して、1を足す。<br>
+                        0101 → [0と1を反転]1010 → [1を足す]1011<br>
+                        <br>
+                        以下、4ビットで表す整数と負の数(補数)の表<br>
+                        ※整数と負の数を足すと、4ビットのみの計算として見れば全て0になる。
+                    </p>
+                    <div class="small_img">
+                        <img src="../../img/study/information_I_II/5_supportingNum.jpg">
+                    </div>
+                    <p class="study_point">例：0111-0100</p>
+                    <p class="study_detail">
+                        ・0100の補数を求めると、①0と1を反転[1011]、②0を足す[1100]となる。<br>
+                        ・0111+1100(0100の補数、負の数)として加算処理する。<br>
+                        ・0111＋1100＝10011だが、4桁の計算なので先頭ビットは無視し[0011]が答えとなる。<br>
+                    </p>
+                    <div class="hissan">
+                        <p>&emsp;&emsp;0111</p>
+                        <p>＋<u>）1100</u></p>
+                        <p>&emsp;&nbsp;10011・・・答え：0011</p>
+                    </div>
+                    <div class="study_sub_ttl">
+                        <div class="study_dot">&#9787;</div>
+                        <div class="study_point">浮動小数点数</div>
+                    </div>
+                    <p class="study_detail">
+                        固定小数点のほうが面倒な理解が少ないからいいじゃん。と思ってたけど、やっぱり浮動小数にもそれなりにメリットがあった。<br>
+                        まず、同じビット数で扱える数字が多い。小数点の位置を左に動かせば1以下、右に動かせば整数の桁数を増やせる。<br>
+                        また小数点以下の桁をたくさん扱えれば、画像や動画の表現がなめらかに表せる。他にもあるだろうけどなので少しだけでも理解が必要かな。<br>
+                        ちなみに処理はCPUの中に組み込まれた浮動小数点演算機(FPU-Floating Point Unit)専用の回路やプロセッサで行われる。<br>
+                    </p>
+                    <div class="study_point">浮動小数点数の表し方</div>
+                    <p class="study_detail">
+                        コンピュータがどのように浮動小数点数を認識しているか？<br>
+                        まず、数を32ビットで表し、これを3つの部分に分けて判断している。<br>
+                        1）先頭ビット→整数か負の数か判断。「0」なら正、「1」なら負。<br>
+                        2）8ビット(指数部)→小数点の位置を判断。指数(桁上がりの数)＋127(バイアス値)を2進数に変換する。<br>
+                        3）23ビット(仮数部)→数字の中身を判断。最上位ビットは正規化*すると必ず1なので省略し、左2桁目から23ビットに詰め込む。<br>
+                        &emsp;*正規化とは、浮動小数点数の小数点の位置を動かして「1.⚪︎⚪︎⚪︎ × 2のn乗」の形で表すこと。<br>
+                        &emsp;&emsp;✕：0.01101 × 2⁵ → 小数点の位置がずれてる<br>
+                        &emsp;&emsp;◯：1.101 × 2²   → 正規化された形<br>
+                    </p>
+                    <div class="small_img">
+                        <img src="../../img/study/information_I_II/5_floatNum.jpg">
+                    </div>
+                    <p class="study_detail">
+                        このやり方で正の値での最小値、最大値を表すと以下のようになる。<br>
+                        最小値、最大値を超えると表現できないので、アンダーフロー、オーバーフローとなる。<br>
+                    </p>
+                    <div class="small_img">
+                        <img src="../../img/study/information_I_II/5_floatNum_err.jpg">
+                    </div>
+                    <p class="study_detail">
+                        以上〜<br>
+                        コンピュータでの数字の扱い方や計算をどのように処理しているかは少しわかった。<br>
+                        要はCPU内に加算機と浮動小数店演算装置があって、2進数の負の数は補数を使い全て加算機で計算する、小数点の数は浮動小数点演算装置を使うことで幅広い数を処理できるということらしい。<br>
+                        セキュリティの分野にも興味があるからその時にこの知識がどう繋がってくるのか、その時までのお楽しみ〜<br>
+                    </p>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+</body>
+</html>

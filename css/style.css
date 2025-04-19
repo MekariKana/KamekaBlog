@@ -551,6 +551,14 @@ video {
     border:solid 1px #9b9a9a;
   }
 
+.hissan {
+    line-height: 0.3em;
+    font-weight: bold;
+    width: 100％;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
   @media screen and (max-width: 768px) {
 
     html, body {

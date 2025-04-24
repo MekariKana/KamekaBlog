@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.4.19
+                        </div>
+                        <p class="study_ttl">
+                            論理演算、論理回路
+                        </p>
+                        <p class="study_detail">
+                            論理演算はプラグラムでもif文の条件に「&&」(AND)や「||」(OR)のような形で出てくるので、論理演算を理解すると条件分岐をスッキリ書ける。<br>
+                            また論理回路はハード寄りの業務で役にたつ知識らしいが、CPUを意識して処理の速いコードが書けるようになるにはプログラマーにも必要とのこと。例えば、加算は処理が軽い、乗算は少し高い、分岐や除算は高いなどパフォーマンスを考慮することができる。<br>
+                            ということで、とりあえず知識をまとめる。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">論理演算と論理回路とは？</div>
+                        </div>
+                        <p class="study_detail">
+                            コンピュータ内部では全ての情報を0と1で表現されており、この0と1は電圧の高さによって集積回路で判断されている。<br>
+                            コンピュータは0と1の2つの信号で演算や制御を行っていて、この2つの数字で行う演算を「論理演算」といい、この論理演算を行う回路を「論理回路」という。<br>
+                            この論理回路を構成している基本となる回路が「論理積回路」「論理和回路」「否定回路」である。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                論理積(AND)回路
+                            </span><br>
+                            入力は2つ、出力は1つの回路。<br>
+                            入力が両方とも1の場合のみ、出力が1となる。<br>
+                            下記の図のとおり、入力値AとBの両方の電気がONならランプが光るので直列回路になる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/7_AND.jpg">
+                        </div>
+
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                論理和(OR)回路
+                            </span><br>
+                            入力は2つ、出力は1つの回路。<br>
+                            入力値のどちらか一方が1の場合、出力が1となる。つまり入力値の両方が0の場合のみ、出力も0となる。それ出力は1。<br>
+                            下記の図のとおり、入力値AとBのどちらか一方がONならランプが光るので並列回路になる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/7_OR.jpg">
+                        </div>
+
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                否定(NOT)回路
+                            </span><br>
+                            入力は1つ、出力は1つの回路。<br>
+                            入力が1の場合、出力は0となる。また入力が0の場合、出力は1となる。つまり入力と反転した値が出力値となる。<br>
+                            下記の図のように、A地点でONとOFFが逆になるブレーク接点がNOT回路となる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/7_NOT.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                論理回路の組み合わせ
+                            </span><br>
+                            論理回路はコンピュータ内の以下の処理に使われている。<br>
+                            ・加算器(整数同士の加算や減算。例：a + b の演算)<br>
+                            ・演算論理装置(論理演算（AND, OR, NOT）と算術演算（加算・減算）を行う。例：&&)<br>
+                            ・マルチプレクサ（MUX）・デマルチプレクサ（DEMUX）(入力や出力を選ぶ回路。例：if, switch 分岐)<br>
+                            ・レジスタやフリップフロップ（記憶回路）(入力のON/OFFを記憶して出力。例：一時的な値の保存、クロック同期)<br>
+                            ・比較器（Comparator）(「A == B？」や「A > B？」といった大小比較・等価判定を行う回路。例：if (a > b))<br>
+                            ・状態遷移回路（ステートマシン）(状態によって処理を変える、たとえばゲームやOSの状態管理など)<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/7_comb_logicCircle.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                1ビット同士の和を求める「半加算回路」
+                            </span><br>
+                            2つの入力と2つの出力(和(sum)と桁上がり(carry))に分かれる。<br>
+                            【Sum】<br>
+                            1）AとBの入力の内どちらかが1の時はOR回路で1とする。<br>
+                            2）AかBの両方が1の時桁上がりするので、NOT回路にて反転させた出力0が 1）に加算され、Sumとして出力される。<br>
+                            <br>
+                            【Carry】<br>
+                            1）AとBを入力し、AND回路で両方1なら桁上がり1となり、それ以外は桁上がり0としてCarryが出力される。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/7_half_adder.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                「半加算回路」を組み合わせた「全加算回路」
+                            </span><br>
+                            半加算回路を2つ組み合わせると、下の桁からの繰り上がりを考慮した処理ができる「全加算回路」となる。<br>
+                            3つの1ビットを入力(加算対象のAとBと、前の桁からの繰り上がりCarry-in)を加算する回路。出力は和(Sum)と桁上がり(Carry-out)の2つ。<br>
+                            実際のCPUでは、これを何十個も並べて32ビットや64ビットの加算にして使ってる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/7_full_adder.jpg">
+                        </div>
+                        <p class="study_detail">
+                            以上〜<br>
+                            半加算回路を2つ使って全加算回路を作るのか〜実務では部品はすでにあるものを利用して処理を作成するのがバグが少なくてすむというのは定石。<br>
+                            同じ部品2つ組み合わせるってやったことないけど、実務でも使えそう。<br>
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

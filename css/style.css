@@ -558,6 +558,28 @@ video {
     font-size: 20px;
     margin-bottom: 20px;
 }
+.line_up{
+    border-collapse:separate;
+    border-spacing: 5px;
+    line-height: 1.5;
+    width: 100%;
+  }
+  
+.line_up th, .line_up td{
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #eee;
+    
+  }
+  
+.line_up th{
+    text-align: center;
+    width: 10%;
+  }
+  
+.line_up td{
+    text-align: left;
+  }
 
   @media screen and (max-width: 768px) {
 

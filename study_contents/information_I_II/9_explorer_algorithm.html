@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.5.16
+                        </div>
+                        <p class="study_ttl">
+                            探索アルゴリズム
+                        </p>
+                        <p class="study_detail">
+                            複数の値の中から任意の値を探す時の方法として線形探索と二分探索という2種類の方法がある。<br>
+                            プログラムでは「◯◯以上の最小値を探す」や「◯◯が存在しているか」など、様々な場面でデータの検索が行われる。そのためデータの内容によって検索方法の選択は処理速度に影響する。<br>
+                            とくにリアルタイム処理や大量データを扱うサービスで、探索方法の選択が重要。<br>
+                            そのため、検索の基礎的なアルゴリズムとして上記2種類の検索方法の特徴をまとめる。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                線形探索
+                            </span><br>
+                            順番に全て調べる検索方法。しらみ潰し方式。整列されていないデータや、少ないデータの時に有用。<br>
+                            ひとつひとつのデータを調べるため、データ数が多いと時間がかかる。<br>
+                        </p>
+                        <p class="study_detail">
+                            以下、エクセルでB3セルの値と一致するデータをA列から取得する時のコード。<br>
+                        </p>
+                        <div data-filename="VBA">
+                            <span>VBA</span>
+<!--コード記載-->
+<pre><code class="VBA">
+Sub main()
+    Dim x As Long
+    
+    Dim StartTime As Double
+    Dim EndTime As Double
+    Dim ProcessTime As Double
+    Dim Counter As Double
+    
+    StartTime = Timer
+    Counter = 0
+    
+    x = Cells(2, 3).Value
+    
+    Dim i As Long
+    For i = 1 To Rows.Count
+        Counter = Counter + 1
+        If Cells(i, 1).Value = x Then
+            EndTime = EndTime - StartTime
+            
+            MsgBox ("I found it.") & vbCrLf & "Counter : " & Counter & vbCrLf & "ProcessTime : " & ProcessTime
+            Worksheets("Sheet1").Cells(i, 1).Activate
+            Exit Sub
+        End If
+    Next
+    
+    EndTime = Timer
+    ProcessTime = EndTime - StartTime
+        
+    MsgBox ("I was not able to find it") & vbCrLf & "Counter : " & Counter & vbCrLf & "ProcessTime : " & ProcessTime
+    
+End Sub
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            ■線形検索が使用されるプログラムの例<br>
+                        </p>
+                        <table class="line_up">
+                            <tr>
+                                <th>連絡帳アプリで名前の部分一致を検索</th>
+                                <td>名前の部分一致で検索する場合は、1件づつ検索値が含まれるか調べるため線形検索が使用される。</td>
+                            </tr>
+                            <tr>
+                                <th>ランダムに入力された10件の数値の中から「7」を探す</th>
+                                <td>整列されていないリストから任意の値を探す場合は線形検索が使われる。この場合データ数が少ないことが重要。</td>
+                            </tr>
+                            <tr>
+                                <th>SNSでのキーワード検索</th>
+                                <td>SNSの内容は自由に書き込めるため、ツイート1件1件を調べる必要がある。</td>
+                            </tr>
+                        </table>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                二分検索
+                            </span><br>
+                            データを二分割にして調べる検索方法。整列済みにデータに対して使用できる。データ数が多い時に有用。<br>
+                            二分割にした後は、真ん中のデータが検索値と一致しているか、一致していなければ検索値が真ん中のデータより大きいor小さいか調べる。<br>
+                            大まかあにあたりをつけるように検索するため、検索回数が少なく、線形探索より処理が速い。<br>
+                        </p>
+                        <p class="study_detail">
+                            以下、エクセルでB3セルの値と一致するデータをA列から取得する時のコード。コードは線形検索より複雑。<br>
+                        </p>
+                        <div data-filename="VBA">
+                            <span>VBA</span>
+<!--コード記載-->
+<pre><code class="VBA">
+Sub main()
+    Dim x As Long
+    Dim left As Long
+    Dim right As Long
+    Dim mid As Long
+    
+    Dim StartTime As Long
+    Dim EndTime As Long
+    Dim ProcessTime As Long
+    Dim Counter As Long
+    
+    x = Cells(2, 3).Value
+    left = 1
+    right = Rows.Count
+    
+    StartTime = Timer
+    Counter = 0
+    
+    While left < right
+        mid = Int((left + right) / 2)
+        Counter = Counter + 1
+        If Cells(mid, 1).Value = x Then
+            EndTime = Timer
+            ProcessTime = EndTime - StartTime
+            
+            MsgBox ("I found it") & vbCrLf & "Counter : " & Counter & vbCrLf & "ProcessTime : " & ProcessTime
+            Worksheets("Sheet1").Cells(mid, 1).Activate
+            Exit Sub
+        End If
+        
+        If Cells(mid, 1).Value > x Then
+            right = mid - 1
+        Else
+            left = mid + 1
+        End If
+    Wend
+    
+    EndTime = Timer
+    ProcessTime = EndTime - StartTime
+    MsgBox ("I was not able to find it") & vbCrLf & "Counter : " & Counter & vbCrLf & "ProcessTime" & ProcessTime
+
+End Sub
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            ■二分検索が使用されるプログラムの例<br>
+                        </p>
+                        <table class="line_up">
+                            <tr>
+                                <th>辞書アプリでアルファベット順・五十音順で単語検索</th>
+                                <td>登録単語が多い場合は、ソート済みの単語を二分検索で高速に処理する。</td>
+                            </tr>
+                            <tr>
+                                <th>ECサイトで「◯◯円以下の商品を表示」する</th>
+                                <td>安い順にソートして、二分検索で基準となる金額を最初に超える位置を特定する。</td>
+                            </tr>
+                            <tr>
+                                <th>地図アプリで座標データのインデックスを検索</th>
+                                <td>空間インデックス（例：Quad Tree、R Tree）は基本的に二分探索ベースの構造。</td>
+                            </tr>
+                        </table>
+                        <p class="study_detail">
+                            地図アプリでの活用法はイメージ湧かなかったのでChatGPTに解説してもらった。<br>
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                「地図アプリで座標を二分探索する」という意味を詳しく解説します。<br>
+                                <br>
+                                ■ 地図アプリでの「座標検索」とは？<br>
+                                地図アプリでは、ユーザーがタップした位置や現在地の 緯度・経度（座標） に基づいて、<br>
+                                ・その地点にある施設・建物・道路を特定する<br>
+                                ・周辺情報（飲食店、駅など）を探す<br>
+                                ・地図タイルのデータを読み込む<br>
+                                といった処理を行います。<br>
+                                <br>
+                                ■ 二分探索が使われる「間接的な場面」<br>
+                                地図アプリでの座標検索では以下のような内部処理やデータ構造で間接的に使われます。<br>
+                                <br>
+                                1. 空間インデックス構造（例：R木、Quadtree）での二分探索的な検索<br>
+                                地図データは大量なので、効率よく検索するための構造が必要です。<br>
+                                R木やQuadtreeのような空間インデックスは、「座標の範囲を分割して」階層的に管理します。
+                                これにより、検索時には関係のあるエリアだけに絞って探索できます。この処理は実質的に二分探索的（または分割統治的）な動きです。<br>
+                                <br>
+                                例：「緯度35.5〜36.0、経度139.0〜139.5に含まれる施設を探す」<br>
+                                → 範囲に対応するノードだけを木構造をたどって絞り込む（＝二分探索に似た処理）<br>
+                                <br>
+                                2. 地図タイルの読み込み位置を決定する<br>
+                                Google MapsやOpenStreetMapなどでは、地図を小さなタイル（画像）に分割して表示します。<br>
+                                座標（緯度・経度）からどのタイル番号に属するかを計算し、そのタイル番号リストの中から、最適なものを探索して表示する。<br>
+                                これも、タイルがインデックス順に並んでいれば、内部的に二分探索で効率的に探せます。<br>
+                                <br>
+                                3. 大量のランドマーク・施設の座標リストから検索<br>
+                                たとえば「すべてのコンビニの座標」が昇順（緯度順や経度順）に整列されていれば、指定した位置から近い候補だけを絞り込むときに、緯度や経度で二分探索を使って範囲の端を素早く見つけることができる。<br>
+                            </p>
+                        </div>
+                        <p class="study_detail">
+                            またQuadtreeとは2次元空間を4分割して管理するツリー構造。R木とは矩形（長方形）で囲ったデータを階層的にまとめるツリー構造。<br>
+                            Quadtreeについて詳しくは<a href="https://qiita.com/naoppy/items/a2a25a51c73dad4079d9">このサイト</a>を、
+                            R-treeについては<a href="https://tanishiking24.hatenablog.com/entry/introduction_rtree_index">このサイト</a>をそれぞれ参照してください。<br>
+                        </p>
+
+                        <p class="study_detail">
+                            また、実際のシステムでは線形検索と二分検索の両方が使用されるパターンが多いそう。<br>
+                            ＜例＞<br>
+                            ・検索前にまず整列済みかを判定して二分探索にする<br>
+                            ・ユーザーが入力途中（曖昧な検索）のときは線形探索にする<br>
+                            ・最初の検索結果取得は二分探索、そこから絞り込みは線形探索<br>
+                        </p>
+
+                        <p class="study_detail">
+                            以上〜<br>
+                            なんか難しかったな。検索方法は2種類あって、線形検索は少量データ、かつデータが整列してない時に使う、二分検索は大量データを整列してから使うって理解。<br>
+                            それより地図アプリのデータ構造で沼った。まあ目的は探索方法の理解だったから、そっちはOKってことでおわり〜
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

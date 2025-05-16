@@ -574,7 +574,8 @@ video {
   
 .line_up th{
     text-align: center;
-    width: 10%;
+    min-width: 150px;
+    width: 25%;
   }
   
 .line_up td{

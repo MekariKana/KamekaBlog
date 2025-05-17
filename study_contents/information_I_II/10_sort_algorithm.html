@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.5.17
+                        </div>
+                        <p class="study_ttl">
+                            昇順アルゴリズム
+                        </p>
+                        <p class="study_detail">
+                            複数データをある一定のルールに従って整列することを"ソート"という。ソートはプログラムの中でも度々登場する。例えばDBから値を取り出して画面に表示するとき、「価格が安い順」や「あいうえを順」を選択できるようにするなど機能として実装することも多い。<br>
+                            ここでは小さい順に並べる昇順ソートのアルゴリズムについてまとめていく。<br>
+                        </p>
+                        <p class="study_detail">
+                            昇順ソートのアルゴリズムは、「バブルソート」と「クイックソート」の2種類がある。<br>
+                            特徴は以下のとおり。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                バブルソート
+                            </span><br>
+                            バブルソートは一番最初の値と次の値の大小を比較し、最初の値の方が大きい(最初の値>次の値)場合は、最初の値と次の値の位置を交換しながら並べ替えていく方法。<br>
+                            ひとつひとつ比較しながら並べ替えるので時間がかかる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/10_bubbleSort_img.jpg">
+                        </div>
+                        <p class="study_detail">
+                            以下、VBAでランダム生成した30個の値をバブルソートで並べ替えるコード。<br>
+                        </p>
+                        <div data-filename="VBA">
+                            <span>VBA</span>
+<!--コード記載-->
+<pre><code class="VBA">
+Sub BubbleSort()
+    Dim i As Long, j As Long
+    Dim tmp As Long
+    Dim n As Long
+
+    ' 乱数の初期化
+    Randomize
+
+    ' ランダムな30個の整数をA列に生成
+    For i = 1 To 30
+        Cells(i, 1).Value = Int(1000 * Rnd + 1)
+    Next i
+
+    ' 要素数
+    n = Cells(1, 1).End(xlDown).Row
+
+    ' バブルソート
+    For i = 1 To n - 1
+        For j = 1 To n - i
+            If Cells(j, 1).Value > Cells(j + 1, 1).Value Then
+                tmp = Cells(j, 1).Value
+                Cells(j, 1).Value = Cells(j + 1, 1).Value
+                Cells(j + 1, 1).Value = tmp
+            End If
+        Next j
+    Next i
+
+End Sub
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                クイックソート
+                            </span><br>
+                            クイックソートはソートはまず基準値となる値を決め、基準値以上と基準値以下でグループ分けする処理を繰り返していく方法。<br>
+                            バブルソートに比べ処理が速い。デメリットは同じ値の順番は保証されないこと。<br>
+                            <br>
+                            ▼まず基準値を決めて、2グループに分ける。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/10_quickSort_img_2.jpg">
+                        </div>
+                        <p class="study_detail">
+                            ▼2つのグループにわけたら、それぞれのグループの中でさらにクイックソート(2つにグループ分けする処理)を繰り返していく。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/10_quickSort_img.jpg">
+                        </div>
+                        <p class="study_detail">
+                            以下、VBAでランダム生成した30個の値をクイックソートで並べ替えるコード。<br>
+                        </p>
+                        <div data-filename="VBA">
+                            <span>VBA</span>
+<!--コード記載-->
+<pre><code class="VBA">
+Sub QuickSortMain()
+    Dim i As Long
+
+    ' 乱数の初期化
+    Randomize
+
+    ' 30個の乱数をA列に生成
+    For i = 1 To 30
+        Cells(i, 1).Value = Int(1000 * Rnd + 1)
+    Next i
+
+    ' クイックソートの呼び出し
+    Call QuickSort(1, 30)
+End Sub
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+Sub QuickSort(ByVal first As Long, ByVal last As Long)
+    Dim low As Long, high As Long
+    Dim pivot As Long
+    Dim tmp As Long
+
+    low = first
+    high = last
+    pivot = Cells(Application.WorksheetFunction.RoundDown((first + last) / 2, 0), 1).Value
+
+    Do While low <= high
+        Do While Cells(low, 1).Value < pivot
+            low = low + 1
+        Loop
+
+        Do While Cells(high, 1).Value > pivot
+            high = high - 1
+        Loop
+
+        If low <= high Then
+            ' 値の交換
+            tmp = Cells(low, 1).Value
+            Cells(low, 1).Value = Cells(high, 1).Value
+            Cells(high, 1).Value = tmp
+            low = low + 1
+            high = high - 1
+        End If
+    Loop
+
+    ' 再帰的に左と右をソート
+    If first < high Then QuickSort first, high
+    If low < last Then QuickSort low, last
+End Sub
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            以上〜<br>
+                            探索と同様、ソートもしらみ潰しにひとつひとつ比べる方法(バブルソート)と二分割を繰り返す(再帰処理)方法(クイックソート)がある。<br>
+                            ChatGPTいわく、実務面ではクイックソートが一般的らしい。バブルソートはコードが簡単だから初学者の勉強用として紹介されるみたい。<br>
+                            なるなる。アルゴリズムの勉強はVBAを使って実装するから一石二鳥でうれしいな〜
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

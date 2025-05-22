@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>VBA</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.5.22
+                        </div>
+                        <p class="study_ttl">
+                            クイックソートアルゴリズムの動作確認
+                        </p>
+                        <p class="study_detail">
+                            VBAはさらっとしか勉強したことがなく、自分で何かつくったこともなかった。<br>
+                            でも情報のアルゴリズムの単元でVBAを用いて実装する内容があり、その時学んだVBAの基礎のルールをまとめておく。<br>
+                        </p>
+                        <p class="study_detail">
+                            以下、ランダム生成した30個の値をクイックソートで並べ替えるコード。<br>
+                        </p>
+                        <p class="study_detail">
+                            まずはQuickSortMainでランダムに30個の値を生成。<br>
+                            <span class="yellow_highlight">ポイント</span><br>
+                            ・変数定義は「Dim 変数 As 型」<br>
+                            ・Cells(行, 列)の行をFor文で1〜30まで回して値を入力していく<br>
+                            ・Int(1000 * Rnd + 1)は1~1000間の乱数を生成するためRndに1000を掛ける。+1で小数点を繰り上げる。<br>
+                            ・QuickSort(1, 30)は30の値をクイックソートするので、引数に1と30を設定<br>
+                        </p>
+                        <div data-filename="VBA">
+                            <span>VBA</span>
+<!--コード記載-->
+<pre><code class="VBA">
+Sub QuickSortMain()
+    Dim i As Long
+
+    ' 乱数の初期化
+    Randomize
+
+    ' 30個の乱数をA列に生成
+    For i = 1 To 30
+        Cells(i, 1).Value = Int(1000 * Rnd + 1)
+    Next i
+
+    ' クイックソートの呼び出し
+    Call QuickSort(1, 30)
+End Sub
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            次にQuickSortメソッドを呼び出し、昇順ソートを行う。<br>
+                            <span class="yellow_highlight">ポイント</span><br>
+                            ・QuickSort(ByVal first As Long, ByVal last As Long)では引数にソートする値の数を設定。<br>
+                            &emsp;→ByValは値渡しの定義。ByRefにすると参照渡しになるが、値が変更しないように値渡しを使用。<br>
+                            ・Application.WorksheetFunctionはVBA関数とは違い、Excelのワークシートで標準機能として備わっている関数(例：sum, max..)のこと。<br>
+                            &emsp;ワークシート関数を呼び出す時は「Application.WorksheetFunction.関数名」の形で呼び出す。<br>
+                            ・
+                        </p>
+                        <div data-filename="VBA">
+                            <span>VBA</span>
+
+<!--コード記載-->
+<pre><code class="VBA">
+Sub QuickSort(ByVal first As Long, ByVal last As Long)
+    Dim low As Long, high As Long
+    Dim pivot As Long
+    Dim tmp As Long
+
+    ' 引数を変数に代入
+    low = first
+    high = last
+    
+    ' 中央値のrowの位置を決める
+    pivotRow = Application.WorksheetFunction.RoundDown((first + last) / 2, 0)
+    Cells(pivotRow, 1).Interior.ColorIndex = 6 ' 背景色を黄色に設定
+
+    ' 中央値として用意した乱数の真ん中(半分)に位置しているセルの値を設定
+    pivot = Cells(pivotRow, 1).Value
+
+    ' 30回ループ(lowとhighの位置が中央値になるまで繰り返す)
+    Do While low <= high
+        ' 中央値より上に位置しているグループの処理
+        ' 一番上の値が中央値未満であれば次の値を見る、中央値超えの数字に当たったらLoopを抜ける
+        Do While Cells(low, 1).Value < pivot
+            low = low + 1
+        Loop
+
+        ' 中央値より下に位置しているグループの処理
+        ' 一番下の値が中央値超えであれば次の値を見る、中央値以下の数字に当たったらLoopを抜ける
+        Do While Cells(high, 1).Value > pivot
+            ' 一番下の値(high, 1)を上の行(high-1, 1)にする
+            high = high - 1
+        Loop
+
+        ' lowの位置よりhighの位置が下にある場合
+        If low <= high Then
+            ' 値の交換
+            tmp = Cells(low, 1).Value
+            Cells(low, 1).Value = Cells(high, 1).Value
+            Cells(high, 1).Value = tmp
+            ' 次のセルにカーソルを動かす
+            low = low + 1
+            high = high - 1
+        End If
+    Loop
+
+    Cells(pivotRow, 1).ClearFormats ' pivotの背景色をクリア
+
+    ' 再帰的にソート
+    ' 引数で受け取ったfirstにhighがたどり着いていない場合は、クイックソート
+    If first < high Then QuickSort first, high
+    ' 引数で受け取ったlastにlowがたどりついていない場合は、クイックソート
+    If low < last Then QuickSort low, last
+End Sub
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            以上〜<br>
+                            Javaで書くのと大きくは違わないと思ったけど、エクセル関数とVBA関数の違いは知っておいたほうがいいなと思った。<br>
+                            とりあえず基礎的なところは理解できたかな〜と思う。もう少し複雑な処理もやりたいけど、Macだと使えない処理も多いよう。う〜ん＞＜<br>
+                            残穢念だけど、今できることをやろうーっと。
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

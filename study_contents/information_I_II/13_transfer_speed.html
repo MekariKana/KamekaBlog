@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.6.6
+                        </div>
+                        <p class="study_ttl">
+                            転送速度
+                        </p>
+                        <p class="study_detail">
+                            ネットワークを通じてファイルをダウンロードする際、データの受信に時間がかかり、待ち時間が生じることがある。これは転送速度が遅いということ。<br>
+                            データの転送速度はbpsという単位で表し、bpsは1秒間に転送できるビット数の量を表している。よく携帯の通信速度をbpsで説明される。
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                例：通信速度が"512kbps"の場合
+                            </span><br>
+                            &emsp;→&ensp;"k(キロ)"は速さなどと同じく1000倍の意味なので、1秒間に512,000ビット転送できる<br>
+                            &emsp;※&ensp;メモリなどのデータ容量(byte)は1024倍なので混同しないように注意。<br>
+                            &emsp;&emsp;&ensp;データ容量は1kbyte=1024byte(1kbyte=1024byte=128bit(1byte=8bit)))で単位が区切られる。詳しくは<a href="3_analog_and_digital.html">こちら</a>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/13_transfer_unit.jpg">
+                        </div>
+                        <p class="study_detail">
+                            しかし、実際の通信速度はカタログなどに記載されている転送速度(bps)より小さくなる。<br>
+                            理論値より性能が低くなる原因は、パソコンやLANケーブル自体の性能、通信の時間帯が混雑しているなどが挙げられる。<br>
+                            このように理論値の転送速度に対する、実際の転送速度の割合を「伝送効率」という。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                例：通信速度が10Mbps、伝送効率が60％とカタログに書いてある場合
+                            </span><br>
+                            &emsp;→&ensp;理論値は10Mbpsだが、実際はその60％の速度で転送する、という意味。<br>
+                            &emsp;&emsp;&ensp;つまり10Mbps×0.6=6Mbpsが実際の転送速度となる。
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                例：通信速度が32Mbps、伝送効率が60％のパソコンで、250Mbyteのデータを送るとかかる転送時間は？
+                            </span><br>
+                            &emsp;→&ensp;理論値の32Mbpsをbitに直し(32×1000×1000)、これに伝送効率80%をかけると、実際の転送速度は[25,600,000bps]<br>
+                            &emsp;→&ensp;転送対象のデータ量250Mbyteをbitに直す(250×1024×1024×8)と、データ量は[2,097,152,000byte]<br>
+                            &emsp;&emsp;&ensp;データ量[byte]を転送速度[bps]で割ると、転送時間は[81、92秒]となる
+                        </p>
+                        <br>
+                        <p class="study_detail">
+                            以上〜<br>
+                            よく携帯の通信速度をbpsで表してるけど、伝送効率も考慮して通信会社を選ばないといけないね。<br>
+                            以前、格安SIMで契約したとき、店頭の説明では回線は大手通信会社の回線を借りてるからbpsの数値も高くて他の格安SIMより安定してるって説明されたな〜<br>
+                            結局、通勤時間は全然ネットに繋がらなくてすぐ買い換えたけど、あの時の伝送効率は何％だったんだろ、、、体感10％くらいだった気がする。笑<br>
+                            ということで、理論値と実際の転送時間は乖離しているから、ちゃんと確認しないといけないと思った。<br>
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+        
+        <!--シンタックスハイライトのcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

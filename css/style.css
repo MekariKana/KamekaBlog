@@ -1,756 +1,797 @@
 @charset "UTF-8";
 html {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 body {
-    font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
-    font-size: 15px;
-    border-top: 15px solid #79a1b1 !important;
-    min-height: 99vh;
+  font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+  font-size: 15px;
+  border-top: 15px solid #79a1b1 !important;
+  min-height: 99vh;
 }
 
 a {
-    text-decoration: none;
-    color: #333;
+  text-decoration: none;
+  color: #333;
 }
 
 a:hover {
-    opacity:0.5;
+  opacity:0.5;
 }
 
 p {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 .w_inner {
-    max-width: 1200px;
-    width: 95%;
-    margin: 0 auto;
+  max-width: 1200px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 /* ハンバーガーメニューのスタイル */
 .hamburger {
-    display: none;
-    width: 30px;
-    height: 25px;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    margin: 10px;
-    z-index: 1000;
+  display: none;
+  width: 30px;
+  height: 25px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  margin: 10px;
+  z-index: 1000;
 }
-  
+
 .hamburger span {
-    display: block;
-    height: 4px;
-    background: #79a1b1;
-    border-radius: 2px;
+  display: block;
+  height: 4px;
+  background: #79a1b1;
+  border-radius: 2px;
 }
 
 /* 最初は非表示 */
 .close-btn {
-    display: none;
-  }
+  display: none;
+}
 /*--------------------------*/
 
 nav {
-    position: sticky;
-    position: -webkit-sticky; /* safari対応 */
-    top: 0;
-    z-index: 999;
+  position: sticky;
+  position: -webkit-sticky; /* safari対応 */
+  top: 0;
+  z-index: 999;
 }
 
 nav ul {
-    display: flex;
-    margin-bottom: 10px;
-    background-color: white;
-    height: 30px;
+  display: flex;
+  margin-bottom: 10px;
+  background-color: white;
+  height: 30px;
 }
 
 nav ul li {
-    width: 240px;
-    /* flexは自動で幅を計算してくれる機能があるが、
-    指定したwidthより小さくなくことがある。
-    その際はmin-widthを指定する。 今回は必要ない。*/
-   /* min-width: 240px; */
-   text-align: center;
-   border-right: 1px solid #ddd;
-   padding: 5px;
+  width: 240px;
+  /* flexは自動で幅を計算してくれる機能があるが、
+  指定したwidthより小さくなくことがある。
+  その際はmin-widthを指定する。 今回は必要ない。*/
+  /* min-width: 240px; */
+  text-align: center;
+  border-right: 1px solid #ddd;
+  padding: 5px;
 }
 
 /* liの最初の要素だけ、cssを指定するにはfirst-childを使用*/
 nav ul li:first-child {
-    border-left: 1px solid #ddd;
+  border-left: 1px solid #ddd;
 }
 
 nav ul li a {
-    display: block;
-    color: #9b9a9a;
+  display: block;
+  color: #9b9a9a;
 }
 
 nav ul li a:hover {
-    color: #333;
-    font-weight: bold;
+  color: #333;
+  font-weight: bold;
 }
 
 nav ul li a.current {
-    color: #333;
-    font-weight: bold;
+  color: #333;
+  font-weight: bold;
 }
 
 .logo {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 .logo img{
-    display: inline-block;
-    margin-bottom: 5px;
-    width: 100px;
-    height: auto;
+  display: inline-block;
+  margin-bottom: 5px;
+  width: 100px;
+  height: auto;
 }
 
 .header_img{
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .header_img img{
-    max-width: 1200px;
-    width: 100%;
-    height: auto;
-    display: inline-block;
+  max-width: 1200px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
 }
 
 .container_block h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 24px;
 }
 
 .container_block .menu_block {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .container_block .menu {
-    width: 390px;
-    height: 390px;
-    margin-bottom: 20px;
-    background: #eee;
-    border-radius: 10px;
-    position: relative;
+  width: 390px;
+  height: 390px;
+  margin-bottom: 20px;
+  background: #eee;
+  border-radius: 10px;
+  position: relative;
 }
 
 .container_block .menu .menu_ttl {
-    text-align: left;
-    margin: 10px;
+  text-align: left;
+  margin: 10px;
 }
 
 .container_block .menu_ttl img {
-    /* position: relative;  */
-    top: 5px;
-    left: 5px;
-    width: 25px;
-    z-index: 50;
+  /* position: relative;  */
+  top: 5px;
+  left: 5px;
+  width: 25px;
+  z-index: 50;
 }
 
 .container_block .menu .ttl {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
 .container_block .menu_update {
-    margin: 10px;
-    width: 370px;
-    text-align: left;
-    padding-bottom: 20px;
+  margin: 10px;
+  width: 370px;
+  text-align: left;
+  padding-bottom: 20px;
 }
 
 .container_block .menu_update .explain {
-    margin-bottom: 20px;
-    display: flex;
+  margin-bottom: 20px;
+  display: flex;
 }
 
 .container_block .menu_update .explain_date {
-    width: 100px;
+  width: 100px;
 }
 
 .container_block .menu_update .explain_detail {
-    line-break: anywhere;
-    width: 85%;
+  line-break: anywhere;
+  width: 85%;
 }
 
 .link_btn {
-    background-color: #79a1b1;
-    border: none;
-    padding: 15px 20px 12px;
-    color: white;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: inline-block;
-    box-shadow: 1px 1px 3px black;
-    cursor: pointer;
+  background-color: #79a1b1;
+  border: none;
+  padding: 15px 20px 12px;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: inline-block;
+  box-shadow: 1px 1px 3px black;
+  cursor: pointer;
 }
 
 .bottom {
-    position: absolute;
-    bottom: 10px;
+  position: absolute;
+  bottom: 10px;
 }
 
 .right {
-    position: absolute;
-    right: 10px;
+  position: absolute;
+  right: 10px;
 }
 
 .link_btn:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .footer {
-    margin-top: 30px;
-    position: sticky;
-    top: 100%;
-    z-index: 800;
+  margin-top: 30px;
+  position: sticky;
+  top: 100%;
+  z-index: 800;
 }
 
 .footer .pp_link {
-    text-align: right;
-    margin-bottom: 7px;
+  text-align: right;
+  margin-bottom: 7px;
 }
 
 .footer .copy {
-    text-align: center;
-    background: #79a1b1;
-    color: #fff;
-    font-size: 12px;
-    padding: 7px 0 3px;
+  text-align: center;
+  background: #79a1b1;
+  color: #fff;
+  font-size: 12px;
+  padding: 7px 0 3px;
 }
 
 /* portfolio.html--------------------------- */
 
 .portfolio_block {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .portfolio_block .portfolio {
-    width: 380px;
-    text-align: center;
-    margin-bottom: 30px;
-    /* background: #eee;  */
+  width: 380px;
+  text-align: center;
+  margin-bottom: 30px;
+  /* background: #eee;  */
 }
 
 .portfolio_block .portfolio img {
-    max-width: 300px;
-    width: 100%;
-    margin: 10px 0 10px;
+  max-width: 300px;
+  width: 100%;
+  margin: 10px 0 10px;
 }
 
 .portfolio_block .portfolio .explain {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .portfolio_block .portfolio a {
-    background: #79a1b1;
-    color: #fff;
-    padding: 15px 20px 12px;
-    margin-bottom: 20px;
-    display: inline-block;
+  background: #79a1b1;
+  color: #fff;
+  padding: 15px 20px 12px;
+  margin-bottom: 20px;
+  display: inline-block;
 }
 
 /* background-colorは親要素にかけて、
 色をつけたい範囲は余白やサイズで子要素(padding)で指定*/
 .content_ttl {
-    background: #eee;
-    margin-bottom: 10px;
+  background: #eee;
+  margin-bottom: 10px;
 }
 
 .content_ttl h3 {
-    text-align: left;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 20px 15px 20px;
-    border-left: 20px solid #79a1b1;
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px 15px 20px;
+  border-left: 20px solid #79a1b1;
 }
 
 .content_detail {
-    margin: 20px 15px 20px;
+  margin: 20px 15px 20px;
 }
 
 /* profile.html--------------------------- */
 
 .profile {
-    display: flex;
+  display: flex;
 }
 
 .profile img {
-    max-width: 380px;
-    width: 100%;
-    margin: 0 0 10px 10px;
+  max-width: 380px;
+  width: 100%;
+  margin: 0 0 10px 10px;
 }
 
 .profile .explain {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .profile .explain p {
-   margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 /* contact.html--------------------------- */
 
 .contact_block {
-    display: flex;
-    /* ボーダーの余白をdivタグに含めることができる */
-    box-sizing: boder-box;
+  display: flex;
+  /* ボーダーの余白をdivタグに含めることができる */
+  box-sizing: boder-box;
 }
 
 .item {
-    overflow: hidden;
-    margin-bottom: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .label {
-    float: left;
-    margin: 10px;
-    width: 135px;
-    border-left: 3px solid #79a1b1;
-    padding-left: 10px;
+  float: left;
+  margin: 10px;
+  width: 135px;
+  border-left: 3px solid #79a1b1;
+  padding-left: 10px;
 }
 
 .inputs {
-    float: left;
+  float: left;
 }
 
 input[type="text"], 
 input[type="email"] {
-    width: 300px;
-    border: solid 1px #79a1b1;
-    padding: 10px;
-    font-size: 15px;
-    border-radius: 5px;
+  width: 300px;
+  border: solid 1px #79a1b1;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
 }
 
 textarea {
-    width: 600px;
-    height: 300px;
-    border: solid 1px #79a1b1;
-    padding: 10px;
-    font-size: 15px;
-    border-radius: 5px;
+  width: 600px;
+  height: 300px;
+  border: solid 1px #79a1b1;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
 }
 
 .radio_block {
-    margin: 10px 0 10px;
+  margin: 10px 0 10px;
 }
 
 input[type="submit"] {
-    background-color: #79a1b1;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    border-radius: 5px;
-    margin: 0 5px;
-    box-shadow: 1px 1px 3px black;
-    cursor: pointer;
+  background-color: #79a1b1;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 0 5px;
+  box-shadow: 1px 1px 3px black;
+  cursor: pointer;
 }
 
 input[type="submit"]:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 input[type="reset"] {
-    background-color: #eee;
-    border: none;
-    padding: 10px 20px;
-    color: #79a1b1;
-    font-size: 17px;
-    font-weight: bold;
-    border-radius: 5px;
-    margin: 0 5px;
-    box-shadow: 1px 1px 3px black;
-    cursor: pointer;
+  background-color: #eee;
+  border: none;
+  padding: 10px 20px;
+  color: #79a1b1;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 0 5px;
+  box-shadow: 1px 1px 3px black;
+  cursor: pointer;
 }
 
 input[type="reset"]:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .botton_area {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* study_contents.html--------------------------- */
 
 .study_block {
-    position: relative;
+  position: relative;
 }
 
 .study_block .study_ttl {
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 pre {
-    overflow-x: auto;
-    /* margin-top: 16px; */
-    margin-bottom: 0px;
-    border-radius: 5px;
-    white-space: pre-wrap;
-    width: 100%;
-  }
-  
+  overflow-x: auto;
+  /* margin-top: 16px; */
+  margin-bottom: 0px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
 /* コードブロック(ファイル名が入力ありの場合) */
 div[data-filename] {
-    /* margin-top: 16px; */
-    margin-bottom: 20px;
+  /* margin-top: 16px; */
+  margin-bottom: 20px;
 }
 
 div[data-filename] > span {
-    display: inline-block;
-    background-color: #dfdfdf;
-    text-align: center;
-    padding: 3px 15px;
-    border-radius: 5px 5px 0px 0px;
+  display: inline-block;
+  background-color: #dfdfdf;
+  text-align: center;
+  padding: 3px 15px;
+  border-radius: 5px 5px 0px 0px;
 }
 
 div[data-filename] > pre {
-    margin-top: 0px;
-    border-top-left-radius: 0px;
+  margin-top: 0px;
+  border-top-left-radius: 0px;
 }
 
 .date {
-    text-align: right;
-    margin-bottom: 10px;
+  text-align: right;
+  margin-bottom: 10px;
 }
 
 .study_detail {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
 }
 
 .study_sub_ttl {
-    font-weight: bold;
-    margin: 10px 0 10px;
-    display: flex;
-    align-items: center
+  font-weight: bold;
+  margin: 10px 0 10px;
+  display: flex;
+  align-items: center
 }
 
 .study_point {
-    font-size: 15px;
-    font-weight: bold;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .study_dot {
-    font-size: 25px;
-    margin: 0 5px 0;
+  font-size: 25px;
+  margin: 0 5px 0;
 }
 
 .study_reference {
-    background-color: #eee;
-    padding: 3px 15px;
-    border-radius: 5px;
+  background-color: #eee;
+  padding: 3px 15px;
+  border-radius: 5px;
 }
 
 .study_flex {
-    display: flex;
+  display: flex;
 }
 
 .study_flex .study_detail {
-    width: 890px;
+  width: 890px;
 }
 
 .study_flex .sample {
-    height: 300px;
-    margin: 10px 10px 0 0;
+  height: 300px;
+  margin: 10px 10px 0 0;
 }
 
 video {
-    max-width: 900px;
-    width: 100%;
-    margin-bottom: 20px;
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .red_highlight a {
-    color: red;
+  color: red;
 }
 
 .yellow_highlight {
-    font-weight: bold;
-    background: linear-gradient(transparent 60%, yellow 30%);
-    display: inline-block;
-    margin-bottom: 5px;;
+  font-weight: bold;
+  background: linear-gradient(transparent 60%, yellow 30%);
+  display: inline-block;
+  margin-bottom: 5px;;
 }
 
 .small_img{
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .small_img img{
-    max-width: 70%;
-    width: 100%;
-    height: auto;
-    display: inline-block;
+  max-width: 70%;
+  width: 100%;
+  height: auto;
+  display: inline-block;
 }
 
-.table_small{
-    border-collapse:separate;
-    border-spacing: 5px;
-    width: 360px;
-  }
-  
-.table_small th, .table_small td{
-    border-radius: 5px;
-    text-align: center;
-    padding: 10px 0;
-  }
-  
-.table_small th{
-    background-color: #79a1b1;
-    color: white;
-    border:solid 1px #9b9a9a;
-  }
-  
-.table_small td{
-    background-color: #eee;
-    border:solid 1px #9b9a9a;
-  }
+[class^="table_"]{
+  table-layout: auto;
+  border-collapse:separate;
+  border-spacing: 5px;
+}
+
+[class^="table_"] th, [class^="table_"] td{
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px 10px;
+}
+
+[class^="table_"] th{
+  background-color: #79a1b1;
+  color: white;
+  border:solid 1px #9b9a9a;
+}
+
+[class^="table_"] td{
+  background-color: #eee;
+  border:solid 1px #9b9a9a;
+}
+
+[class^="table_"] td:first-child{
+  white-space: nowrap;
+  width: 1px;
+}
+
+.table_small {
+  width: 360px;
+}
 
 .table_middle{
-    border-collapse:separate;
-    border-spacing: 5px;
-    width: 720px;
-  }
-  
+  width: 720px;
+}
+
+.table_wide{
+  width: 100%;
+}
+
+/*-----
+.table_small{
+  border-collapse:separate;
+  border-spacing: 5px;
+  width: 360px;
+}
+
+.table_small th, .table_small td{
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.table_small th{
+  background-color: #79a1b1;
+  color: white;
+  border:solid 1px #9b9a9a;
+}
+
+.table_small td{
+  background-color: #eee;
+  border:solid 1px #9b9a9a;
+}
+
+.table_middle{
+  border-collapse:separate;
+  border-spacing: 5px;
+  width: 720px;
+}
+
 .table_middle th, .table_middle td{
-    border-radius: 5px;
-    text-align: center;
-    padding: 10px 0;
-  }
-  
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px 0;
+}
+
 .table_middle th{
-    background-color: #79a1b1;
-    color: white;
-    border:solid 1px #9b9a9a;
-  }
-  
+  background-color: #79a1b1;
+  color: white;
+  border:solid 1px #9b9a9a;
+}
+
 .table_middle td{
-    background-color: #eee;
-    border:solid 1px #9b9a9a;
-  }
+  background-color: #eee;
+  border:solid 1px #9b9a9a;
+}
+----------*/
 
 .hissan {
-    line-height: 0.3em;
-    font-weight: bold;
-    width: 100％;
-    font-size: 20px;
-    margin-bottom: 20px;
+  line-height: 0.3em;
+  font-weight: bold;
+  width: 100％;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 .line_up{
-    border-collapse:separate;
-    border-spacing: 5px;
-    line-height: 1.5;
-    width: 100%;
-  }
-  
+  border-collapse:separate;
+  border-spacing: 5px;
+  line-height: 1.5;
+  width: 100%;
+}
+
 .line_up th, .line_up td{
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #eee;
-    
-  }
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #eee;
   
+}
+
 .line_up th{
-    text-align: center;
-    min-width: 150px;
-    width: 25%;
-  }
-  
+  text-align: center;
+  min-width: 150px;
+  width: 25%;
+}
+
 .line_up td{
-    text-align: left;
+  text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+
+  html, body {
+    min-height: 100vh;
   }
 
-  @media screen and (max-width: 768px) {
-
-    html, body {
-      min-height: 100vh;
-    }
-  
-    .w_inner {
-      width: 95%;
-    }
-
-  /*ハンバーガーメニューの設定-------*/
-  .hamburger {
-    display: flex;
-    background-color: white;
-    padding: 7px;
-    border-radius: 5px;
+  .w_inner {
+    width: 95%;
   }
 
-  .hamburger:hover {
-    opacity: 0.7;
-  }
+/*ハンバーガーメニューの設定-------*/
+.hamburger {
+  display: flex;
+  background-color: white;
+  padding: 7px;
+  border-radius: 5px;
+}
 
-  /* 黒背景（非表示時） */
+.hamburger:hover {
+  opacity: 0.7;
+}
+
+/* 黒背景（非表示時） */
 .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 998;
+}
+
+/* メニュー表示時に背景表示 */
+.overlay.active {
+  display: block;
+}
+
+/* メニューが開いたときだけ表示 */
+.nav_list {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  max-width: 255px;
+  width: 100%;
+  z-index: 999;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  gap: 20px; /* 要素間の余白 */
+}
+
+.nav_list.active {
+  display: flex;
+}
+
+.nav_list.active .close-btn {
+  display: block;
+}
+
+.close-btn span {
+  border-radius: 3px;
+  align-items: center;
+  padding: 0 3px 3px 3px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.close-btn span:hover {
+  background-color: #93b9c8;
+  border: 1px inset #82a3b0;
+}
+
+nav ul li:first-child {
+  text-align: right;
+  border-left: none;
+  padding: 5px 7.5px 7.5px;
+  background-color: #79a1b1;
+  font-size: 20px;
+}
+
+nav ul li {
+  border-right: none;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0 15px 15px;
+  text-align: left;
+  font-size: 20px;
+}
+
+nav ul li a {
+  display: block;
+}
+
+/*--------------*/
+  .header_img img {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    z-index: 998;
   }
-  
-  /* メニュー表示時に背景表示 */
-  .overlay.active {
-    display: block;
-  }
-  
-  /* メニューが開いたときだけ表示 */
-  .nav_list {
-    display: none;
+
+  .container_block .menu_block {
     flex-direction: column;
-    position: fixed;
-    top: 0px;
-    left: 0;
-    max-width: 255px;
-    width: 100%;
-    z-index: 999;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.9);
-    gap: 20px; /* 要素間の余白 */
-  }
-
-  .nav_list.active {
-    display: flex;
-  }
-
-  .nav_list.active .close-btn {
-    display: block;
-  }
-
-  .close-btn span {
-    border-radius: 3px;
     align-items: center;
-    padding: 0 3px 3px 3px;
-    margin-bottom: 10px;
-    font-size: 18px;
-    cursor: pointer;
   }
 
-  .close-btn span:hover {
-    background-color: #93b9c8;
-    border: 1px inset #82a3b0;
+  .container_block .menu {
+    width: 100%;
+    height: auto;
+    min-height: 120px;
   }
 
-  nav ul li:first-child {
-    text-align: right;
-    border-left: none;
-    padding: 5px 7.5px 7.5px;
-    background-color: #79a1b1;
-    font-size: 20px;
+  .container_block .menu_update {
+    width: 90%;
   }
 
-  nav ul li {
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0 15px 15px;
-    text-align: left;
-    font-size: 20px;
+  .container_block .menu_update .explain_detail {
+      width: 95%;
   }
 
-  nav ul li a {
-    display: block;
+  .portfolio_block {
+    flex-direction: column;
+    align-items: center;
   }
 
-  /*--------------*/
-    .header_img img {
-      width: 100%;
-    }
-  
-    .container_block .menu_block {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .container_block .menu {
-      width: 100%;
-      height: auto;
-      min-height: 120px;
-    }
-  
-    .container_block .menu_update {
-      width: 90%;
-    }
-
-    .container_block .menu_update .explain_detail {
-        width: 95%;
-    }
-  
-    .portfolio_block {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .portfolio_block .portfolio {
-      width: 90%;
-    }
-  
-    .profile {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .profile img {
-      width: 90%;
-      margin: 0 auto 10px;
-    }
-  
-    .contact_block {
-      flex-direction: column;
-    }
-  
-    .label,
-    .inputs {
-      float: none;
-      width: 100%;
-    }
-  
-    input[type="text"], 
-    input[type="email"],
-    textarea {
-      width: 94%;
-      margin-top: 10px;
-    }
-  
-    .study_flex {
-      flex-direction: column;
-    }
-  
-    .study_flex .study_detail,
-    .study_flex .sample {
-      width: 100%;
-      margin: 0;
-    }
-  
-    .table_small, .table_middle {
-      width: 100%;
-    }
+  .portfolio_block .portfolio {
+    width: 90%;
   }
 
-  
+  .profile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile img {
+    width: 90%;
+    margin: 0 auto 10px;
+  }
+
+  .contact_block {
+    flex-direction: column;
+  }
+
+  .label,
+  .inputs {
+    float: none;
+    width: 100%;
+  }
+
+  input[type="text"], 
+  input[type="email"],
+  textarea {
+    width: 94%;
+    margin-top: 10px;
+  }
+
+  .study_flex {
+    flex-direction: column;
+  }
+
+  .study_flex .study_detail,
+  .study_flex .sample {
+    width: 100%;
+    margin: 0;
+  }
+
+  .table_small, .table_middle {
+    width: 100%;
+  }
+}
+

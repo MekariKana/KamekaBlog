@@ -23,14 +23,188 @@
                 <div class="content_detail">
                     <div class="study_block">
                         <div class="date">
-                            作成日: 2025.4.8
+                            作成日: 2025.6.11
                         </div>
                         <p class="study_ttl">
-                            新しい情報技術
+                            情報セキュリティ
                         </p>
                         <p class="study_detail">
+                            企業や組織が保有している情報資産を守ることを「情報セキュリティ」と言い、「情報を守る」とは「機密性」「完全性」「可用性」を確保することとされている。<br>
+                            今回はこの情報を守るために必要な要素と、これを守らないと起こりうる危険をまとめる。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">情報セキュリティの3要素</div>
+                        </div>
+                        <table class="table_wide">
+                            <tr>
+                                <th>要素</th>
+                                <th>定義</th>
+                                <th>例</th>
+                            </tr>
+                            <tr>
+                                <td>機密性</td>
+                                <td>
+                                    許可された人だけがアクセスできること。<br>
+                                    情報の漏洩を防ぐために必要な要素。
+                                </td>
+                                <td>
+                                    社内の機密情報は部内や役職に応じてアクセス権を制御し、関係者だけが閲覧できるようにする。
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>完全性</td>
+                                <td>
+                                    情報が破壊、改竄、消去されておらず、正確であること。<br>
+                                    正しい情報が維持されている状態。<br>
+                                </td>
+                                <td>Gitなどでソースコードをバージョン管理することで、不正な変更やバグが見つかったとき正確な情報に復元できる。</td>
+                            </tr>
+                            <tr>
+                                <td>可用性</td>
+                                <td>
+                                    必要なときに必要な情報にアクセスできること。<br>
+                                    ユーザや関係者がアクセスした時に問題なく接続できる状態。<br>
+                                </td>
+                                <td>
+                                    企業は災害などに備えて、定期的に別拠点のクラウドやサーバにバックアップしておき、災害時でも業務継続できるようにしている。
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">情報の脅威</div>
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                ソーシャルエンジニアリング
+                            </span><br>
+                            人為的に機密情報を入手すること。<br>
+                            例：他人のパスワードのメモを盗み見る。ゴミ箱から重要書類を入手する。
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                マルウェア
+                            </span><br>
+                            マルウェアとはコンピュータやネットワークに対して被害を与える目的で作られたプログラムの総称。<br>
+                            ユーザの意図に反して、情報を盗んだり、破壊したり、操作を妨害するよう設計されたソフトウェアやソースコード。<br>
+                            以下、有名なマルウェアの種類一覧。
+                        </p>
+                        <table class="table_middle">
+                            <tr>
+                                <th>種類</th>
+                                <th>特徴</th>
+                                <th>攻撃例</th>
+                            </tr>
+                            <tr>
+                                <td>トロイの木馬</td>
+                                <td>正常なソフトを装ってPCに侵入し、裏で不正な操作を行う</td>
+                                <td>遠隔操作で情報の削除を行う/情報の抜き取りなど</td>
+                            </tr>
+                            <tr>
+                                <td>ワーム</td>
+                                <td>ネットワーク経由で増殖・感染していく</td>
+                                <td>通信量増加によりネットワークが遅延する</td>
+                            </tr>
+                            <tr>
+                                <td>[ウイルス]<br>スパイウェア</td>
+                                <td>ユーザーの行動や入力情報を収集</td>
+                                <td>個人情報(パスワードや位置情報、閲覧履歴etc)などを外部に送信</td>
+                            </tr>
+                            <tr>
+                                <td>[ウイルス]<br>ランサムウェア</td>
+                                <td>データを暗号化し、暗号解除と引き換えに金銭を要求</td>
+                                <td>ユーザーはファイルへのアクセスが不能になり、「金を払え」と警告画面が表示される</td>
+                            </tr>
+                            <tr>
+                                <td>[ウイルス]<br>アドウェア</td>
+                                <td>広告を強制的に表示し、クリックさせ収益を得る</td>
+                                <td>ポップアップ広告表示/ブラウザの乗っ取り</td>
+                            </tr>
+                        </table>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                マルウェアへの対策
+                            </span>
+                            1.ウイルス対策ソフトを導入し、常に最新版に更新する<br>
+                            2.ウイルスの特徴を収録した定義ファイルを最新のものへ更新する<br>
+                            &emsp;→Windows Updateをすれば一緒に更新してくれる<br>
+                            3.添付ファイルやダウンロードファイルを開く前にウイルスチェックをする<br>
+                            &emsp;→1のウイルス対策ソフトを入れていれば勝手にチェックしてくれる<br>
+                            4.ソフトウェアのセキュリティパッチを適用し、セキュリティホール（プログラムの欠陥）を補強する。<br>
+                            &emsp;セキュリティホールが見つかるとセキュリティパッチが公開されるのですぐに適用する
+                        </p>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                感染の兆候が見られた時の行動
+                            </span>
+                            「動作が遅い」「知らないファイルが作成される」などが感染の兆候。<br>
+                            ＜対策＞<br>
+                            ・他のコンピュータへの感染を防ぐため、ネットワークから切断する。<br>
+                            ・ウイルス対策ソフトでウイルスを駆除する。<br>
+                            ※普段からデータのバックアップを作成しておき、感染したときに備えておく。
+                        </p>
                         
-                        
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">情報の脅威</div>
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                サイバー犯罪
+                            </span><br>
+                            サイバー犯罪とはコンピュータやネットワークを悪用した犯罪。<br>
+                            ＜例＞<br>
+                            ・ワンクリック犯罪：<br>
+                            正式な契約をしてないのに、商品やサービスを購入したとして代金を請求。<br>
+                            ・フィッシング詐欺：<br>
+                            偽のWebサイトに誘導して、ユーザIDやパスワード、クレジットカード番号を盗み取る。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                サイバー犯罪への安全対策
+                            </span><br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ・ファイアウォール
+                            </span>
+                            外部からの不正アクセスやサイバー攻撃を防止する。また内部から外部へのアクセス制限も行うことができる。<br>
+                            万が一の時はアクセスログから原因を追跡できる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/14_firewall.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ・アクセス制御
+                            </span>
+                            管理者を設け、利用者に適切なアクセス権を付与する。<br>
+                            関係者以外は閲覧できないようにすることで情報漏洩のリスクを減らす。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ・フィルタリング
+                            </span>
+                            インターネットで出入りする情報を監視し、問題があれば接続を遮断すること。<br>
+                            有害サイトからの保護、私的利用の制限のために使われる。<br>
+                            ブラックリスト方式（閲覧不可なサイトを指定し見られなくする方式）とホワイトリスト（閲覧可能なサイトを指定して、それ以外を見られなくする方式）の2種類がある。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ・VLAN(Virtual LAN)
+                            </span>
+                            LAN(Local Are Network)のように物理的な接続に依存せず、仮想的なLANを構築する技術。<br>
+                            ネットワーク回線自体を利用者ごとに分けてしまうことで、複雑なアクセス制限の必要がなくなり、ネットワーク経由のマルウェア感染のリスクも軽減できる。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/14_VLAN.jpg">
+                        </div>
+                        <br>
+                        <p class="study_detail">
+                            以上〜<br>
+                            セキュリティについてはもう少し詳しく調べる必要がありそう。とりあえず基本的な用語の確認ということで、ここではOK！<br>
                         </p>
                         <br>
                     </div>

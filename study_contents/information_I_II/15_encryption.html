@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.6.12
+                        </div>
+                        <p class="study_ttl">
+                            暗号化
+                        </p>
+                        <p class="study_detail">
+                            ＜用語＞<br>
+                            暗号化：情報を送信する前に、第三者に傍受されても内容がわからないように変換する技術のこと。<br>
+                            鍵：暗号を解くためのパラメータ(値)<br>
+                            平文：暗号化前の元の文のこと。<br>
+                            復号：暗号文を元の文に戻すことを「復号する」という。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">暗号化の種類</div>
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ■共通鍵暗号方式
+                            </span>
+                            暗号化と復号化で同じ鍵（共通鍵）を使い、同じルールに従って暗号、復号を行う方式。<br>
+                            <br>
+                            <span class="yellow_highlight">
+                                共通鍵暗号方式の例：換字式暗号
+                            </span><br>
+                            古くから用いられている方式で、平文を一文字または数文字単位で別の文字や記号に変換する暗号方式。<br>
+                            ずらす文字数を二文字にしたり、一文字と二文字を交互にするなど様々なルールの換字式暗号がある。<br>
+                            いくつずらしたかの数が鍵となる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/15_commonKey_cryptosystem.jpg">
+                        </div>
+                        <p class="study_detail">
+                            しかし、20世紀初頭に「頻度分析」により解読方法が発見されてしい、衰退した暗号方式。<br>
+                            頻度分析とは、同じ鍵で暗号化された文字を文字毎に数え、多い方から順に一般的に使用頻度の高い文字を当てはめていく解読方法。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/15_frequency_analyses.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                ■共通鍵暗号の特徴
+                            </span><br>
+                            ＜メリット＞<br>
+                            ・暗号化ロジックが単純なため、暗号化の処理が早い。<br>
+                            ＜デメリット＞<br>
+                            ・共通化の鍵を誰にも傍受されずに相手に渡すことが難しい。<br>
+                            ・同じ鍵を使いまわせず暗号化の度に鍵が必要なので、どのデータにどの鍵を使ったか管理が大変。
+                        </p>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ■公開鍵暗号方式
+                            </span>
+                                共通鍵暗号方式のデメリットを解消するために生まれた暗号方式。<br>
+                                ネットワーク上に公開した公開鍵を使って暗号化してもらい、復号には自分だけの秘密鍵を使う方式。<br>
+                                特徴は、公開鍵は誰でも利用できるよう公開している点。鍵をかけることは誰でもできるが、開くことは秘密鍵を持っている人しかできない状態。<br>
+                            <br>    
+                            <span class="yellow_highlight">
+                                公開鍵暗号方式の例：RSA暗号
+                            </span><br>
+                            1977年に開発された、桁数の大きい「素数×素数」の合成数の解読が困難であることを利用した公開鍵方式。<br>
+                            <br>
+                            ※"「素数×素数」の合成数"とは？<br>
+                            素数とは、1と自分自身の数以外で割り切れない、1より大きい自然数。<br>
+                            「素数×素数」の合成数の例：<br>
+                            ・素数7 × 素数3 の合成数は21<br>
+                            ・素数31 × 素数23 の合成数は713<br>
+                            ・素数9,781 × 素数7,717 の合成数は75,479,977
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                RSA暗号化の公開鍵と秘密鍵の設定ロジックと暗号化/復号化の方法
+                            </span><br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/15_create_RSAkey.jpg">
+                        </div>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/15_RSAkey_encryption.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                ■公開鍵暗号の特徴
+                            </span><br>
+                            ＜メリット＞<br>
+                            ・公開鍵だけでは復号できないので、盗まれるリスクが低い。<br>
+                            ・秘密鍵はひとつなので、管理が容易。<br>
+                            ＜デメリット＞<br>
+                            ・暗号化の技術が複雑なので、復号化の処理が遅い。
+                        </p>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ■セッション鍵暗号方式
+                            </span>
+                            共通鍵暗号方式と公開鍵暗号方式を組み合わせた暗号方式。<br>
+                            一時的な共通鍵(セッション鍵)を生成して暗号化し、さらにこの共通鍵を公開鍵で暗号化する。<br>
+                            復号は秘密鍵を使って共通鍵を復号し、その共通鍵を使って平文に戻す。双方の通信が完了したら、共通鍵(セッション鍵)は破棄される。<br>
+                            公開鍵暗号化方式では、本文全体を暗号化していたので時間がかかっていたが、セッション鍵暗号方式では共通鍵という小さなデータだけを暗号化するので、時間が短縮される。<br>
+                            現代ではこのセッション鍵暗号方式がインターネットでの通信の際に使われている。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/15_sessionKey.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                セッション鍵暗号化方式が使われてる例：WebサイトのHTTPS通信(SSL/TLS)
+                            </span><br>
+                            まず、ブラウザ側がWebサーバに接続要求をして、接続の準備をする。<br>
+                            ＜HTTPS通信の準備＞<br>
+                            1.サーバ：公開鍵付きサーバ証明書をクライアントに送る<br>
+                            2.クライアント：サーバ証明書で「このWebサーバは本物か？」の認証を確認し、共通鍵（セッション鍵）を生成<br>
+                            3.クライアント：サーバにもらった公開鍵で共通鍵(セッション鍵)を暗号化してサーバに送る<br>
+                            4.サーバ：秘密鍵で復号して、共通鍵を得る<br>
+                            5.以後、共通鍵でHTMLやJSONなどの実データを暗号通信（AESなどの高速暗号）
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/15_hybrid_encryption.jpg">
+                        </div>
+                        <p class="study_detail">
+                            以上〜<br>
+                            身近なインターネット通信も暗号化されていたんだね。<br>
+                            Webサイトの閲覧だけじゃなくて、LINEでのチャット内容やZoomの映像や音声、クレジットカード決済もセッション鍵で暗号化されてるみたい。<br>
+                            めっちゃ身近〜<br>
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+    </body>
+</html>

@@ -115,6 +115,19 @@
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/16_parityBit_exam.jpg">
                         </div>
+                        <p class="study_ttl">でもでも〜</p>
+                        <p class="study_detail">
+                            UTF-8で使用する場合、8ビットづつデータ構成されていから、8ビットのデータを解析するよね？<br>
+                            検出ビットがあるとビットがずれて表示される情報がおかしくならない？ChatGPTの回答は以下のとおり。<br>
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                通常、データの後や別領域に付加情報として追加され、本体のビット列に割り込むことはありません。<br>
+                                なぜ壊れない？理由は<br>
+                                ・誤り検出用のビットは、データ「本体」とは別枠で送信される<br>
+                                ・データリンク層や物理層レベルで「ビット単位の通信全体」に付けられますが、上位のアプリケーション（UTF-8で文字を読む処理）に渡されるときにはすでに検査・除去済みです。
+                            </p>
+                        </div>
 
                         <p class="study_detail">
                             以上〜<br>

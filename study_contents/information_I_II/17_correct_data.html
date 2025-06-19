@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.6.19
+                        </div>
+                        <p class="study_ttl">
+                            データ収集と整理
+                        </p>
+                        <p class="study_detail">
+                            インターネットの普及で情報収集が楽になった一方で、デマデータも多く、正しい情報を拾うためには複数サイトを確認することが必要。<br>
+                            しかし、多くの意見が必要なときは、オープンデータやサンプル調査が好ましい。<br>
+                            ＜用語＞<br>
+                            オープンデータ：インターネットで公開されており、無償で二次利用できるデータ<br>
+                            &emsp;例）<br>
+                            &emsp;政府統計の総合窓口「e-Stat」<br>
+                            &emsp;地域分析搭載システム「RESAS」<br>
+                            &emsp;日本政府の保有しているデータサイト「DATA DO.JP」<br>
+                            サンプル調査：年齢や性別に偏りがないよう抽出した集団(サンプル)に対して行う調査。
+                        </p>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ■データ集計時の注意点
+                            </span>
+                            <span class="yellow_highlight">
+                                外れ値
+                            </span><br>
+                            他のデータから大きく外れたデータを外れ値という。<br>
+                            こういったデータがある場合は、その値を確認し、データの入力ミスや測定ミスの場合は「異常値」といい、削除する。<br>
+                            そのような根拠がない場合は削除しないこと。<br>
+                            <span class="yellow_highlight">
+                                欠損値
+                            </span><br>
+                            データの値が不明だったり、収集されないかったりする値は欠損値という。<br>
+                            分析の場合は注意を払い、次回以降の集計の際は工夫する必要がある。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/17_pointsOfattention.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                ■基本統計量：データの特徴を表すひとつの値
+                            </span>
+                        </p>
+                        <table class="table_middle">
+                            <tr>
+                                <th>基本統計量</th>
+                                <th>性質</th>
+                                <th>Excel 関数</th>
+                            </tr>
+                            <tr>
+                                <td>平均値</td>
+                                <td>合計をデータの個数で割った値</td>
+                                <td>AVERAGE(範囲)</td>
+                            </tr>
+                            <tr>
+                                <td>中央値</td>
+                                <td>データをソートした時、真ん中にくる値</td>
+                                <td>MEDIAN(範囲)</td>
+                            </tr>
+                            <tr>
+                                <td>最頻値</td>
+                                <td>
+                                    データの個数が一番多い値。<br>
+                                    異なる値でデータの個数が同じ場合は最頻値は2つ以上存在する
+                                </td>
+                                <td>MODE.SNGL(範囲)</td>
+                            </tr>
+                            <tr>
+                                <td>分散</td>
+                                <td>データのばらつきを表す値。偏差(平均値との差)の2乗の平均値</td>
+                                <td>VAR.P(範囲)</td>
+                            </tr>
+                            <tr>
+                                <td>標準偏差</td>
+                                <td>データのばらつきを表す値。分散の正の平方根</td>
+                                <td>STDEV.P(範囲)</td>
+                            </tr>
+                        </table>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                分散の求め方
+                            </span><br>
+                            1.平均値を求める(画像例：平均値=10)<br>
+                            2.各数値の偏差を求める。偏差が大きいほどデータのばらつきも大きい<br>
+                            3.偏差の合計は必ず0になるので、偏差を2乗しマイナス(平均値より低い)偏差もプラスにする<br>
+                            4.偏差の2乗の合計をデータの個数で割り、偏差の平均値を求める<br>
+                            &emsp;(画像例：100(偏差の2乗の合計)÷10(データ個数)=10(分散))<br>
+                            ※分散の値(10)には”10点”や”10m”などの単位はつけない。理由は、偏差を2乗しているため単位も2乗(例：点の2乗)となるが、そんな単位は存在しないため。<br>
+                            &emsp;単位をつけたい場合は、標準偏差の値を使う。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/17_variance.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                標準偏差の求め方
+                            </span><br>
+                            分散の値の平方根を求める。<br>
+                            &emsp;(画像例：100(偏差の2乗の合計)÷10(データ個数)=10(分散)の平方根は√10(標準偏差))<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/17_standardDeviation.jpg">
+                        </div>
+                        <p class="study_detail">
+                            分散や標準偏差の値が大きい方がばらつきが多いということになる。<br>
+                            また、多くのデータを集めた場合の値をグラフで表すと、平均値を軸に左右対称になる。<br>
+                            この時、平均値から標準偏差だけ離れた範囲にデータ全体の約68％が収まり、標準偏差の2倍の範囲にデータ全体の役95％が収まる。<br>
+                            これを目安として使うことができ、データ分析の際の傾向を予測することができる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/17_standardDeviation_graph.jpg">
+                        </div>
+                        <br>
+                        <p class="study_detail">
+                            以上〜<br>
+                            以前は経理やってたのでデータ収集はよくやってて、中央値や平均値はよく使ったけど、標準偏差は初めて聞いた。<br>
+                            データ数が少なくても標準偏差を使えばある程度の傾向が予測できるのは便利かも？
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+    </body>
+</html>

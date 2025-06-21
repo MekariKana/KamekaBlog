@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.6.20
+                        </div>
+                        <p class="study_ttl">
+                            データ分析方法
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">相関関係</div>
+                        </div>
+                        <p class="study_detail">
+                            ＜用語＞<br>
+                            相関関係：一方が増減すれば、それに伴ってもう一方も増減する状態のこと<br>
+                            例）日傘が売れる日はアイスも売れる→正の相関がある<br>
+                            因果関係：原因と結果につながりがある関係のこと<br>
+                            例）気温が高い日は、日傘とアイスが売れる→因果関係がある<br>
+                            擬似相関：相関関係はあるが、因果関係がないこと<br>
+                            例）日傘が売れたから、アイスが売れた訳ではない→相関関係はあるが、原因ではない<br>
+                            交絡因子：擬似相関があるものの、隠れた要因のこと<br>
+                            例）日傘とアイスの売上に影響しているのは「気温」→2つの要素以外の隠れた要因<br>
+                            <br>
+                            相関の強さを数値で表したものを「相関係数」という。相関係数の範囲は-1以上1以下である。<br>
+                            相関の強さはこの係数の大きさによって判断する。<br>
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_correlation.jpg">
+                        </div>
+                        <p class="study_detail">
+                            相関係数が-1または1のときの散布図は、すべての点（データ）が一直線になる。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_correlation2.jpg">
+                        </div>
+                        <p class="study_detail">
+                            相関係数が0の場合は、"直線的な"関係がないということ。<br>
+                            他の規則性がないとは言い切れないので散布図を作成し確認する。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_correlation3.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                相関関係の強さによる分析
+                            </span>
+                            相関関係が強いとは、一方の要素がもう一方の要素に強く影響しているということ。<br><br>
+                            <span class="yellow_highlight">
+                                例）睡眠時間と強化への相関の強さ
+                            </span><br>
+                            以下の画像では、C12セルに”=CORREL($B2:$B11,C2:C11)”、
+                            D12セルに”=CORREL($B2:$B11,D2:D11)”の関数を入れ、睡眠時間と各教科との相関係数を計算している表である。<br>
+                            表からわかることは以下のとおり。<br>
+                            ・国語と数学どちらも正の相関があるが、相関係数が高い数学のほうがより相関が強い<br>
+                            →数学の方が睡眠時間が短い場合、点数への影響が大きいということ<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/18_correlation_table.jpg">
+                        </div>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_correlation_chart.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                外れ値
+                            </span>
+                            誤った値が含まれる場合、相関係数も変わってしまうので、係数が正しいかは散布図で確認する必要がある。<br><br>
+                            <span class="yellow_highlight">
+                                例）睡眠時間と強化への相関の強さ
+                            </span><br>
+                            表からわかることは以下のとおり。<br>
+                            ・数学の相関係数がマイナス0.120...となっており0に近く相関ないように見える<br>
+                            ・散布図を見ると大きく外れた値がある<br>
+                            →外れ値がひとつあるだけで相関係数は大きく変わってしまう。外れ値以外の数値だけ見れば相関関係はある。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/18_correlation_table2.jpg">
+                        </div>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_correlation_chart2.jpg">
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">回帰分析</div>
+                        </div>
+                        <p class="study_detail">
+                            ＜用語＞<br>
+                            回帰：原因xとその結果yの2つの変数に回帰式 y = f(x)を当てはめること<br>
+                            ※ y = f(x)とは、xに応じてyがどう変わるかを表す関数のこと<br>
+                            &emsp;fはfunction(関数)のことで、f(x)はxに値を入れると、ある関数f(ルール)に従ってy(結果)がでることを表している<br>
+                            &emsp;例）f(x) = 2x + 1 で x = 1 の場合：f(1) = 2 × 1 + 1 = 3 なので y = 3となる
+                            回帰分析：回帰式を使って分析すること。散布図の点の並び(傾向)から、それに合う関数式を見つけて、未知のx(原因)に対してy(結果)を予測する。<br>
+                            線形回帰(単回帰)：分散しているデータの近似値をとったとき直線になるデータのこと。f(x) = ax + bの傾向がある
+                            回帰直線：線形回帰で表された直線そのもののこと
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/18_regressionLine.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                回帰式の種類
+                            </span>
+                            データの分布が、直線で表せない場合は曲線で表す。直線以外の種類は以下のとおり。<br>
+                            それぞれ対応する関数もある。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_regressionEquations.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                回帰式の精度
+                            </span>
+                            <span class="yellow_highlight">
+                                決定係数
+                            </span><br>
+                            回帰式が実際のデータの数値に近いかどうかを表してもの。<br>
+                            &emsp;決定係数Rの2乗は0以上1以下の範囲で表され、1に近いほど回帰式で引いた線の近くにデータが集まっていることを表している<br>
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_coefficientDetermination.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                回帰式との誤差(残差)
+                            </span><br>
+                            相関係数rが+1、または-1の時以外は、必ず線と各データに誤差がある。<br>
+                            この誤差を残差と呼び、残差が小さい＝誤差が小さい直線となる。<br>
+                            残差はマイナスとプラスがあるので、単純に残差を合計するのではなく、2乗してその和が小さくなるように線を引いていく。<br>
+                            この残差を最小にする回帰式を求める方法を「最小二乗法」という。これが「0.5以上だと当てはまりの良い直線」だと言える。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_minimumResidual.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                回帰直線による分析
+                            </span>
+                            <span class="yellow_highlight">
+                                例）年間平均気温から未来の気温を予測
+                            </span><br>
+                            以下の表から散布図を作成し、回帰直線をひいたところ<br>
+                            回帰式はy = 0.024x - 31.844<br>
+                            決定係数はR² = 0.808<br>
+                            となった。<br>
+                            <br>
+                            グラフからわかることは以下のとおり。<br>
+                            ・2100年の平均気温は約18.5度になるので、これから先も暑くなる<br>
+                        </p>
+                        <div class="mini_img">
+                            <img src="../../img/study/information_I_II/18_table.jpg">
+                        </div>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/18_chart.jpg">
+                        </div>
+                        <br>
+                        <p class="study_detail">
+                            以上〜<br>
+                            回帰分析の決定係数や最小二乗法の理解が不十分だけど、相関関係のあるデータには回帰直線がひけるよね。でも分析の目的が違うということはわかった。<br>
+                            回帰分析は、xからyを導き出す関数を求め、未知のデータを予測するのに対して、相関関係はあくまでxとyのデータに関連性があるかどうかを見るだけ。<br>
+                            ちなみにIT業界でいう回帰テストの回帰とは関係ないらしい。回帰分析は「平均への回帰＝平均に戻る」ことが由来で、回帰テストは「以前の状態に回帰＝以前の状態に戻す」が由来みたい。
+                            回帰テストではデグレしてないか、改修前のバージョンでもテストして改修後と比較して、意図しない変更点などがないか確認するテストだけど、いつもテストに追われてて単語の意味なんて意識してなかったな〜。と話が脱線して終わり〜<br>
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+    </body>
+</html>

@@ -505,6 +505,28 @@ video {
   display: inline-block;
 }
 
+.large_img{
+  margin-bottom: 20px;
+}
+
+.large_img img{
+  max-width: 90%;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.mini_img{
+  margin-bottom: 20px;
+}
+
+.mini_img img{
+  max-width: 30%;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
 [class^="table_"]{
   table-layout: auto;
   border-collapse:separate;
@@ -544,54 +566,6 @@ video {
 .table_wide{
   width: 100%;
 }
-
-/*-----
-.table_small{
-  border-collapse:separate;
-  border-spacing: 5px;
-  width: 360px;
-}
-
-.table_small th, .table_small td{
-  border-radius: 5px;
-  text-align: center;
-  padding: 10px 0;
-}
-
-.table_small th{
-  background-color: #79a1b1;
-  color: white;
-  border:solid 1px #9b9a9a;
-}
-
-.table_small td{
-  background-color: #eee;
-  border:solid 1px #9b9a9a;
-}
-
-.table_middle{
-  border-collapse:separate;
-  border-spacing: 5px;
-  width: 720px;
-}
-
-.table_middle th, .table_middle td{
-  border-radius: 5px;
-  text-align: center;
-  padding: 10px 0;
-}
-
-.table_middle th{
-  background-color: #79a1b1;
-  color: white;
-  border:solid 1px #9b9a9a;
-}
-
-.table_middle td{
-  background-color: #eee;
-  border:solid 1px #9b9a9a;
-}
-----------*/
 
 .hissan {
   line-height: 0.3em;
@@ -792,6 +766,18 @@ nav ul li a {
 
   .table_small, .table_middle {
     width: 100%;
+  }
+
+  .small_img img{
+    max-width: 100%;
+  }
+
+  .large_img img{
+    max-width: 100%;
+  }
+
+  .mini_img img{
+    max-width: 40%;
   }
 }
 

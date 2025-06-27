@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.6.27
+                        </div>
+                        <p class="study_ttl">
+                            Python基礎知識
+                        </p>
+                        <p class="study_detail">
+                            PythonはAIの言語としても有名だけど、情報の科目や基本技術者試験の勉強範囲に含まれてるってことは、エンジニアとしても基礎知識ってことみたい。<br>
+                            すでに勉強済みのJavaとの違いや構文の特徴などを意識しながら勉強しようと思う。<br>
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">文字列と数値の計算</div>
+                        </div>
+                        <p class="study_detail">
+                            表示するだけではJavaとあまり大きな違いは感じなかったけど、累乗は馴染みがなかったので注意。
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 文字列の表示
+print('Hello')
+
+#------------------------------#
+
+# 数値の計算
+print(3)        #「3」を表示
+print(3 + 5)    #「3 + 5」を計算
+print(3 - 5)    #「3 - 5」を計算
+print(3 * 2)    #「3×2」を計算。かけ算の記号はアスタリスク「*」
+print(3 / 2)    #「3÷2」を計算。割り算の記号はスラッシュ「/」
+print(7 % 3)    #「7を3で割った余り」を求める。余りを求める記号は「%」
+print(2 ** 3)   #「2の3乗」を計算
+print('3 - 5')  #「''」で囲むと、文字列として扱われる。
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                # 文字の表示<br>
+                                こんにちは<br>
+                                <br>
+                                # 数値の計算<br>
+                                3<br>
+                                8<br>
+                                -2<br>
+                                6<br>
+                                1.5<br>
+                                1<br>
+                                8<br>
+                                3 - 5<br>
+                            </p>
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">変数への代入と値の更新</div>
+                        </div>
+                        <p class="study_detail">
+                            Javaとの違いは、まず型の宣言はしない。自動で認識するよう。
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 変数への代入
+x = 20     # 変数xに20を代入。型宣言は必要ない
+y = 'Tom'  # 変数yに文字列「Tom」を代入
+print(x)   # 変数xを表示
+print(y)   # 変数yを表示
+
+#------------------------------#
+
+# 変数の値の更新
+x = 5
+print(x)
+
+x += 10  # x=5に10を加えた数を代入
+print(x)
+x -= 5  # x=15から5を引いた数を代入
+print(x)
+x *= 5  # x=10に5をかけた数を代入
+print(x)
+x /= 5  # x=50を5で割った数を代入
+print(x)
+x %= 4  # x=10を4で割ったときの余りを代入
+print(x)
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                # 変数への代入<br>
+                                20<br>
+                                Tom<br>
+                                <br>
+                                # 変数の値の更新<br>
+                                5<br>
+                                15<br>
+                                10<br>
+                                50<br>
+                                10.0<br>
+                                2.0<br>
+                            </p>
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">文字列の連結とデータ型の変換</div>
+                        </div>
+                        <p class="study_detail">
+                            連結は特徴があるなと思った。連結方法は2つある。<br>
+                            1. "+"(プラス) で連結：print('A' + 'B')<br>
+                            2. ","(コンマ) で連結：print('A', 'B')<br>
+                            違いは2点、<br>
+                            1つ目は","での連結では文字の間にスペースが出力されること、<br>
+                            2つ目は"+"の連結の場合、違う型同士の連結はerrorになるので型を統一するようキャストする必要があること。<br>
+                            ちなみに","での連結なら、違う型同士でも問題なく出力される。<br>
+                            以下コードで確認していく。
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 文字列の連結
+
+print('Hello' + ' ' + 'everyone')  # 2つの文字列『Hello 』と『everyone』を連結
+
+name = 'Tom'
+print('Hello' + ' ' + name)        # 文字列『Hello 』と変数『name』を連結
+
+print('Hello', name)         # コンマ「,」で区切って連結。自動で連結の間にスペースが入る
+
+#------------------------------#
+
+# データ型の変換(キャスト)
+print(5 + 7)      # 数値「5 + 7」の計算
+print('5' + '7')  # 文字列「5」と「7」の連結
+print('5' , '7')  #コンマで連結するとスペースが入る
+
+price = 100
+print('りんごは' + str(price) + '円です')
+# 文字列「りんごは」「円です」と、数値「price」の連結はできないのでpriceを文字列に変換
+# print('りんごは' + x + '円です。') ←これを実行するとエラーになる
+
+x = '10' # ''で囲んでいるので文字列
+print(3 * int(x)) # x = '10'を数値(整数)に変換して計算
+# print(3 * x) ←これも実行するとエラーになる
+
+x = '0.5'
+print(float(x) * 3) # 変数「x」を数値(浮動小数点数)に変換
+
+point = 100
+print('テストは', point, '点でした')
+#「テストは」「点でした」は文字列。「point」は数値(整数)。
+# でもコンマで区切れば、データ型を気にせず連結できる。
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                # 文字列の連結<br>
+                                Hello everyone<br>
+                                Hello Tom<br>
+                                Hello Tom<br>
+                                <br>
+                                # データ型の変換<br>
+                                12<br>
+                                57<br>
+                                5 7<br>
+                                りんごは100円です<br>
+                                30<br>
+                                1.5<br>
+                                テストは 100 点でした<br>
+                            </p>
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">条件分岐</div>
+                        </div>
+                        <p class="study_detail">
+                            条件分岐のPointは以下のとおり。<br>
+                            ・条件の後に”:”(コロン)をつける、elif / elseも同様に文末は":"で締める<br>
+                            ・条件文(if文)の中の処理は、Tabでインデントをつけて表す<br>
+                            ・否定の書き方は2種類、"x!=y" または not(x==y)<br>
+                            以下、条件分岐のコード例を確認する。
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 比較演算子
+
+x = 10
+
+if x == 10: # 最後に":"をつける
+  print('xは10である。') # if文の中の処理はインデントをつける
+                            
+if x != 11:
+  print('xは11ではない。')
+
+if x > 5:
+  print('xは5より大きい。')
+
+if x < 11:
+  print('xは5より小さい。')
+
+if x >= 10:
+  print('xは10以上。')
+
+if x <= 10:
+  print('xは10以下。')
+
+#------------------------------#
+
+# 条件分岐の構文
+
+# 入力を求める。入力された値は『文字列』となるので注意！
+str_score = input('点数を入力してください。')
+score = int(str_score)      # 数値に変換。
+str_avr = input('平均点を入力してください。')
+avr = int(str_avr)
+
+# if文の条件文とelseの末尾に”:”をつける
+# 先頭に『Tab』でスペースを入れると『ifの中』、開けないと『ifの外』となる
+
+# 変数『score』の値が80以上ならば…(80 < x)
+if score > 80:
+  print('よくできました。')  # 「よくできました」と表示。
+
+# そうでないとき、変数『socre』の値が50以上または平均点以上ならば
+elif (score > 50) or (avr < score):
+  print('まずまずです。')    # 「まずますです。」と表示。
+
+# そうでなければ…(x <= 50)
+else:
+  print('残念でした。')      # 「残念でした」と表示。
+print('点数報告は以上です。') # 先頭に『Tab』でスペースを空けないと『ifの外』となるので、絶対実行される
+
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                # 比較演算子<br>
+                                xは10である。<br>
+                                xは11ではない。<br>
+                                xは5より大きい。<br>
+                                xは5より小さい。<br>
+                                xは10以上。<br>
+                                xは10以下。<br>
+                                <br>
+                                # 条件分岐の構文<br>
+                                点数を入力してください。45<br>
+                                平均点を入力してください。40<br>
+                                まずまずです。<br>
+                                点数報告は以上です。<br>
+                                <br>
+                            </p>
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">反復処理(for/while)</div>
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                            反復処理：for
+                            </span>
+                            whileとは違い、forは繰り返し回数を指定するので、繰り返し回数が明確な時に使う。<br>
+                            for文のコード例を以下で確認。<br>
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 反復処理(for)の構文
+
+# 条件分岐と同様、文末に':'を忘れずに！
+# 反復処理を抜ける場合はbreak
+for i in range(10): # i = 0,1,…,9で実行。
+  print(i)          # 『i』を表示。
+  if i >= 5:        # もし、iが5以上ならば…
+    break           # forの繰り返しを終了し、forを抜ける
+  print('・')       # 『・』を表示。print(i)と同じインデントなのでif文の外、かつ反復処理の中
+
+#------------------------------#
+
+# ステップ幅の設定
+
+# range(開始値, 終了値, ステップ幅)
+for i in range(1, 10, 2): # ステップ幅が2なので、2個ずつ処理される 
+  print(i)
+
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                # 反復処理(for)の構文<br>
+                                0<br>
+                                ・<br>
+                                1<br>
+                                ・<br>
+                                2<br>
+                                ・<br>
+                                3<br>
+                                ・<br>
+                                4<br>
+                                ・<br>
+                                5<br>
+                                <br>
+                                # ステップ幅の設定<br>
+                                1<br>
+                                3<br>
+                                5<br>
+                                7<br>
+                                9<br>
+                                <br>
+                            </p>
+                        </div>
+
+                        <p class="study_detail">
+                            <span class="study_sub_ttl">
+                                反復処理：while
+                            </span>
+                            forは反復回数を指定するのに対して、whileは設定しないので、何回繰り返すかわからない時に使う。<br>
+                            whileのコード例を以下で確認。<br>
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 反復処理(while)の構文
+
+# n以下の自然数の和 S = 1 + 2 + 3 + … + n において、
+# S > 100 となる最小の自然数nを求めるプログラム
+
+sum = 0
+n = 1
+
+while sum <= 100:   # sum>100になったら繰り返し終了。
+  sum += n          # n = 14のとき、1+2+3+…14 = 105で100を超える
+  n += 1            # 105の後でもnに1加算する処理は実行されるのでn=15になる
+
+# 自然数が100未満となる最小の自然数は1を加算する前の14なので、nを1減らして表示。
+print('S = 1 + 2 + 3 + … + n において、S > 100となる最小の自然数nは、n = ', + n - 1)  
+
+#-----forで書くと以下のとおり-----#
+
+sum = 0
+
+for n in range(100):  # i = 100まで繰り返す
+  sum += n            # n = 14のとき、1+2+3+…14=105になる
+  if sum > 100:       # sum>100のとき、
+    break             # forの繰り返しを終了
+
+# forでは処理の文末ではなく、繰り返し処理の前に1加算しているので、そのままnを表示。
+print('S = 1 + 2 + 3 + … + n において、S > 100となる最小の自然数nは、n = ', + n)
+
+#------------------------------#
+
+# 偶数の後ろには「〇」を表示するプログラム
+
+# コードが長いので推奨しない処理
+
+# 【注意】
+# printの最後には自動で改行(\r)が追加されるため勝手に改行される
+# 改行を阻止するにはend=''を追加し、文末の文字を明示的に指定する
+
+for i in range(21):      # 0から始まるので反復回数は21にすると数字20まで反復する
+  print(i, end = '')     # 数字を表示、改行なし
+  if i % 2 == 0:         # iが偶数のとき
+    print('◯', end = '') # '◯'を表示、改行なし
+  print('')              # 改行を追加
+ 
+#---上記の処理をもっとシンプルに書く---#
+
+# 推奨の処理
+
+for i in range(21):
+  if i % 2 == 0:         # iが偶数のとき
+    print(str(i) + '◯')  # '◯'をつけて表示
+  else:                  # 上記以外なら
+    print(i)             # 数字だけ表示
+
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                # 反復処理(while)の構文<br>
+                                <br>
+                                # n以下の自然数の和 S = 1 + 2 + 3 + … + n において、S > 100 となる最小の自然数nを求めるプログラム<br>
+                                S = 1 + 2 + 3 + … + n において、S > 100となる最小の自然数nは、n =  14<br>
+                                <br>
+                                # 偶数の後ろには「〇」を表示するプログラム<br>
+                                0◯<br>
+                                1<br>
+                                2◯<br>
+                                3<br>
+                                4◯<br>
+                                5<br>
+                                6◯<br>
+                                7<br>
+                                8◯<br>
+                                9<br>
+                                10◯<br>
+                                11<br>
+                                12◯<br>
+                                13<br>
+                                14◯<br>
+                                15<br>
+                                16◯<br>
+                                17<br>
+                                18◯<br>
+                                19<br>
+                                20◯<br>
+                                <br>
+                            </p>
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">配列(list)</div>
+                        </div>
+                        <p class="study_detail">
+                            主な特徴は以下のとおり。<br>
+                            ・要素はコンマ「,」で区切る。<br>
+                            ・『len(リスト名)』で、リストの長さ(要素の個数)を表示<br>
+                            listのコード例は以下。<br>
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# listの構文
+# 反復(for)で入力された値の合計を求める
+
+number = [0, 0, 0, 0, 0]      # 要素を5つもつリストを宣言。
+sum = 0
+
+print('数値を入力してください。')
+for i in range(5):            # i = 0,1,2,3,4で実行。
+  number[i] = input(str(i + 1) + '個目') # 数値を入力してもらう。
+
+for i in range(len(number)):  # リストの長さだけ繰り返す。
+  sum += int(number[i])       # リストの要素を整数に変換しながら、変数『sum』に加えていく。
+
+print('合計は', sum)    # 変数『sum』を文字列に変換して、表示。
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                # liseの構文<br>
+                                数値を入力してください。<br>
+                                1個目1<br>
+                                2個目2<br>
+                                3個目3<br>
+                                4個目4<br>
+                                5個目5<br>
+                                合計は 15<br>
+                                <br>
+                            </p>
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">関数の定義</div>
+                        </div>
+                        <p class="study_detail">
+                            関数はJavaでいうメソッドみたいなもの。<br>
+                            値を変えて同じような処理をする場合、何度も同じコードを書くと可読性も悪いし、めんどくさい。<br>
+                            だから同じような処理は関数(メソッド)として定義し、変動する値は定義した処理を呼び出す時にパラメータとして与える。<br>
+                            Javaとの違いは以下のとおり。<br>
+                            ・Pythonではどこでも関数を書けるが、Javaでは必ずクラスの中に書く<br>
+                            ・Pythonでは戻り値の設定や型など自由に書けるが、Javaではメソッドの最初に指定する<br>
+                            ・Javaではmainメソッドから実行される<br>
+                            以下、Pythonの関数定義のコード例で確認。
+                            <br>
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 関数の定義
+# 再帰関数(自分自身を関数の中で繰り返し実行)：組合せ(nCr)の計算プログラム
+
+# 組合せ nCr を求めるプログラム。「[n]C[r] = [n-1]C[r] + [n-1]C[r-1]」を利用する
+# nは全体の個数、rは選ぶ個数、Cは組み合わせのこと、「n個の中からr個を順不同で選ぶ方法の数」を求める
+# nCrはr=0またはr=nのとき1が戻り値となり、それ以外はn-1Cr + n-1Cr-1 が戻り値となる
+
+def kumiawase(n ,r):    # 関数定義「kumiawase」が関数名、(n, r)はパラメータ
+  if r == 0 or n == r:  # nCrはr=0またはr=nのとき
+    return 1            # 1が戻り値
+  else:                 # それ以外のとき
+    return kumiawase(n - 1, r)  + kumiawase(n - 1, r - 1) # kumiawase関数を再度呼び出し
+
+# ----▲ここまでが関数の定義▲----
+
+n = input('整数を入力してください：')
+
+for i in range(int(n)):   # inputされた値の回数だけ繰り返し
+  print(n,'C',i,"=",kumiawase(int(n),i))  # kumiawase
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p>
+                                整数を入力してください：7<br>
+                                7 C 0 = 1<br>
+                                7 C 1 = 7<br>
+                                7 C 2 = 21<br>
+                                7 C 3 = 35<br>
+                                7 C 4 = 35<br>
+                                7 C 5 = 21<br>
+                                7 C 6 = 7<br>
+                                <br>
+                            </p>
+                        </div>
+
+                        <br>
+                        <p class="study_detail">
+                            以上〜<br>
+                            Javaと書き方は似てるし、使える機能もここまでは同じかな。<br>
+                            どの言語も少し構文が違うだけ？とりあえず何やってるか読めれば自分的には及第点かなと思う。<br>
+                            やっぱり大事なのはアルゴリズムの組み方なのかな、そのためにも色々なコードに触れてアイディアを持つことが大事かも！<br>
+                            がんばろ＾＾！
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

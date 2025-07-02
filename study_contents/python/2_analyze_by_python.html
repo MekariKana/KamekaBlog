@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>Python</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.7.2
+                        </div>
+                        <p class="study_ttl">
+                            Pythonによるデータ分析
+                        </p>
+                        <p class="study_detail">
+                            Pythonではグラフを作ったり、<a href="../information_I_II/18_analyze_data.html">平均値や標準偏差</a>などを求めたりできるデータ分析用のライブラリが用意されているみたい。<br>
+                            データ分析するとき、どのようなコードを書くのかをメモしておく。
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">csvファイルの読み込み</div>
+                        </div>
+                        <p class="study_detail">
+                            ＜コードの注意点＞<br>
+                            Google Colaboratryを使用して実行しているため、ブラウザ経由のアップロードになる。<br>
+                            ローカルファイルをブラウザにアップロードすると「バイト列」で送られるので、csvファイルとして認識できるようio.BytesIOでラップしている。<br>
+                            ローカルで動かす時は、Google Colaboratry特有の「from google.colab import files」や「import io」の記述はいらない。<br>
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# ファイルの読み込み
+#@title [6-1] csvファイルを読み込む
+
+from google.colab import files # google Colaboratry特有
+import pandas as pd   # データ解析ライブラリ「pandas」を読み込む
+import io              # google Colaboratry特有
+
+dat = files.upload()  # ファイルのアップロードを行う。google Colaboratry特有
+
+df = pd.read_csv(io.BytesIO(dat['Fitness test.csv'])) # csvファイルの内容を、変数『df』に代入。io.BytesIOはgoogle Colaboratry特有
+
+
+#----Google Colaboratryを使用しない場合----#
+import pandas as pd
+
+df = pd.read_csv('Fitness test.csv') # ファイルパスを指定するだけでファイルを扱える
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            上記のコード内ではcsvファイルを読み込む「pd.read_csv」を使っているが、他のファイル形式は以下のコードで読み込む。
+                        </p>
+                        <table class="table_small">
+                            <tr>
+                                <th>ファイル形式</th>
+                                <th>関数</th>
+                            </tr>
+                            <tr>
+                                <td>Excel</td>
+                                <td>pd.read_excel()</td>
+                            </tr>
+                            <tr>
+                                <td>JSON</td>
+                                <td>pd.read_json()</td>
+                            </tr>
+                            <tr>
+                                <td>HTML</td>
+                                <td>pd.read_html()</td>
+                            </tr>
+                            <tr>
+                                <td>SQL</td>
+                                <td>pd.read_sql()</td>
+                            </tr>
+                            <tr>
+                                <td>クリップボード</td>
+                                <td>pd.read_clipboard()</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">平均値・中央値・最頻値と分散・標準偏差を求める</div>
+                        </div>
+                        <p class="study_detail">
+                            アップロードされているファイル「Fitness test.csv」を読み込み、分析に必要な数値を求める。<br>
+                            平均値・中央値・最頻値は、計算や読み込んだ数値を配列として操作をするためのライブラリ「numpy」を使用する。<br>
+                            分散・標準偏差はそれぞれリスト名.var/リスト名.stdで求める。
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 平均値・中央値・最頻値を求める
+# 平均値：np.mean()
+# 中央値：np.median()
+# 最頻値：np.argmax()
+
+import pandas as pd            # データ分析用ライブラリ「pandas」を読み込む。
+import numpy as np             # 数値計算や配列操作用ライブラリ「numpy」を読み込む。
+
+dat = pd.read_csv('Fitness test.csv') # 使用するcsvファイルの内容を、変数『dat』に代入。
+
+item = '50ｍ run'                # ファイルの中から平均値・中央値・最頻値を求めたい行の見出しを入力。
+
+print('平均値',np.mean(dat[item]))  # 『dat['50ｍ run']』で、50m走の列をリストとして読み込む。
+print('中央値',np.median(dat[item]))
+
+count = np.bincount(dat[item]) # 各数字が何回出現したか数え、配列で返す
+# 例：np.array([0, 1, 1, 2, 2, 2, 3])の場合、戻り値は[1 2 3 1]→0が1回、1が2回…
+
+print('最頻値',np.argmax(count)) # 出現回数が一番多かった数字を返す
+# 例：np.array([0, 1, 1, 2, 2, 2, 3])の場合、戻り値は最頻出の2
+
+
+#------------------------------------#
+# 分散・標準偏差を求める
+# 分散：リスト名.var()
+# 標準偏差：リスト名.std()
+
+dat = pd.read_csv('Fitness test.csv') # 使用するcsvファイルの内容を、変数『dat』に代入。
+
+item = 'weight' # 分析したい項目をファイルの中の行から選ぶ。
+
+var = dat[item].var()     # リスト『dat[item]』の要素から分散を求める。
+print("分散：", var)
+
+std = dat[item].std()     # リスト『dat[item]』の要素から標準偏差を求める。
+print("標準偏差：", std)
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                # 平均値・中央値・最頻値を求める<br>
+                                平均値 7.202184466019418<br>
+                                中央値 7.1<br>
+                                最頻値 7<br>
+                                <br>
+                                # 分散・標準偏差を求める<br>
+                                項目： weight<br>
+                                分散： 63.60211483948693<br>
+                                標準偏差： 7.975093406317379<br>
+                            </p>
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">ヒストグラムの描写</div>
+                        </div>
+                        <p class="study_detail">
+                            アップロードされているファイル「Fitness test.csv」を読み込み、ヒストグラムを作成する。                            
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# ヒストグラムを描画
+import pandas as pd            # データ分析用ライブラリ「pandas」を読み込む。
+import matplotlib.pyplot as plt    # グラフ作成用ライブラリ「matplotlib」を読み込む。
+# 「pyplot」は「matplotlib」のサブモジュール。グラフデータを関数ベースで入力、操作することができる
+
+#ヒストグラム化するデータの読み込み
+dat = pd.read_csv('Fitness test.csv') # アップロードされたcsvファイルの内容を、変数『dat』に代入。
+
+item = 'height'
+
+#グラフ処理
+plt.ylabel('Number', fontname="MS Gothic") # y軸のラベル「Number」と設定
+plt.xlabel(item, fontname="MS Gothic") # x軸のラベルを item という変数の値に設定
+plt.hist(dat[item], bins=10) # bins=10 は データを10個の区間（ビン）に分けて表示する指定
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                # ヒストグラムを描画
+                            </p>
+                            <div class="small_img">
+                                <img src="../../img/study/python/2_histogram.jpg">
+                            </div>                            
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">散布図の作成と相関関係を求める</div>
+                        </div>
+                        <p class="study_detail">
+                            アップロードされているファイル「Fitness test.csv」を読み込み、散布図を作成する。<br>
+                            また、<a href="../information_I_II/18_analyze_data.html">相関関係</a>の強さを求め、相関の有無を分析する。
+                        </p>
+                        <div data-filename="practice.py">
+                                <span>practice.py</span>
+<!--コードを記載-->
+<pre><code class="language-python">
+# 散布図を描画
+
+import pandas as pd           # データ分析用ライブラリ「pandas」を読み込む
+import matplotlib.pyplot as plt # グラフ作成用ライブラリ「matplotlib」と関数でデータ操作できるサブモジュール「pyplot」を読み込む
+
+# csvデータの読み込み
+dat = pd.read_csv('Fitness test.csv') # csvファイルの内容を、変数『dat』に代入。
+
+item1 = 'height'
+item2 = 'weight'
+
+# 散布図のグラフ処理
+plt.xlabel(item1) # x軸(横軸)のラベル名
+plt.ylabel(item2) # y軸(縦軸)のラベル名
+plt.scatter(dat[item1], dat[item2]) # scatter=散布図(x, y)で値を入力
+
+# 回帰直線の入力
+x = dat[item1] # xの値にitem1を入力
+y = dat[item2] # yの値にitem2を入力
+
+# 傾きと切片を求める
+
+# 「.mean()」は平均値求めるメソッド
+# 直線の式：y = ax + b (a=傾き、b=切片(xが0の時、yのスタート地点))
+# a(傾き)=共分散(xとyが一緒に動く強さ)÷xの分散(x単体の動きの大きさ)
+# b(切片)=(a(傾き)*x(item1)の平均)+y(item2)の平均
+a = ((x * y).mean() - (x.mean() * y.mean())) / ((x ** 2).mean() - x.mean() ** 2)
+b = y.mean()-(a * x.mean()) →平均点を通る切片を求める
+z = a * x + b
+plt.plot(x, z, color='red')  # 回帰直線の色
+
+# グラフの表示設定
+plt.axis('equal') # x軸とy軸の比を1:1にする
+plt.grid(True) # 目盛線の表示
+plt.show()
+
+#------------------------------------#
+# 相関係数を求める
+# np.corrcoef(x、y)で2つの相関係数を求める。xとyはデータ配列(リスト)型
+# np.corrcoef(x、y)の戻り値：[[r(x,x), r(x,y)] [r(y,x), r(y,y)]]
+
+
+import numpy as np # 数値計算や配列操作用ライブラリ「numpy」を読み込む
+
+correlation = np.corrcoef(dat[item1], dat[item2]) # 戻り値は[item1ベースの相関係数[1, 1],item2ベースの相関係数[1, 1]]
+r = correlation[0,1] # 二次元リスト(correlation)の1つ目のリスト(item1)の2つ目の値(x, y)の相関係数を取り出し、変数rに代入
+print('相関係数：', r)
+
+if r >= 0.7:
+  print('強い正の相関があります。')
+elif r >= 0.4:
+  print('弱い正の相関があります。')
+elif r > -0.4:
+  print('相関はありません。')
+elif r >-0.7:
+  print('弱い負の相関があります。')
+else:
+  print('強い負の相関があります。')
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                # 散布図を描画
+                            </p>
+                            <div class="small_img">
+                                <img src="../../img/study/python/2_scatterPlot.jpg">
+                            </div>
+                            <p class="study_detail">
+                                # 相関係数を求める<br>
+                                相関係数： 0.5045201038909152<br>
+                                弱い正の相関があります。<br>
+                            </p>
+                        </div>
+                        <br>
+                        <p class="study_detail">
+                            以上〜<br>
+                            文系だったからコード以前に公式の意味を理解するのに時間がかかったな・・・これが文系のハンデか、と改めて実感した:）
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

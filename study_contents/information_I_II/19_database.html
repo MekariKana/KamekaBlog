@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>情報1・情報2</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.7.7
+                        </div>
+                        <p class="study_ttl">
+                            データベース
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">データベースの性質</div>
+                        </div>
+                        <br>
+                        <p class="study_detail">
+                            データベースとは一定の形式で管理・蓄積されたデータのこと。
+                            同じデータを別々に管理していると、更新漏れやデータ重複などで整合性が取れなくなってしまうことがある。<br>
+                            このようなことを防ぐため、同じデータを色々な用途で使う場合、複数のユーザでデータを共有し、同じデータを元にデータ更新や参照をするようにする。<br>
+                            <br>
+                            このようにデータが蓄積されたデータベースを管理するシステムのことを「DBMS」という。<br>
+                            DBMSの管理での特徴は以下のとおり。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/19_futureOfDDMS.jpg">
+                        </div>
+                        <p class="study_detail">
+                            データベースは、主に2つの種類に分けられる。<br>
+                            1つ目はSQLというデータベース言語を使う「リレーショナルデータベース」、<br>
+                            2つ目はSQL以外の言語を使う「NoSQL」というデータベース。<br>
+                            以下ではそれぞれの特徴などをまとめていく。
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">リレーショナルデータベース</div>
+                        </div>
+                        <p class="study_detail">
+                            ＜背景＞<br>
+                            ・IBMが1970年代に開発した<br>
+                            ・SQLという言語を使ってデータベースを操作<br>
+                            ・行(レコード)と列(フィールド)の2次元構成された表(テーブル)にデータを格納する<br>
+                            <br>
+                            ＜特徴＞<br>
+                            ・主キー：行を特定するために一意となる値を設定する項目<br>
+                            ・外部キー：他の表と関連付けするための項目<br>
+                            &emsp;→名称などを別の表で管理することで、名称が変更になったときその名称を使っている全ての表を修正する必要がなく、名称が管理されている表だけ変更すればいい。<br>
+                            ・複合キー：複数の項目で行を特定する<br>
+                            &emsp;例）学年、組、出席番号の3項目をキーとして、当てはまる1行を抽出する
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/information_I_II/19_relationalDatabase.jpg">
+                        </div>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">NoSQL</div>
+                        </div>
+                        <p class="study_detail">
+                            SQLを使わないデータベースのことを「NoSQL」という。<br>
+                            <br>
+                            ＜リレーショナルデータベースとの違い＞<br>
+                            ・行と列で管理できないデータ(画像、音声など)も格納できる<br>
+                            ・「スケールアウト」によって新しくサーバを追加し、性能を上げることができる<br>
+                            ・表と表の整合性を気にしないシンプルな構造のため処理が高速<br>
+                            ・特定のデータモデル専用に設計されるため用途に対して最適化できる
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                NoSQLの種類
+                            </span><br>
+                            ①キー・バリュー型<br>
+                            データ識別のための「キー」と、その値「バリュー」のみのデータ。<br>
+                            シンプルな構造なので処理は高速、複雑な検索には向かない。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/19_NoSQL_1.jpg">
+                        </div>
+                        <p class="study_detail">
+                            ②カラム指向型<br>
+                            「キー・バリュー型」に列(カラム)を追加した構造。<br>
+                            列方向でデータを処理するので、列を抜き出す処理に適してる。<br>
+                            リレーショナルデータベースとキー・バリュー型の間の用途。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/19_NoSQL_2.jpg">
+                        </div>
+                        <p class="study_detail">
+                            ③グラフ型<br>
+                            「ノード」「プロパティ」「エッジ」によってデータ同士の関係性表現する構造。<br>
+                            構造が複雑なデータでも検索速度が速い。<br>
+                            大量なデータを扱う現代では、一番重要なデータベース型。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/19_NoSQL_3.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="study_ttl">
+                                グラフとは？
+                            </span>
+                            グラフとは、点(頂点/ノード)と線(辺/エッジ)でデータを表現しているもののことを指す。<br>
+                            グラフの代表的な表現方法として「離散グラフ」というものがある。<br>
+                        </p>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                離散グラフ
+                            </span><br>
+                            具体的なデータ構造ではなく、「グラフ＝離れた点と点」という概念的な意味合いが強い。<br>
+                            データを「頂点(ノード)」で表し、データ同士につながりがあれば「辺(エッジ)」で繋いで関係があることを表現する。<br>
+                            身近な例としては、路線図やSNSでのフォロー関係などがグラフで表されることが多い。<br>
+                            「離散グラフ」ではコンピュータがデータを扱えないため、別のデータ構造(隣接行列や隣接リスト)に直す必要がある。<br>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/19_discrete_graph.jpg">
+                        </div>
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                隣接行列
+                            </span><br>
+                            「隣接行列」とは、データの関係を「二次元配列(配列の中に配列がある)」で表したもの。<br>
+                            データ同士に関係があれば"1"、なければ"0"で表現する。<br>
+                            ＜メリット＞<br>
+                            ・全ペアの情報をしらみ潰しにみる処理は高速に行える<br>
+                            ＜デメリット＞<br>
+                            ・頂点(データ数)が多いとメモリを大量に使う<br>
+                            ・辺(データ同士のつながり)が少ないと、メモリの無駄が多くなる<br>
+                            →データ数が少なく、全頂点ペアの有無を高速に調べるアルゴリズムなどに適してる
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/19_graph_matrix.jpg">
+                        </div>
+                        <p class="study_detail">
+                            サーバー同士の接続状況を確認する処理を、隣接行列で処理する場合のコード例は以下のとおり。                           
+                        </p>
+                        <div data-filename="matrix.java">
+                                <span>matrix.java</span>
+<!--コードを記載-->
+<pre><code class="language-java">
+public class ServerNetwork {
+    public static void main(String[] args) {
+        int V = 4; // サーバー台数（ノード数）
+        int[][] adjMatrix = new int[V][V]; // 隣接行列(二次元配列)で格納
+
+        // サーバー0 と サーバー1 が接続
+        adjMatrix[0][1] = 1;
+        adjMatrix[1][0] = 1;
+
+        // サーバー1 と サーバー2 が接続
+        adjMatrix[1][2] = 1;
+        adjMatrix[2][1] = 1;
+
+        // サーバー2 と サーバー3 が接続
+        adjMatrix[2][3] = 1;
+        adjMatrix[3][2] = 1;
+
+        // 全ペアの接続状況を確認
+        System.out.println("=== 接続状況 ===");
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                if (adjMatrix[i][j] == 1) {
+                    System.out.println("サーバー " + i + " は サーバー " + j + " と接続しています。");
+                }
+            }
+        }
+    }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                === 接続状況 ===<br>
+                                サーバー 0 は サーバー 1 と接続しています。<br>
+                                サーバー 1 は サーバー 0 と接続しています。<br>
+                                サーバー 1 は サーバー 2 と接続しています。<br>
+                                サーバー 2 は サーバー 1 と接続しています。<br>
+                                サーバー 2 は サーバー 3 と接続しています。<br>
+                                サーバー 3 は サーバー 2 と接続しています。<br>
+                            </p>
+                        </div>
+
+                        <p class="study_detail">
+                            <span class="yellow_highlight">
+                                隣接リスト
+                            </span><br>
+                            隣接行列では頂点の数が多い場合や、辺が少ない場合、いらないデータが多くなってしまう。<br>
+                            この問題を解消できるのが「隣接リスト」。隣接リストは、各頂点ごとにつながりがあるものだけをリストで表す。<br>
+                            キーとバリューを使うので、「キー・バリュー型」である。<br>
+                            ＜メリット＞<br>
+                            ・メモリ効率が良い<br>
+                            ・辺(データ同士のつながり)の列挙が高速<br>
+                            ＜デメリット＞<br>
+                            ・2頂点(データのペア同士)につながりがあるか調べるは遅い<br>
+                            →データ数が多く、データ同士の関連が少ない(データ内の項目が少ない)場合に適してる
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/information_I_II/19_graph_list.jpg">
+                        </div>
+                        <p class="study_detail">
+                            サーバー同士の接続状況を確認する処理を、隣接リストで処理する場合のコード例は以下のとおり。                           
+                        </p>
+                        <div data-filename="list.java">
+                                <span>list.java</span>
+<!--コードを記載-->
+<pre><code class="language-java">
+import java.util.*;
+
+public class AdjacencyListExample {
+    public static void main(String[] args) {
+        // ノード数（例: A〜E → 5）
+        int V = 5;
+        List<List<Integer>> adjList = new ArrayList<>(); // 隣接リスト(二次元リスト)で格納
+
+        // 初期化（空のリストを各ノードに用意）
+        for (int i = 0; i < V; i++) {
+            adjList.add(new ArrayList<>());
+        }
+
+        // 接続を追加
+        addEdge(adjList, 0, 1); // A-B
+        addEdge(adjList, 0, 3); // A-D
+        addEdge(adjList, 1, 2); // B-C
+        addEdge(adjList, 2, 4); // C-E
+
+        // 隣接リストの表示
+        for (int i = 0; i < V; i++) {
+            System.out.print(nodeName(i) + ": ");
+            for (int neighbor : adjList.get(i)) {
+                System.out.print(nodeName(neighbor) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    // 接続を追加するメソッド（無向グラフの場合）
+    static void addEdge(List<List<Integer>> adjList, int u, int v) {
+        adjList.get(u).add(v);
+        adjList.get(v).add(u);
+    }
+
+    // ノード番号を文字に変換する補助
+    static String nodeName(int i) {
+        return String.valueOf((char)('A' + i));
+    }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail">
+                            出力結果は以下のとおり。
+                        </p>
+                        <div class="study_reference">
+                            <p class="study_detail">
+                                A: B D <br>
+                                B: A C <br>
+                                C: B E <br>
+                                D: A <br>
+                                E: C <br>
+                            </p>
+                        </div>
+                        <br>
+                        <p class="study_detail">
+                            以上〜<br>
+                            グラフの表現方法ってなんのことかと思ったけど、Javaでいう配列やリストでデータを扱うことだったんだ。<br>
+                            リストの方が使い勝手がいいと思ってたからリスト使うことが多かったけど、全データを保持して参照する処理とかは配列のほうがいいのか！？<br>
+                            データベースから複数データを取り出して使う時とかは、利用方法とデータ構造を考えて選択することが大事なんだね。。
+                            でもリストのほうがキーで検索できたり機能的に利便性が高いから、やっぱりリストの方が重宝する気がするな。<br>
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <special-footer></special-footer>
+        <!--ヘッダーフッター読み込むのcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

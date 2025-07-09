@@ -41,7 +41,7 @@ class SpecialHeader extends HTMLElement {
 }
 
 //フッターの挿入
-class SpecialFooter extends HTMLElement {
+class SpecialFooter　extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <footer class="footer">
@@ -56,11 +56,13 @@ class SpecialFooter extends HTMLElement {
 customElements.define("special-header", SpecialHeader)
 customElements.define("special-footer", SpecialFooter)
 
+//headerメニューをハンバーガーにする処理--------------------------------------
 //ハンバーガーメニューの変数
 const hamburger = document.getElementById('hamburger');
 const navList = document.getElementById('nav_list');
 const overlay = document.getElementById('overlay');
 const closeBtn = document.getElementById('closeBtn');
+
 // メニュー開く
 hamburger.addEventListener('click', () => {
     navList.classList.add('active');
@@ -91,7 +93,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
     }
 });
 
-
 // `study_contents` 内のページなら、study.html のリンクを探して `current` を付ける
 if (window.location.pathname.startsWith(`${basePath}study_contents/`)) {
     document.querySelectorAll('.nav-link').forEach(nav => {
@@ -100,4 +101,3 @@ if (window.location.pathname.startsWith(`${basePath}study_contents/`)) {
         }
     });
 }
-

@@ -26,19 +26,18 @@
                         <p class="study_ttl">
                             Pythonによるデータ分析
                         </p>
-                        <p class="study_detail">
-                            Pythonではグラフを作ったり、<a href="../information_I_II/18_analyze_data.html">平均値や標準偏差</a>などを求めたりできるデータ分析用のライブラリが用意されているみたい。<br>
-                            データ分析するとき、どのようなコードを書くのかをメモしておく。
+                        <p class="study_detail"><!--                            Pythonではグラフを作ったり、<a href="../information_I_II/18_analyze_data.html">平均値や標準偏差</a>などを求めたりできるデータ分析用のライブラリが用意されているみたい。
+                            -->データ分析するとき、どのようなコードを書くのかをメモしておく。
                         </p>
                         <div class="study_sub_ttl">
                             <div class="study_dot">&#9787;</div>
                             <div class="study_point">csvファイルの読み込み</div>
                         </div>
-                        <p class="study_detail">
-                            ＜コードの注意点＞<br>
-                            Google Colaboratryを使用して実行しているため、ブラウザ経由のアップロードになる。<br>
-                            ローカルファイルをブラウザにアップロードすると「バイト列」で送られるので、csvファイルとして認識できるようio.BytesIOでラップしている。<br>
-                            ローカルで動かす時は、Google Colaboratry特有の「from google.colab import files」や「import io」の記述はいらない。<br>
+                        <p class="study_detail"><!--
+                            --><span class=study_sub_ttl>＜コードの注意点＞</span><!--
+                            -->Google Colaboratryを使用して実行しているため、ブラウザ経由のアップロードになる。
+                            ローカルファイルをブラウザにアップロードすると「バイト列」で送られるので、csvファイルとして認識できるようio.BytesIOでラップしている。
+                            ローカルで動かす時は、Google Colaboratry特有の「from google.colab import files」や「import io」の記述はいらない。
                         </p>
                         <div data-filename="practice.py">
                                 <span>practice.py</span>
@@ -62,8 +61,8 @@ import pandas as pd
 df = pd.read_csv('Fitness test.csv') # ファイルパスを指定するだけでファイルを扱える
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            上記のコード内ではcsvファイルを読み込む「pd.read_csv」を使っているが、他のファイル形式は以下のコードで読み込む。
+                        <p class="study_detail"><!--
+                            -->上記のコード内ではcsvファイルを読み込む「pd.read_csv」を使っているが、他のファイル形式は以下のコードで読み込む。
                         </p>
                         <table class="table_small">
                             <tr>
@@ -96,9 +95,9 @@ df = pd.read_csv('Fitness test.csv') # ファイルパスを指定するだけ�
                             <div class="study_dot">&#9787;</div>
                             <div class="study_point">平均値・中央値・最頻値と分散・標準偏差を求める</div>
                         </div>
-                        <p class="study_detail">
-                            アップロードされているファイル「Fitness test.csv」を読み込み、分析に必要な数値を求める。<br>
-                            平均値・中央値・最頻値は、計算や読み込んだ数値を配列として操作をするためのライブラリ「numpy」を使用する。<br>
+                        <p class="study_detail"><!--
+                            -->アップロードされているファイル「Fitness test.csv」を読み込み、分析に必要な数値を求める。
+                            平均値・中央値・最頻値は、計算や読み込んだ数値を配列として操作をするためのライブラリ「numpy」を使用する。
                             分散・標準偏差はそれぞれリスト名.var/リスト名.stdで求める。
                         </p>
                         <div data-filename="practice.py">
@@ -143,20 +142,18 @@ std = dat[item].std()     # リスト『dat[item]』の要素から標準偏差�
 print("標準偏差：", std)
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            出力結果は以下のとおり。
-                        </p>
+                        <p class="study_detail">出力結果は以下のとおり。</p>
                         <div class="study_reference">
                             <p class="study_detail">
-                                # 平均値・中央値・最頻値を求める<br>
-                                平均値 7.202184466019418<br>
-                                中央値 7.1<br>
-                                最頻値 7<br>
-                                <br>
-                                # 分散・標準偏差を求める<br>
-                                項目： weight<br>
-                                分散： 63.60211483948693<br>
-                                標準偏差： 7.975093406317379<br>
+                                # 平均値・中央値・最頻値を求める
+                                平均値 7.202184466019418
+                                中央値 7.1
+                                最頻値 7
+                                
+                                # 分散・標準偏差を求める
+                                項目： weight
+                                分散： 63.60211483948693
+                                標準偏差： 7.975093406317379
                             </p>
                         </div>
 
@@ -164,8 +161,8 @@ print("標準偏差：", std)
                             <div class="study_dot">&#9787;</div>
                             <div class="study_point">ヒストグラムの描写</div>
                         </div>
-                        <p class="study_detail">
-                            アップロードされているファイル「Fitness test.csv」を読み込み、ヒストグラムを作成する。                            
+                        <p class="study_detail"><!--
+                            -->アップロードされているファイル「Fitness test.csv」を読み込み、ヒストグラムを作成する。                            
                         </p>
                         <div data-filename="practice.py">
                                 <span>practice.py</span>
@@ -187,9 +184,7 @@ plt.xlabel(item, fontname="MS Gothic") # x軸のラベルを item という変�
 plt.hist(dat[item], bins=10) # bins=10 は データを10個の区間（ビン）に分けて表示する指定
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            出力結果は以下のとおり。
-                        </p>
+                        <p class="study_detail">出力結果は以下のとおり。</p>
                         <div class="study_reference">
                             <p class="study_detail">
                                 # ヒストグラムを描画
@@ -203,8 +198,8 @@ plt.hist(dat[item], bins=10) # bins=10 は データを10個の区間（ビン�
                             <div class="study_dot">&#9787;</div>
                             <div class="study_point">散布図の作成と相関関係を求める</div>
                         </div>
-                        <p class="study_detail">
-                            アップロードされているファイル「Fitness test.csv」を読み込み、散布図を作成する。<br>
+                        <p class="study_detail"><!--
+                            -->アップロードされているファイル「Fitness test.csv」を読み込み、散布図を作成する。
                             また、<a href="../information_I_II/18_analyze_data.html">相関関係</a>の強さを求め、相関の有無を分析する。
                         </p>
                         <div data-filename="practice.py">
@@ -271,9 +266,7 @@ else:
   print('強い負の相関があります。')
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            出力結果は以下のとおり。
-                        </p>
+                        <p class="study_detail">出力結果は以下のとおり。</p>
                         <div class="study_reference">
                             <p class="study_detail">
                                 # 散布図を描画
@@ -281,19 +274,21 @@ else:
                             <div class="small_img">
                                 <img src="../../img/study/python/2_scatterPlot.jpg">
                             </div>
-                            <p class="study_detail">
-                                # 相関係数を求める<br>
-                                相関係数： 0.5045201038909152<br>
-                                弱い正の相関があります。<br>
+                            <p class="study_detail"><!--
+                                --># 相関係数を求める
+                                相関係数： 0.5045201038909152
+                                弱い正の相関があります。
                             </p>
                         </div>
-                        <br>
+                        
                         <p class="study_detail">
-                            以上〜<br>
+                            以上〜
                             文系だったからコード以前に公式の意味を理解するのに時間がかかったな・・・これが文系のハンデか、と改めて実感した:）
                         </p>
-                        <br>
-                        <a class="link_btn" href="../../study.html">戻る</a>
+
+                        <div class="study_detail">
+                            <a class="link_btn" href="../../study.html">戻る</a>
+                        </div>
                     </div>
                 </div>
             </div>

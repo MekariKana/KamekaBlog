@@ -31,12 +31,23 @@ class JavaTitle extends HTMLElement {
     }
 }
 
-//Javascriptのタイトル挿入
-class JavascriptTitle extends HTMLElement {
+//JavaScriptのタイトル挿入
+class JavaScriptTitle extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="content_ttl">
                 <h3>JavaScript</h3>
+            </div>
+        `
+    }
+}
+
+//TypeScriptのタイトル挿入
+class TypeScriptTitle extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = `
+            <div class="content_ttl">
+                <h3>TypeScript</h3>
             </div>
         `
     }
@@ -78,7 +89,8 @@ class VBATitle extends HTMLElement {
 customElements.define("basicknowledge-title", BasicKnowledgeTitle)
 customElements.define("htmlcss-title", HtmlCssTitle)
 customElements.define("java-title", JavaTitle)
-customElements.define("javascript-title", JavascriptTitle)
+customElements.define("javascript-title", JavaScriptTitle)
+customElements.define("typescript-title", TypeScriptTitle)
 customElements.define("information-title", InformationTitle)
 customElements.define("python-title", PythonTitle)
 customElements.define("vba-title", VBATitle)

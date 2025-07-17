@@ -26,20 +26,18 @@
                         <p class="study_ttl">
                             横並び配置はflex
                         </p>
+                        <p class="study_detail"><!--
+                            -->このHPを作成した際、一番重宝したのが "display: flex;" というcssの設定。このHP内でも以下のような場面で使用してきた。
+                            ・"<a href="../../index.html">Homeページ</a>"のUpdatingの各項目やその中の日付と更新内容
+                            ・"<a href="../../profile.html">profileページ</a>"の経歴の画像と文字
+                            ・"<a href="../../portfolio.html">portfolioページ</a>"の作品集
 
-                        <p class="study_detail">
-                            このHPを作成した際、一番重宝したのが "display: flex;" というcssの設定。<br>
-                            <a href="../../index.html">Homeページ</a>のUpdatingの各項目やその中の日付と更新内容の横並び、
-                            <a href="../../profile.html">profileページ</a>の経歴の画像と文字の横並び、
-                            <a href="../../portfolio.html">portfolioページ</a>の作品集の横並びなど、なにかと横並び場面で使用してきた。<br>
-                            今後もページ更新の際は多様しそうなので、
-                            <a href="../../portfolio.html">portfolioページ</a>を例としてメモしておく。
+                            今後もページ更新の際は多様しそうなので、"<a href="../../portfolio.html">portfolioページ</a>"を例としてメモしておく。
                         </p>
-                        <p class="study_detail">
-                            ＜使い方＞<br>
-                            1. htmlで横並びさせたい要素をdivで囲む<br>
+                        <p class="study_detail"><!--
+                            -->＜使い方＞
+                            1. htmlで横並びさせたい要素をdivで囲む
                         </p>
-
                         <div data-filename="index.html">
                             <span>index.html</span>
 <!--コード記載-->
@@ -65,16 +63,14 @@
 &lt;/div&gt;
 </code></pre>
                         </div>
-
-                        <p class="study_detail">
-                            2. cssで親要素&lt;portfolio_block&gt;クラスに "display: flex;" を指定する<br>
-                            3. divの中の子要素&lt;portfolio&gt;が横並びになるので、親要素&lt;w_iiner&gt;クラスのwidthに合わせて&lt;portfolio&gt;のwidthを設定する<br>
+                        <p class="study_detail"><!--
+                            -->2. cssで親要素&lt;portfolio_block&gt;クラスに "display: flex;" を指定する
+                            3. divの中の子要素&lt;portfolio&gt;が横並びになるので、親要素&lt;w_iiner&gt;クラスのwidthに合わせて&lt;portfolio&gt;のwidthを設定する
                             ※ここではjustify-content: space-betweenを使用しているため、等間隔に配置される
                         </p>
 
                         <div data-filename="style.css">
                             <span>style.css</span>
-
 <!--コード記載-->
 <pre><code class="language-css">
 /* 全体の横幅は1200pxで指定 */
@@ -100,10 +96,13 @@
 
 </code></pre>
                         </div>
-                        <p class="study_detail">これで<a href="../../portfolio.html#prg">portfolioページ</a>みたいな横配置になりました〜</p>
-                        <br>
+                        <p class="study_detail"><!--
+                            -->これで<a href="../../portfolio.html#prg">portfolioページ</a>みたいな横配置になりました〜
+                        </p>
                     </div>
-                    <a class="link_btn" href="../../study.html">戻る</a>
+                    <div class="study_detail">
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
                 </div>
             </div>
         </div>

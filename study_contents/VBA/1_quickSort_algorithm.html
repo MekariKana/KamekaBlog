@@ -26,20 +26,20 @@
                         <p class="study_ttl">
                             クイックソートアルゴリズムの動作確認
                         </p>
-                        <p class="study_detail">
-                            VBAはさらっとしか勉強したことがなく、自分で何かつくったこともなかった。<br>
-                            でも情報のアルゴリズムの単元でVBAを用いて実装する内容があり、その時学んだVBAの基礎のルールをまとめておく。<br>
+                        <p class="study_detail"><!--
+                            -->VBAはさらっとしか勉強したことがなく、自分で何かつくったこともなかった。
+                            でも情報のアルゴリズムの単元でVBAを用いて実装する内容があり、その時学んだVBAの基礎のルールをまとめておく。
+                        
+                            以下、ランダム生成した30個の値をクイックソートで並べ替えるコード。
                         </p>
-                        <p class="study_detail">
-                            以下、ランダム生成した30個の値をクイックソートで並べ替えるコード。<br>
-                        </p>
-                        <p class="study_detail">
-                            まずはQuickSortMainでランダムに30個の値を生成。<br>
-                            <span class="yellow_highlight">ポイント</span><br>
-                            ・変数定義は「Dim 変数 As 型」<br>
-                            ・Cells(行, 列)の行をFor文で1〜30まで回して値を入力していく<br>
-                            ・Int(1000 * Rnd + 1)は1~1000間の乱数を生成するためRndに1000を掛ける。+1で小数点を繰り上げる。<br>
-                            ・QuickSort(1, 30)は30の値をクイックソートするので、引数に1と30を設定<br>
+                        <p class="study_detail"><!--
+                            -->まずはQuickSortMainでランダムに30個の値を生成。
+
+                            <span class="yellow_highlight study_ttl_square">Point</span>
+                            ・変数定義は「Dim 変数 As 型」
+                            ・Cells(行, 列)の行をFor文で1〜30まで回して値を入力していく
+                            ・Int(1000 * Rnd + 1)は1~1000間の乱数を生成するためRndに1000を掛ける。+1で小数点を繰り上げる。
+                            ・QuickSort(1, 30)は30の値をクイックソートするので、引数に1と30を設定
                         </p>
                         <div data-filename="VBA">
                             <span>VBA</span>
@@ -61,13 +61,15 @@ Sub QuickSortMain()
 End Sub
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            次にQuickSortメソッドを呼び出し、昇順ソートを行う。<br>
-                            <span class="yellow_highlight">ポイント</span><br>
-                            ・QuickSort(ByVal first As Long, ByVal last As Long)では引数にソートする値の数を設定。<br>
-                            &emsp;→ByValは値渡しの定義。ByRefにすると参照渡しになるが、値が変更しないように値渡しを使用。<br>
-                            ・Application.WorksheetFunctionはVBA関数とは違い、Excelのワークシートで標準機能として備わっている関数(例：sum, max..)のこと。<br>
-                            &emsp;ワークシート関数を呼び出す時は「Application.WorksheetFunction.関数名」の形で呼び出す。<br>
+                        <p class="study_detail"><!--
+                            -->次にQuickSortメソッドを呼び出し、昇順ソートを行う。
+                        </p>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight study_ttl_square">Point</span>
+                            ・QuickSort(ByVal first As Long, ByVal last As Long)では引数にソートする値の数を設定。
+                            　→ByValは値渡しの定義。ByRefにすると参照渡しになるが、値が変更しないように値渡しを使用。
+                            ・Application.WorksheetFunctionはVBA関数とは違い、Excelのワークシートで標準機能として備わっている関数(例：sum, max..)のこと。
+                            ワークシート関数を呼び出す時は「Application.WorksheetFunction.関数名」の形で呼び出す。
                         </p>
                         <div data-filename="VBA">
                             <span>VBA</span>
@@ -128,13 +130,15 @@ End Sub
 </code></pre>
                         </div>
                         <p class="study_detail">
-                            以上〜<br>
-                            Javaで書くのと大きくは違わないと思ったけど、エクセル関数とVBA関数の違いは知っておいたほうがいいなと思った。<br>
-                            とりあえず基礎的なところは理解できたかな〜と思う。もう少し複雑な処理もやりたいけど、Macだと使えない処理も多いよう。う〜ん＞＜<br>
+                            以上〜
+                            Javaで書くのと大きくは違わないと思ったけど、エクセル関数とVBA関数の違いは知っておいたほうがいいなと思った。
+                            とりあえず基礎的なところは理解できたかな〜と思う。もう少し複雑な処理もやりたいけど、Macだと使えない処理も多いよう。う〜ん＞＜
                             残穢念だけど、今できることをやろうーっと。
                         </p>
-                        <br>
-                        <a class="link_btn" href="../../study.html">戻る</a>
+
+                        <div class="study_detail">
+                            <a class="link_btn" href="../../study.html">戻る</a>
+                        </div>
                     </div>
                 </div>
             </div>

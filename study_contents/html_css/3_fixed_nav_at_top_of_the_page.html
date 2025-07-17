@@ -26,17 +26,17 @@
                         <p class="study_ttl">
                             ナビの追従(特定の範囲内で固定)
                         </p>
-                        <p class="study_detail">
-                            HPのナビを固定したいと思い、方法を調べたところcssの設定で、positon: sticky;というものがあるらしいのでこちらを試してみた。<br>
-                            注意点やひっかかった問題などをメモしておく。<br>
-                            ちなみに、position: fixed;もヘッダー固定には用いられる方法だが、私のHPはナビの上にロゴを配置しているためfixedにすると設定が多くなるようなので、今回はstickyを使用することにした。
+                        <p class="study_detail"><!--
+                            -->　HPのナビを固定したいと思い、方法を調べたところcssの設定で、positon: sticky;というものがあるらしいのでこちらを試してみた。<!--
+                            -->注意点やひっかかった問題などをメモしておく。
+                            　ちなみに、position: fixed;もヘッダー固定には用いられる方法だが、私のHPはナビの上にロゴを配置しているためfixedにすると設定が多くなるようなので、今回はstickyを使用することにした。
                         </p>
-                        <p class="study_detail">
-                            だいたいどのHPにも固定する要素(ここではnav)に"position: sticky;"と、配置する位置(ここでは一番上なのでtop: 0;)のみを設定すればいいと書いてあった。<br>
-                            固定される範囲は"positon: sticky;"の親要素になるとのこと。(ここではbody)
+                        <p class="study_detail"><!--
+                            -->　だいたいどのHPにも固定する要素(ここではnav)に"position: sticky;"と、配置する位置(ここでは一番上なのでtop: 0;)のみを設定すればいいと書いてあった。<!--
+                            -->固定される範囲は"positon: sticky;"の親要素になるとのこと。(ここではbody)
                         </p>
-                        <p class="study_detail">
-                            また、当初htmlファイルではlogoとnavをヘッダーに含めていたため、navはヘッダーから外出しした。
+                        <p class="study_detail"><!--
+                            -->　また、当初htmlファイルではlogoとnavをヘッダーに含めていたため、navはヘッダーから外出しした。
                         </p>
 
                         <div class="study_sub_ttl">
@@ -102,8 +102,8 @@
 </code></pre>
 
                         </div>
-                        <p class="study_detail">
-                            上記の修正後のhtmlにcssを設定していく。
+                        <p class="study_detail"><!--
+                            -->上記の修正後のhtmlにcssを設定していく。
                         </p>
                         <div data-filename="style.css">
                             <span>style.css</span>
@@ -142,24 +142,24 @@ nav ul li {
 
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            最初はうまくいったように思えたが、画面の途中でnavがなくなってしまった。<br>
-                            予定ではfooterまで追従するはずだったが。。。<br>
+                        <p class="study_detail"><!--
+                            -->最初はうまくいったように思えたが、画面の途中でnavがなくなってしまった。
+                            予定ではfooterまで追従するはずだったが。。。
                         </p>
                         <video src="../../img/study/html_css/3_nav_fail.mp4" autoplay muted playsinline></video>
                             
-                        <p class="study_detail">
-                            検証で反映されたcssを見てみたところ、bodyサイズが1203×797になってる！<br>
-                            navは親要素(body)の範囲内で追従するので、この範囲を超えるとスクロールと一緒に流れてしまったのだ。<br>
+                        <p class="study_detail"><!--
+                            -->検証で反映されたcssを見てみたところ、bodyサイズが1203×797になってる！
+                            navは親要素(body)の範囲内で追従するので、この範囲を超えるとスクロールと一緒に流れてしまったのだ。
                             height: 100%;に設定したのに・・・
                         </p>
                         <div class="header_img">
                             <img src="../../img/study/html_css/3_nav_fail.png">
                         </div>
-                        <p class="study_detail">
-                            しかもネット検索しても、ChatGPTに聞いても、bodyを広げるには親要素（ここではhtml）に100%と設定すればよい。と回答される。
-                            設定してるのにー！<br>
-                            とりあえず、autoは要素が伸びれば、一緒に範囲を伸ばしてくれる認識なのでbodyのcssをheight: auto;に修正してみた。<br>
+                        <p class="study_detail"><!--
+                            -->しかもネット検索しても、ChatGPTに聞いても、bodyを広げるには親要素（ここではhtml）に100%と設定すればよい。と回答される。<!--
+                            -->設定してるのにー！
+                            とりあえず、autoは要素が伸びれば、一緒に範囲を伸ばしてくれる認識なのでbodyのcssをheight: auto;に修正してみた。
                         </p>
  
                         <div data-filename="style.css">
@@ -179,8 +179,8 @@ body {
 }
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            上記のように設定したら、navの追従もうまく起動しました！<br>
+                        <p class="study_detail"><!--
+                            -->上記のように設定したら、navの追従もうまく起動しました！
                             ChatGPTに上記のコードでうまくいった理由を聞いたら、以下のような回答でした。
                         </p>
                         <div class="study_reference">
@@ -192,29 +192,29 @@ body {
                             </p>
                         </div>
                         <p class="study_detail">
-                            どゆこと・・・？htmlに依存するからbodyにもheight: 100%;で設定してたんだけど。<br>
-                            そうなってくると、そもそもhtml:100%;ってどの範囲を指すの？<br>
+                            どゆこと・・・？htmlに依存するからbodyにもheight: 100%;で設定してたんだけど。
+                            そうなってくると、そもそもhtml:100%;ってどの範囲を指すの？
                             ということでさらにChatGPTに質問。回答はこちら↓
                         </p>
                         <div class="study_reference">
                             <p class="study_detail">
-                                html { height: 100%; } の 100% は、ビューポートの高さ (ブラウザの表示領域の高さ) を基準に設定されます。<br>
-                                [ 影響範囲 ]<br>
-                                ・画面全体の高さと同じ になりますが、コンテンツの高さがそれを超えた場合はスクロールが発生します。<br>
-                                ・スクロールした分は含まれません。スクロール可能なコンテンツの全体の高さ (document.documentElement.scrollHeight) とは異なります。<br>
-                                <br>
-                                [ height: 100% の適用イメージ ]<br>
-                                ・ビューポート内 (スクロールしない範囲) のみをカバーする。<br>
-                                ・html に height: 100% を指定しても、コンテンツが長い場合は body の高さが伸びてスクロール可能になる。<br>
-                                <br>
-                                もし スクロール全体を含む ようにしたい場合：<br>
-                                height: 100% ではなく min-height: 100% を使い、body にも適用すると良いです。<br>
-                                こうすると body の高さがコンテンツに応じて伸び、短い場合でも最低限 100% の高さを確保できます。<br>
+                                html { height: 100%; } の 100% は、ビューポートの高さ (ブラウザの表示領域の高さ) を基準に設定されます。
+                                [ 影響範囲 ]
+                                ・画面全体の高さと同じ になりますが、コンテンツの高さがそれを超えた場合はスクロールが発生します。
+                                ・スクロールした分は含まれません。スクロール可能なコンテンツの全体の高さ (document.documentElement.scrollHeight) とは異なります。
+                                
+                                [ height: 100% の適用イメージ ]
+                                ・ビューポート内 (スクロールしない範囲) のみをカバーする。
+                                ・html に height: 100% を指定しても、コンテンツが長い場合は body の高さが伸びてスクロール可能になる。
+                                
+                                もし スクロール全体を含む ようにしたい場合：
+                                height: 100% ではなく min-height: 100% を使い、body にも適用すると良いです。
+                                こうすると body の高さがコンテンツに応じて伸び、短い場合でも最低限 100% の高さを確保できます。
                             </p>
                         </div>
 
                         <p class="study_detail">
-                            min-height: 100%;を設定するといいの？<br>
+                            min-height: 100%;を設定するといいの？
                             へ〜では早速試してみよう！
                         </p>
                         <div data-filename="style.css">
@@ -233,19 +233,20 @@ body {
 }
 </code></pre>
                         </div>
-                        <p class="study_detail">
-                            これでもちゃんと起動した〜！<br>
+                        <p class="study_detail"><!--
+                            -->これでもちゃんと起動した〜！
                             bodyもちゃんとfooterまでカバーされてる！
                         </p>
                         <div class="header_img">
                             <img src="../../img/study/html_css/3_nav_success.png">
                         </div>
-                        <p class="study_detail">
-                            基礎知識ないとこうやって沼ってくんだよね〜調べの連鎖が終わらないw
+                        <p class="study_detail"><!--
+                            -->基礎知識ないとこうやって沼ってくんだよね〜調べの連鎖が終わらないw
                         </p>
-                        <br>
                     </div>
-                    <a class="link_btn" href="../../study.html">戻る</a>
+                    <div class="study_detail">
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
                 </div>
             </div>
         </div>

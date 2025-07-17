@@ -26,27 +26,24 @@
                         <p class="study_ttl">
                             ヘッター/フッターの共通化
                         </p>
-                        
-                        <p class="study_detail">
-                        このHPを作成しているとき、ヘッダーフッターの共通化を試みた。
-                        理由は言わずもがなページの更新が進むと管理がしずらいので。<br>
-                        調べるとSSIやPHPがソース自体の変更は簡単だったが、
-                        SSIは.htaccessの変更が必要、PHPはサーバーサイドの言語でXAMPPのインストールが必要のようだった。<br>
-                        私はVScodeのLive Serverで簡易的にページを表示したかったので、すでに環境も整っているJavaScriptで共通化を行うことにした。<br>
+                        <p class="study_detail"><!--
+                        -->　このHPを作成しているとき、ヘッダーフッターの共通化を試みた。理由は言わずもがなページの更新が進むと管理がしずらいので。
+                        　調べるとSSIやPHPがソース自体の変更は簡単だったが、SSIは.htaccessの変更が必要、PHPはサーバーサイドの言語でXAMPPのインストールが必要のようだった。
+                        　私はVScodeのLive Serverで簡易的にページを表示したかったので、すでに環境も整っているJavaScriptで共通化を行うことにした。
                         </p>
-                        <p class="study_detail">
-                        JavaScriptは初めてなので調べながら実装し、2パターン作成してみた。<br>
-                        やりたいことは&lt;special-header&gt;（または&lt;special-footer&gt;）のカスタムタグをhtmlファイルに準備し、jsファイルでinnerHTMLを使って動的にhenaderやfooterを読み込むこと。
+                        <p class="study_detail"><!--
+                        -->　JavaScriptは初めてなので調べながら実装し、2パターン作成してみた。
+                        　やりたいことは&lt;special-header&gt;（または&lt;special-footer&gt;）のカスタムタグをhtmlファイルに準備し、jsファイルでinnerHTMLを使って動的にhenaderやfooterを読み込むこと。
                         </p>
 
                         <div class="study_sub_ttl">
                             <div class="study_dot">&#9787;</div>
                             <div class="study_point">パターン1</div>
                         </div>
-                        <p class="study_detail">
-                            ・HTMLの要素を取得するため、HTMLElementを拡張する。<br>
-                            ・connectedCallbackはHTMLに接続する時に実行される。<br>
-                            ・HTML接続時に、innerHTMLでHTML要素（headerの内容）を変更する。<br>
+                        <p class="study_detail"><!--
+                            -->・HTMLの要素を取得するため、HTMLElementを拡張する。
+                            ・connectedCallbackはHTMLに接続する時に実行される。
+                            ・HTML接続時に、innerHTMLでHTML要素（headerの内容）を変更する。
                             ・HTMLのカスタムタグ&lt;special-header&gt;とjsで定義したクラス名SpecialHeaderが違うので、2つがリンクするよう定義する。
                         </p>
                     
@@ -89,12 +86,10 @@ customElements.define("special-header", SpecialHeader)
                             <div class="study_point">パターン2</div>
                         </div>
 
-                        <p class="study_detail">
-                            ・JavaScript の実行タイミングを指定する。<br>
-                              -> scriptタグに defer をセット (deferをつけると、html読み込み後、DOMContentLoaded イベントの直前にJSファイルを実行するらしい)<br>
-                              -> DOMContentLoaded でHTMLの解析完了後にスクリプトを実行
-                            </p>
-                            <p class="study_detail">
+                        <p class="study_detail"><!--
+                            -->・JavaScript の実行タイミングを指定する。
+                            &emsp;-> scriptタグに defer をセット (deferをつけると、html読み込み後、DOMContentLoaded イベントの直前にJSファイルを実行するらしい)
+                            &emsp;-> DOMContentLoaded でHTMLの解析完了後にスクリプトを実行
                             ・document.querySelector() でカスタムタグ &lt;special-header&gt;を取得し、innerHTML で直接書き換え
                             </p>
 
@@ -129,12 +124,11 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 </code></pre>                        
                         </div>
-
                         <p class="study_detail">表示できた！</p>
 
                         <p>ちなみにどっちのコードの方適しているかChatGPTに聞いてみた。</p>
                         <p>結果は・・・</p>
-                        <br>
+                        
                         <p class="study_ttl">パターン1！！</p>
                         
                         <p class="study_detail">理由は以下のとおり。</p>
@@ -142,24 +136,26 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="study_reference">
                             <p class="study_point">1.再利用しやすい</p>
                             <p class="study_detail">
-                                パターン1はcustomElements.define() でカスタム要素として登録しているので再利用が容易。<br>
+                                パターン1はcustomElements.define() でカスタム要素として登録しているので再利用が容易。
                                 パターン2はJavaScriptの実行が必要なので、他のページに適用するたびにスクリプトの読み込みが必要で、保守性が低い。
                             </p>
                             <p class="study_point">2.適用タイミングの違い</p>
                             <p class="study_detail">
-                                パターン1は&lt;special-header&gt;が追加された瞬間に処理が走るので、しかるべきタイミングで確実に適用される。<br>
+                                パターン1は&lt;special-header&gt;が追加された瞬間に処理が走るので、しかるべきタイミングで確実に適用される。
                                 パターン2はページ全体が読み込まれないと適用されないため、ヘッダー表示が遅れる可能性がある。
                             </p>
                             <p class="study_point">3.スコープ管理ができる</p>
                             <p class="study_detail">
-                                パターン1はShadow DOMを使えば、カプセル化されたスタイル を適用でき、外部のCSSの影響を受けない。<br>
+                                パターン1はShadow DOMを使えば、カプセル化されたスタイル を適用でき、外部のCSSの影響を受けない。
                                 パターン2は単なる innerHTML の書き換えなので、他のスタイルの影響を受けやすく、意図しないデザイン崩れが起こる可能性がある。
                             </p>
                         </div>
                         <p class="study_detail">そうなんだ〜</p>
-                        <br>
                     </div>
-                    <a class="link_btn" href="../../study.html">戻る</a>
+
+                    <div class="study_detail">
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
                 </div>
             </div>
         </div>

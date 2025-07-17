@@ -117,7 +117,7 @@ nav ul li a.current {
   margin-bottom: 20px;
 }
 
-.header_img img{
+.header_img img {
   max-width: 1200px;
   width: 100%;
   height: auto;
@@ -436,16 +436,20 @@ div[data-filename] > pre {
 }
 
 .study_detail {
-  margin-top: 10px;
   margin-bottom: 10px;
-
+  white-space: pre-line;
 }
 
 .study_sub_ttl {
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin: 10px 0 10px;
   display: flex;
   align-items: center
+}
+
+.study_ttl_square::before {
+  content: "\25A0";
 }
 
 .study_point {
@@ -462,6 +466,7 @@ div[data-filename] > pre {
   background-color: #eee;
   padding: 3px 15px;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .study_flex {

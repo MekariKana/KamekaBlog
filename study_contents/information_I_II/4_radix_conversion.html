@@ -24,114 +24,113 @@
                         <p class="study_ttl">
                             基数変換
                         </p>
-                        <p class="study_detail">
-                            実際のWeb開発の現場ではあまり使わなかった基数変換。使った記憶があるのはソースファイルが文字化けした時に文字エンコード形式(UTF-8やUTF-16など)に沿ってバイナリに変換したりデコードして原因を追求したり、画面側（htmlやcss）で色の表記が16進数だな、と思ったぐらい。<br>
+                        <p class="study_detail"><!--
+                            -->実際のWeb開発の現場ではあまり使わなかった基数変換。使った記憶があるのはソースファイルが文字化けした時に文字エンコード形式(UTF-8やUTF-16など)に沿ってバイナリに変換したりデコードして原因を追求したり、画面側（htmlやcss）で色の表記が16進数だな、と思ったぐらい。
                             ちなみに文字コード(Unicodeなど)と文字エンコード方式については、「
                             <a href="5_unicode_and_utf8.html">
-                            文字コードとエンコード方式について</a>」でまとめる。<br>
-                            ChatGPTに聞いたら、組み込み・ハードウェア系では2進数と16進数がよく使われるみたい。<br>
-                            基数変換はあくまでも同じ数字をいろんな書き方で表現しているだけだけど2進数はコンピュータの言葉で10進数は人間の言葉、コンピュータの世界とやりとりするには基礎知識として必要かなと思う。<br>
-                            いろいろなワードがでてくるけど、一般的な説明ではなく私なりに理解した内容を自分の言葉でまとめていくので、変な表現もあるかも？<br>
+                            文字コードとエンコード方式について</a>」でまとめる。
+                            ChatGPTに聞いたら、組み込み・ハードウェア系では2進数と16進数がよく使われるみたい。
+                            基数変換はあくまでも同じ数字をいろんな書き方で表現しているだけだけど2進数はコンピュータの言葉で10進数は人間の言葉、コンピュータの世界とやりとりするには基礎知識として必要かなと思う。
+                            いろいろなワードがでてくるけど、一般的な説明ではなく私なりに理解した内容を自分の言葉でまとめていくので、変な表現もあるかも？
                         </p>
                         <div class="study_sub_ttl">
                             <div class="study_dot">&#9787;</div>
                             <div class="study_point">n進数とは</div>
                         </div>
-                        <p class="study_detail">
-                            <span class="yellow_highlight">
-                                n進数の数え方
-                            </span><br>
-                            [10進数の場合]<br>
-                            以下の画像のように「その桁の大きさの数が何個あるのか」を表している。<br>
-                            例えば345という数は、100が3個、10が4個、1が5個ということ。<br>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight"><!--
+                                -->n進数の数え方
+                            </span>
+                            [10進数の場合]
+                            以下の画像のように「その桁の大きさの数が何個あるのか」を表している。
+                            例えば345という数は、100が3個、10が4個、1が5個ということ。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_ Decimal_number.jpg">
                         </div>
-                        <p class="study_detail">
-                            [2進数の場合]<br>
-                            1桁に0と1の2つの大きさの数しか入ってない。<br>
-                            例えば1101(2)という数があったら、8(の位)が1個、4(の位)が1個、2(の位)が0個、1(の位)が1個。<br>
-                            10進数で表現すると8＋4＋1＝13(10)となる。<br>                
+                        <p class="study_detail"><!--
+                            -->[2進数の場合]
+                            1桁に0と1の2つの大きさの数しか入ってない。
+                            例えば1101(2)という数があったら、8(の位)が1個、4(の位)が1個、2(の位)が0個、1(の位)が1個。
+                            10進数で表現すると8＋4＋1＝13(10)となる。                
                         </p>
-                        <p class="study_detail">
-                            <span class="yellow_highlight">
-                                桁の重み
-                            </span><br>
-                            [10進数の場合]<br>
-                            「前の桁10個分をまとめた桁」ということ。<br>
-                            例えば、百の位は十の位の10個分を1とする、十の位は一の位の10個分を1とする。<br>
-                            このように桁の重みが10倍になるとき、「基数（桁上がりの基準となる数）が10である」という<br>
-                            <br>
-                            [2進数の場合]<br>
-                            「前の桁2つ分をまとめた桁」ということ。<br>
-                            例えば、1が2つ集まって二の位、2が2つ集まって四の位、4が2つ集まって八の位・・・というように前の桁2つ分で桁上がりする。<br>
-                            桁の重みは2倍であり、基数は2である。<br>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight"><!--
+                                -->桁の重み
+                            </span>
+                            [10進数の場合]
+                            「前の桁10個分をまとめた桁」ということ。
+                            例えば、百の位は十の位の10個分を1とする、十の位は一の位の10個分を1とする。
+                            このように桁の重みが10倍になるとき、「基数（桁上がりの基準となる数）が10である」という
+                            
+                            [2進数の場合]
+                            「前の桁2つ分をまとめた桁」ということ。
+                            例えば、1が2つ集まって二の位、2が2つ集まって四の位、4が2つ集まって八の位・・・というように前の桁2つ分で桁上がりする。
+                            桁の重みは2倍であり、基数は2である。
                         </p>
-                        <p class="study_detail">
-                            <span class="yellow_highlight">
-                                基数変換の計算方法
-                            </span><br>
-                            【10進数→2進数】<br>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight"><!--
+                                -->基数変換の計算方法
+                            </span>
+                            【10進数→2進数】
                             10進数の数を10で割っていくと、余りが元の数になる。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_Decimal_to_Decimal.jpg">
                         </div>
-                        <p class="study_detail">
-                            2進数に変換する場合も上記と同様に、10進数で表された数を2で割っていき、その商をまた2で割って、割り切れなくなる（商が1になる）まで割り続ける。<br>
-                            割り切れなくなったら余りを下の桁から並べていく。<br>
-                            10進数を2で割ると余りは必ず0か1なので、2進数に変換できる。<br>
-                        <br>
+                        <p class="study_detail"><!--
+                            -->2進数に変換する場合も上記と同様に、10進数で表された数を2で割っていき、その商をまた2で割って、割り切れなくなる（商が1になる）まで割り続ける。
+                            割り切れなくなったら余りを下の桁から並べていく。
+                            10進数を2で割ると余りは必ず0か1なので、2進数に変換できる。
+                        </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_Decimal_to_Binary.jpg">
                         </div>
-                        <p class="study_detail">
-                            【10進数→16進数】<br>
-                            上記と同表に、10進数の数字を16で割っていき、その余りを並べていく。<br>
+                        <p class="study_detail"><!--
+                            -->【10進数→16進数】
+                            上記と同表に、10進数の数字を16で割っていき、その余りを並べていく。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_Decimal_to_Hexadecimal.jpg">
                         </div>
-                        <p class="study_detail">
-                            【2進数→16進数】<br>
-                            16進数は2進数の4桁分なので、変換しやすい。2進数の4桁分を16進数では1桁で表現できる。<br>
-                            基数変換するときは、2進数を4桁毎に区切って、16進数に当てはめていく。<br>
+                        <p class="study_detail"><!--
+                            -->【2進数→16進数】
+                            16進数は2進数の4桁分なので、変換しやすい。2進数の4桁分を16進数では1桁で表現できる。
+                            基数変換するときは、2進数を4桁毎に区切って、16進数に当てはめていく。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_Binary_to_Hexadecimal.jpg">
                         </div>
-                        <p class="study_detail">
-                            【16進数→2進数】<br>
-                            16進数の1桁を2進数に変換していくだけ。<br>
+                        <p class="study_detail"><!--
+                            -->【16進数→2進数】
+                            16進数の1桁を2進数に変換していくだけ。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_Hexadecimal_to_Binary.jpg">
                         </div>
-
-                        <p class="study_detail">
-                            【小数点の計算[2進数→10進数]】<br>
-                            10進数の小数の数は、1桁下がるごとに1/10倍なっている。<br>
+                        <p class="study_detail"><!--
+                            -->【小数点の計算[2進数→10進数]】
+                            10進数の小数の数は、1桁下がるごとに1/10倍なっている。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_decimal_point.jpg">
                         </div>
-                        <p class="study_detail">
-                            2進数の小数の数は、1桁下がるごとに1/2倍になっている。<br>
-                            2進数の桁の重みを桁毎にかけて、足していく。<br>
+                        <p class="study_detail"><!--
+                            -->2進数の小数の数は、1桁下がるごとに1/2倍になっている。
+                            2進数の桁の重みを桁毎にかけて、足していく。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_Binary_point.jpg">
                         </div>
-                        <p class="study_detail">
-                            【小数点の計算[10進数→2進数]】<br>
-                            10進数の小数点部分に10を掛けると順番に一の位に桁上がってくる。<br>
+                        <p class="study_detail"><!--
+                            -->【小数点の計算[10進数→2進数]】
+                            10進数の小数点部分に10を掛けると順番に一の位に桁上がってくる。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_ex_Decimal_point.jpg">
                         </div>
-                        <p class="study_detail">
-                            同じように小数点の基数変換をする場合は、整数部分とは分けて、小数点以下の部分だけ10進数の小数点部分に2を掛け、一の位に上がってくる数が2進数になる。<br><br>
+                        <p class="study_detail"><!--
+                            -->同じように小数点の基数変換をする場合は、整数部分とは分けて、小数点以下の部分だけ10進数の小数点部分に2を掛け、一の位に上がってくる数が2進数になる。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/information_I_II/4_DecimalPoint_to_BinaryPoint.jpg">
@@ -139,9 +138,10 @@
                         <p class="study_detail">
                             お〜わりっ！
                         </p>
-                        <br>
                     </div>
-                    <a class="link_btn" href="../../study.html">戻る</a>
+                    <div class="study_detail">
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
                 </div>
             </div>
         </div>

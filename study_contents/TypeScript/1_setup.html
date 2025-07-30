@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.7.30
+                        </div>
+                        <p class="study_ttl">
+                            TypeScriptの環境設定
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            TypeScriptの概要と特徴
+                        </p>
+                        <p class="study_detail"><!--
+                            -->TypeScriptとは、JavaScriptの仕様に、新しい機能や利便性(書きやすさ等)を追加し、拡張したプログラム言語。
+                            TypeScriptのソースコードはコンパイラでJavaScriptに変換される。つまりJavaScriptで不可能なことはTypeScriptでも不可能。
+                            
+                            ＜デメリット＞
+                            ・JavaScriptの環境で実行できない
+                            &emsp;-> ブラウザで直接実行できない。JavaScriptやNode.jsの開発環境はTypeScriptをサポートしていない。
+                            
+                            ＜メリット＞
+                            ・型機能があるのでユーザーの入力値などについて、バリデーションやサニタイズ処理をしなくてもエラー検知できる。
+                            
+                            ＜用語＞
+                            ・DOM要素：JavaScriptで操作するHTMLのオブジェクト(HTMLタグ)のこと
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            インストール
+                        </p>
+                        <p class="study_detail"><!--
+                            -->1.TypeScriptの<a class="link" href="https://www.typescriptlang.org">公式サイト</a>にアクセスし、Downlodeページを開く。
+
+                               2.ダウンロード方法を確認し、ターミナルを開いて「npm install -g typescript」のコマンドでインストールする。
+                               ※MacやLinuxでは権限が足りない場合、頭にsudoをつけて「sudo npm install -g typescript」で実行する
+                               ※npmはNode.jsパッケージの機能。TypeScriptは裏側でNode.jsの機能も含んでいるためNode.jsのインストールも必要。
+                               まだインストールしていない場合はNode.jsの公式サイト(https://nodejs.org/ja)から最新版をインストールしてからTypeScriptをインストールする
+                               
+                               インストールされると、TypeScriptのコンパイラが使えるようになる。
+                               コンパイラがTypeScriptを理解して、JavaScriptに変換するために必要なものを全てパッケージされている。
+                               
+                               3.インストール完了すると、「tsc ファイル名」のコマンドが使えるようになる。
+                               ->tscはコンパイラを起動して、TypeScriptをJavaScriptへコンパイルするコマンド
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            jsonファイルの設定
+                        </p>
+                        <p class="study_detail"><!--
+                            -->以下の設定は、jsファイルを変更したら自動でブラウザがリロードされるための設定。
+                            1.ターミナルで「npm init」コマンドを実行し、package.jsonファイルを作成する。
+                            ->色々質問されるが、全てEnterキーをおせばdefault設定になる。
+
+                            2.「npm install xx」でpackage.jsonに様々な依存関係を追加できるので、
+                            「npm install --save-dev lite-server」を実行する、
+                            ->「--save-dev」とは開発中にだけ必要な依存関係であるということ。このオプションをつけてインストールするものは、開発をしやすくするためのツールであり、最終的なメインコードには含めない。ということ。
+
+                            3.package.jsonの"script"の設定に開発で使用するスクリプト「"start": "lite-server"」を追加する。
+                            ->これで「npm start」コマンドで、指定したファイルを実行できる。何も設定しなければデフォルトでlocalhost:3000の「index.html」が実行される。
+                            ->"lite-server"は開発用のWebサーバー
+                            ※このサーバを使用する間は「nmp start」を実行したサーバは保持し、この後のコマンド処理は新規ターミナルを立ち上げて行う。
+                            サーバを起動しておく必要がなくなったら、ctr+Cのショートカットで起動を止める。
+                        </p>
+                        <div data-filename="package.json">
+                            <span>package.json</span>
+<!--コード記載-->
+<pre><code class="language-css">
+{
+  "name": "udemyts",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server" /*開発に必要なサーバーを追加*/
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+
+  /*依存関係が追加される*/
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
+</code></pre>
+                    </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            HTMLの設定
+                        </p>
+                        <p class="study_detail"><!--
+                            -->HTMLのheadタグの中でコンパイル済みのJavaScriptファイルをインポートする。
+                            ->TyepScriptはブラウザで実行できない、あくまでもコンパイルで作成されたJavaScriptファイルを実行する。
+                            ->「defer」とはHTMLを解析してから、指定したjsファイルを実行するための属性。
+                        </p>
+                        <div data-filename="index.html">
+                            <span>index.html</span>
+<!--コード記載-->
+<pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;TypeScriptの理解&lt;/title&gt;
+        &lt;!--tsファイルをコンパイルしたjsファイルをインポート--&gt;
+        &lt;script src="app.js" defer&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    </div>
+                    <p class="study_detail"><!--
+                        -->今回やった設定は以上。
+                        jsonファイルは他にも色々設定項目ありそうだから必要に応じて調べていこう〜b
+                    </p>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

@@ -488,10 +488,6 @@ video {
   margin-bottom: 20px;
 }
 
-.red_highlight a {
-  color: red;
-}
-
 .yellow_highlight {
   font-weight: bold;
   background: linear-gradient(transparent 60%, yellow 30%);
@@ -601,6 +597,14 @@ video {
 
 .line_up td{
   text-align: left;
+}
+
+.link{
+  text-decoration: underline;
+}
+
+.link:hover{
+  opacity: 60%;
 }
 
 @media screen and (max-width: 768px) {
@@ -765,7 +769,8 @@ nav ul li a {
 
   .study_flex .study_detail,
   .study_flex .sample {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
     margin: 0;
   }
 

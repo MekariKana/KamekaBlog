@@ -31,20 +31,24 @@
                         </p>
                         <p class="study_detail"><!--
                             -->TypeScriptとは、JavaScriptの仕様に、新しい機能や利便性(書きやすさ等)を追加し、拡張したプログラム言語。
-                            TypeScriptのソースコードはコンパイラでJavaScriptに変換される。つまりJavaScriptで不可能なことはTypeScriptでも不可能。
+                            TypeScriptはあくまでも開発者のための言語でちゃんとコーディングできてるか開発中にミスをチェックできる機能をJavaScriptに追加したもの。
+                            実行前にTypeScritpはコンパイラでJavaScriptに変換されるため、ランタイム(プログラムが実際に動作している状態やその環境)上で動くのはJavaScript。つまりJavaScriptで不可能なことはTypeScriptでも不可能。
                             
                             ＜デメリット＞
                             ・JavaScriptの環境で実行できない
                             &emsp;-> ブラウザで直接実行できない。JavaScriptやNode.jsの開発環境はTypeScriptをサポートしていない。
                             
                             ＜メリット＞
-                            ・型機能があるのでユーザーの入力値などについて、バリデーションやサニタイズ処理をしなくてもエラー検知できる。
+                            ・型機能があるので開発中にエラー検知できる。(下記画像のように型指定した値と矛盾がある場合は実行しなくてもエラーに気が付ける)
                             
                             ＜用語＞
                             ・DOM要素：JavaScriptで操作するHTMLのオブジェクト(HTMLタグ)のこと
                         </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/1_type_of_error.jpg">
+                        </div>
                         <p class="study_sub_ttl study_ttl_square">
-                            インストール
+                            インストールからコンパイル
                         </p>
                         <p class="study_detail"><!--
                             -->1.TypeScriptの<a class="link" href="https://www.typescriptlang.org">公式サイト</a>にアクセスし、Downlodeページを開く。

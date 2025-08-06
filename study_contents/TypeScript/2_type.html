@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.1
+                        </div>
+                        <p class="study_ttl">
+                            型の種類
+                        </p>
+                        <p class="study_detail"><!--
+                            -->JavaScriptは動的型付け言語なので変数型はないが、データ型はある。
+                            TypeScriptは静的型付け言語なので変数型が使える。
+
+                            ＜用語＞
+                            動的型付け言語：事前に型を決定せず、実行時に取得した値(データ)によって型を区別する言語
+                            データ型：データそのものの種類
+                            変数型：変数が許す値の種類、変数に入れるデータを指定した型
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            型指定の書き方
+                        </p>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">Point</span>
+                            ・型指定は「変数名: 型名」と書く。(例)n1: number
+                            ・TypeScriptには型推論という機能があるため、正しく型推論してくれる時には型を明示的に指定しないほうがいい。
+                            (例)
+                            「const numer1 = 5;」：すでに5を格納していて、const(再代入は不可能)のためnumber型だと推論できるので型指定の必要はない
+                            「let number1;」：let(再代入が可能)でなんの値が格納されるか未確定、推論される型はany型になる。number型しか許容しない場合は型指定をすべき。
+                            ->型指定する場合は「let number1: number」
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            コアなデータ型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->※TypeScriptでは、プリミティブ型の型名は全て小文字になる。
+                        </p>
+                        <table class="table_wide">
+                            <tr>
+                                <th>型</th>
+                                <th>具体例</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td>number</td>
+                                <td>1, 5.3, -10</td>
+                                <td>整数、浮動小数点を含む数字全般</td>
+                            </tr>
+                            <tr>
+                                <td>string</td>
+                                <td>'Hi', "Hi", `Hi`</td>
+                                <td>全ての文字列</td>
+                            </tr>
+                            <tr>
+                                <td>boolean</td>
+                                <td>true, false</td>
+                                <td>trueまたはfalseのみ</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// メソッドで受け取る値を型指定する
+function add(n1: number, n2: number, showResult: boolean, phrase: string) {
+    // 出力前にnumber型同士で加算処理
+    const result = n1 + n2;
+
+    // 結果がtrueならコンソールに出力
+    if (showResult) {
+        console.log(phrase + result);
+    } else {
+        return result;   
+    }
+}
+
+// 変数に値を格納済みなので、型定義しないで型推論に任せる
+const number1 = 5;
+const number2 = 2.8;
+const printResult = true;
+const printPhrase = "result: " 
+
+add(number1, number2, printResult, printPhrase);
+</code></pre>
+                    </div>
+                    <table class="table_wide">
+                        <tr>
+                            <th>型</th>
+                            <th>具体例</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr>
+                            <td>object</td>
+                            <td>{age: 30}</td>
+                            <td>
+                                JavaScript全てのobject<br>
+                                TypeScriptで各objectに型定義できる
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Array</td>
+                            <td>[1, 2, 3]</td>
+                            <td>
+                                JavaScriptで指定できる全てのArray<br>
+                                データ型が混在した柔軟な配列(any)にも厳格(string等)にも定義できる
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tupple</td>
+                            <td>[1, 2]</td>
+                            <td>
+                                JavaScriptにはない型でArrayのひとつ。<br>
+                                Arrayとの違いは要素数が固定できること、要素ごとに型を指定できること<br>
+                                主にマスター情報の設定で使用される<br>
+                                ※pushはエラー検知されないので注意！pushで後から値追加はできてしまう！
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// personはobject型
+// Tapple型は型推論できないため型定義が必要
+// Tapple型がなければ型推論が正しく行われるので型定義は不要
+const person: {
+    // オブジェクトの型定義は「項目: 型名;」
+    name: string;
+    age: 30; // 値を定義した場合は30以外を許容しない
+    hobbies: string[];
+    role: [number, string]; // Tapple型は型と要素数を定義できる
+} = {
+    name: "yuta",
+    age: 30,
+    hobbies: ["baseball", "flower", "piano"],
+    role: [1, "author"]
+}
+
+// ■Tapple型の特徴
+
+// 1.Tapple型で要素数を固定しているので、3つめの値はエラー
+person.role = [1, "user", "yataro"]; // エラー検知される
+
+// 2.Tapple型で型定義しているので2つ目の要素にnumberを代入することはできないエラー
+person.role[1] = 10; // エラー検知される
+
+// 3.pushで後から値追加はできるので注意！
+person.role.push("admin"); // エラーにならない！
+
+// ■hobbies(Array型)の値を取り出してコンソールに出力
+for(const hobby of person.hobbies) {
+    // hobbiesはstring型のみの配列なので
+    // string型の機能を使える
+    console.log(hobby.toUpperCase());
+}
+</code></pre>
+                    </div>
+                    <table class="table_wide">
+                            <tr>
+                                <th>型</th>
+                                <th>具体例</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td>Enum</td>
+                                <td>{NEW, OLD}</td>
+                                <td>列挙型。定数のリストに名前をつけて管理できる</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// enum型で入力値を制限
+enum Role {
+    ADMIN,
+    READ_ONLY,
+    AUTHOR,
+}
+
+const person = {
+    name: "yuta",
+    age: 30,
+    hobbies: ["baseball", "flower", "piano"],
+    // role: "READ_ONLY", 手入力はエラーの元
+    role: Role.READ_ONLY,
+
+}
+
+// "READ_ONLY"を手入力するとスペルを間違う可能性がある
+// if (person.role === "READ_ONLYY") {
+// -> enum型で定義すると定義した値から選択できる
+if (person.role === Role.READ_ONLY) {
+    console.log("読み取り専用");
+}
+</code></pre>
+                    </div>
+                    <table class="table_wide">
+                            <tr>
+                                <th>型</th>
+                                <th>具体例</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td>Any</td>
+                                <td>★</td>
+                                <td>
+                                    どんな型でもOK。型を指定しない場合に使用する。<br>
+                                    Any型はTypeScriptに型チェックされないので、使用しないのが好ましい。<br>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// Any型配列を定義した場合、配列であればなんでも受け入れる。
+let favoriteAcrivities: any[];
+favoriteAcrivities = ["sport"];
+favoriteAcrivities = [1, 2, 3];
+favoriteAcrivities = 10; // 配列じゃないのでエラー
+</code></pre>
+                    </div>
+                    <table class="table_wide">
+                            <tr>
+                                <th>型</th>
+                                <th>具体例</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td>Union</td>
+                                <td>number | string | boolean</td>
+                                <td>パイプ(|)で連結した複数の型を許容する</td>
+                            </tr>
+                            <tr>
+                                <td>literal</td>
+                                <td>2.8, "author"</td>
+                                <td>
+                                    値そのものを型定義することで、指定した値以外の入力を制御する。
+                                    また呼び出し元から入力値を参照できるようになる。
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>エイリアス</td>
+                                <td>type 変数名 = number | string</td>
+                                <td>
+                                    何度も同じ型定義をする場合、自分で型を作成することができる
+                                    Union型などをエイリアス型としてまとめて変数定義し、使いまわすことができる
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 関数の引数にUnion型とliteral型を使う例▼
+type Combinable = number | string;
+// Union型と合わせてLiteral型(値をそのものを型定義)を指定
+type ConversionDescriptor = "as-number" | "as-string";
+
+// 変数定義したエイリアス型を引数の型に指定
+function combined(input1: Combinable, input2: Combinable, 
+    resultConversion: ConversionDescriptor) {
+    let result;
+    if (typeof input1 === "number" && typeof input2 === "number" || resultConversion === "as-number") {
+        result = +input1 + +input2;
+    } else {
+        // TypeScriptはコンパイル時に型が確定している必要がある
+        // この時点では型は[number | string]となっていて確定していないので
+        // 明示的に文字列に変換することで型エラーを回避する
+        result = input1.toString() + input2.toString();
+    }
+
+    return result;
+}
+
+const combinedAges = combined(30, 26, "as-number");
+console.log(combinedAges);
+
+const combinedStringAges = combined("30", "26", "as-number");
+console.log(combinedStringAges);
+
+const combinedNames = combined("Max", "Anna", "as-string");
+console.log(combinedNames);
+</code></pre>
+                    </div>
+                        
+                    <p class="study_detail"><!--
+                        -->主な型は以上〜
+                        Javaと同じような型だけど、エイリアスは便利に感じたな〜。Javaだと新規クラス作成で定義しなきゃいけなかったから＞＜
+                    </p>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

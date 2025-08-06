@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.2
+                        </div>
+                        <p class="study_ttl">
+                            関数の型(voidとundefined)
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            戻り値の型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->TypeScriptは関数の引数の型と戻り値の型も推論する。
+                            画像のような関数では、戻り値をnumberと推論している。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/3_functionType_sample.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->戻り値(return)がない場合は、「void」型と推論される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/3_functionType_void.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以下のようなコードを実行すると「Undefined」が表示される。
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function add(n1: number, n2: number) {
+    return n1 + n2;
+}
+
+function printResult(num: number) {
+    console.log("Result: " + num);
+}
+
+console.log(printResult(add(30, 26)));
+</code></pre>
+                        </div>
+                        <div class="mini_img">
+                            <img src="../../img/study/typescript/3_functionType_undefined.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">UndefinedとVoidの違い</span>
+                            ＜Undefined＞
+                            「定義された値がない」= 定義されてない値の初期値、値の一種。
+                            以下のようなコードの場合は、戻り値がないのではなく「undefined」を返さなくてはいけない。
+                            
+                            function f1(): undefined {
+                            &emsp;&emsp;return undefined;
+                            }
+
+                            ＜Void＞
+                            「何も返さない」ことを表す型。値ではない。
+                            
+                            function f2(): void {
+                            &emsp;&emsp;console.log("Hi");
+                            &emsp;&emsp;// ここで返る値は undefined だが、型は void と書く
+                            }
+                        </p>
+                        <div data-filename="app.ts">
+                                <span>app.ts</span>
+    <!--コード記載-->
+    <pre><code class="language-typescript">
+    function add(n1: number, n2: number) {
+        return n1 + n2;
+    }
+
+    function printResult(num: number) {
+        console.log("Result: " + num);
+    }
+
+    console.log(printResult(add(30, 26)));
+    </code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            変数の関数型の定義
+                        </p>
+                        <p class="study_detail"><!--
+                            -->変数に関数を格納すると、変数名で関数を実行することができる。
+                            変数の型定義ではFunction型を指定し、さらにそれがどのような関数なのか、アロー関数を使って引数や戻り値を指定することができる。
+                            アロー関数で型を明確に指定することで、実行前にエラーを検知できる。
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function add(n1: number, n2: number) {
+    return n1 + n2;
+}
+
+function printResult(num: number) {
+    console.log("Result: " + num);
+}
+
+// 変数定義(アロー関数)
+// 変数に格納する関数の引数と戻り値を指定できる
+let combineValues: (a: number, b: number) => number;
+// 変数に関数addを格納
+combineValues = add;
+
+// 変数combineValuesに格納された関数addを実行してコンソールに出力
+console.log(combineValues(8,8));
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以下のように変数定義すると、別の値を入れてもエラー検知できず、実行時エラーとなってしまう。
+                            TypeScriptの利点は開発時にバグに気が付けることなので、型を適切に指定することが重要。
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// よくない変数定義の例
+
+// 1.変数定義(型指定なしなのでany型)
+let combineValues:
+// 関数以外も格納できる->実行時エラー
+combineValues = 5;
+
+// 2.変数定義(関数型を指定する)
+let combineValues: Function;
+// 別の関数を入れられる->実行時エラー
+combineValues = printResult;
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            コールバック引数に型を指定
+                        </p>
+                        <p class="study_detail"><!--
+                            -->コールバック引数とは、関数の引数にコールバック関数を指定すること。
+                            コールバックとは後で呼び出すこと。関数を引数として渡した場合、処理の中のどこかで渡された関数を使う。
+                        </p>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight"Point></span>
+                            ・コールバック引数の場合、戻り値を定義しても呼び出し元でのreturn文チェックは行わない。
+                            &emsp;-> 例えばcb引数の戻り値がvoidの場合、「たとえreturnされても処理の中で戻り値を使わない」という意味
+                            ・引数の型は指定したあった場合、処理に影響するため厳密にエラーチェックされる
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 呼び出し元でreturnしてもエラーにはならない、ただこの処理では不要、ということ
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+    const result = n1 + n2;
+    cb(result);
+}
+
+// 引数の型は処理に影響するためチェックを厳密に行うが、
+// cbの戻り値については特にチェックしない
+addAndHandle(10, 20, (result) => {
+    console.log(result);
+    // cb引数の戻り値指定はvoidだが、return文があってもエラー検知されない
+    return result;
+})
+</code></pre>
+                        </div>
+
+                        <p class="study_detail"><!--
+                            -->以上〜
+                            コールバックは少し複雑に感じた。Javaではメソッドを引数にして渡す考え方がないからかな？
+                            どういう場面で使うかは、慣れが必要かな〜
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

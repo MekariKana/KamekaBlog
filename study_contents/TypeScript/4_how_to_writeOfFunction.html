@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.4
+                        </div>
+                        <p class="study_ttl">
+                            関数の書き方
+                        </p>
+                        <p class="study_detail"><!--
+                            -->TypeScriptの関数の書き方は3種類あるので、それぞれ整理してまとめる。
+                        </p>
+                        <p class="study_sub_ttl">
+                            ①関数の基本の形
+                        </p>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">Point</span>
+                            ・クラスの外に関数を作るときは、この書き方
+                            ・()に引数、{}に処理を書く
+                            ・何度も呼び出す場合は、無名関数を使わず関数名を明確に定義する
+                        </p>
+                        <br>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function 関数名(引数名: 型): 戻り値の型 {
+  // 実行したい処理
+}
+</code></pre>
+                    </div>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function greet(name: string): string {
+  return "Hello, " + name + "!";
+}
+
+const result = greet("kame");
+console.log(result);
+</code></pre>
+                    </div>
+
+                    <p class="study_sub_ttl">
+                        ②クラス内での書き方
+                    </p>
+                    <p class="study_detail"><!--
+                        --><span class="yellow_highlight">Point</span>
+                        ・クラスの中でメソッドを作るときは、functionの記載はいらない
+                        ・呼び出すときは、インスタンスしてからクラス内メソッドを呼び出す
+                        ・同じクラス内のメソッドを呼ぶときは、「this.メソッド名」で呼び出す
+                    </p>
+                    <br>
+                    <div data-filename="app.ts">
+                        <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+class MyClass {
+  関数名(引数名: 型): 戻り値の型 {
+    // 実行したい処理
+  }
+}
+</code></pre>
+                    </div>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+class MyClass {
+  greet(name: string): string {
+    return `こんにちは、${name}さん`;
+  }
+
+  start() {
+    this.greet('kame');
+  }
+}
+
+const my = new MyClass();
+my.start();
+</code></pre>
+                    </div>
+                    <p class="study_sub_ttl">
+                        ③アロー関数の書き方
+                    </p>
+                    <p class="study_detail"><!--
+                        --><span class="yellow_highlight">Point</span>
+                        ・コールバック関数や、一時的に無名関数を作るときに使う
+                        ・処理が短い場合は省略した書き方ができる
+                    </p>
+                    <br>
+                    <div data-filename="app.ts">
+                        <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 基本の書き方
+const 関数名 = (引数名: 型): 戻り値の型 => {
+  // 処理
+  return 戻す値;
+};
+
+// 1行で済む場合
+// {}やreturnは省略できる
+const greet = (引数名: 型): 戻り値の型 => 処理;
+
+// 引数が1つの場合
+// ()も省略できる
+const double = 引数名 => 処理;
+// 型を書く場合は省略できない
+const double = (引数名: 型): 戻り値の型 => 処理;
+</code></pre>
+                    </div>
+                    <div data-filename="app.ts">
+                        <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 基本の書き方
+const greet = (name: string): string => {
+  return `こんにちは、${name}さん`;
+};
+
+// 1行で済む場合
+const greet = (name: string): string => `こんにちは、${name}さん`;
+
+// 引数が1つの場合
+const greet = name => `こんにちは、${name}さん`;
+
+// 呼び出し元
+const result = greet("kame");
+console.log(result); // → こんにちは、kameさん
+</code></pre>
+                    </div>
+
+                    <p class="study_detail"><!--
+                        -->コールバック関数の書き方
+                    </p>
+                    <div data-filename="app.ts">
+                        <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function sample(callback: (引数名: 型) => 戻り値の型) {
+  // callback(渡す値);
+}
+
+// 呼び出し元（コールバックを渡す）
+sample((引数) => {
+    // コールバックする処理
+    return 戻り値;
+})
+</code></pre>
+                    </div>
+                    <div data-filename="app.ts">
+                        <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+class MyClass {
+  loadData(callback: (data: string) => void) {
+    // ② loadData()の中身の実行開始。setTimeoutの中身はまだ待機中
+    setTimeout(() => {
+      // ⑤ 1秒後にここが実行される
+      const result = "データ取得完了";   // ⑥ データを作る
+      callback(result);                // ⑦ コールバック関数を呼ぶ（dataにresultを渡す）
+      // ③ setTimeoutが動いてタイマーをセット
+    }, 1000);
+    // ④ setTimeoutがタイマーをセットした後、一旦loadData関数の処理が終わる、1秒たったら。。
+  }
+
+  start() {
+    // ① 最初に呼ばれるのはここ！
+    this.loadData((data) => {
+      // ⑧ コールバック関数が呼ばれてここに入ってくる
+      console.log("取得したデータ:", data); // ⑨ 画面に表示される
+    });
+  }
+}
+
+const my = new MyClass();
+my.start();  // ← ① ここからスタート！
+</code></pre>
+                    </div>
+                    <p class="study_detail"><!--
+                        -->以上〜
+                        コールバック関数は少し複雑に感じたので、自分の思った処理を書くには慣れが必要かな＞＜
+                    </p>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

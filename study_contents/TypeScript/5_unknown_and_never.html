@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.6
+                        </div>
+                        <p class="study_ttl">
+                            unknown型とnever型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->JavaにはないTypeScript特有の型なので、別途まとめる。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            unknown型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->なんでも代入できる型。
+                            特定の型で制御しない点はany型と似ているが、unknown型は他の型に代入するときにtypeofで型チェックをしないとエラーになる。
+                            安全に柔軟なデータを扱いたいときの使用に向いている。
+
+                            ＜用途＞
+                            ・APIのレスポンス（型が確定していない）
+                            ・ユーザー入力（フォームなど）
+                            ・JSONのパース結果
+                        </p>
+                        <div data-filename="unknown型">
+                        <span>unknown型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 例：APIからデータを受け取る関数
+function getData(): unknown {
+  return "Hello"; // 実際は文字列を返す
+}
+
+const result = getData();
+
+if (typeof result === "number") {
+  console.log(result.toFixed(2)); // 安全に実行される
+} else {
+  console.log("数値じゃない！"); // エラー回避できる
+}
+</code></pre>
+                        </div>
+                        <div data-filename="any型">
+                        <span>any型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 例：APIからデータを受け取る関数
+function getData(): any {
+  return "Hello"; // 実際は文字列を返す
+}
+
+const result = getData();
+console.log(result.toFixed(2)); // ランタイムエラー！→ toFixedはstringにはない
+</code></pre>
+                    </div>
+
+                    <p class="study_sub_ttl study_ttl_square">
+                        never型
+                    </p>
+                    <p class="study_detail"><!--
+                        -->never型は関数の戻り値として使うことができる型。
+                        voidと似ていて、「何も返さない」を意味する型。明示的にneverを指定しなければ、型推論ではvoidになる。
+                    </p>
+                    <div class="small_img">
+                        <img src="../../img/study/typescript/5_void_code.jpg">
+                    </div>
+                    <p class="study_detail"><!--
+                        -->voidは「値は返さないが、関数の処理は最後まで完了し呼び出し元に戻る」のに対し、neverは「関数が途中で終了し、処理が呼び出し元に戻らない」という違いがある。
+                        戻り値がvoidの関数をconsole.logで出力すると、「undefined」が出力されるが、戻り値がneverの場合は、処理が呼び出し元に戻らないので何も表示されない。
+                    </p>
+                    <div class="small_img">
+                        <img src="../../img/study/typescript/5_never_browser.jpg">
+                    </div>
+                    <p class="study_detail"><!--
+                        -->＜用途＞
+                        例1）関数の中でthrowで例外を発生させる
+                        -> プログラムの流れを止めてその場で終了させたり、例外処理に飛んだりする
+                    </p>
+                    <div data-filename="app.ts">
+                        <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function throwError(): never {
+  throw new Error("エラーが発生しました！");
+}
+</code></pre>
+                    </div>
+
+                    <p class="study_detail"><!--
+                        -->例2）無限ループを発生させる
+                        -> while(true)のように永遠に終わらない処理も「呼び出し元に戻らない処理」
+                    </p>
+                    <div data-filename="app.ts">
+                        <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function infiniteLoop(): never {
+  while (true) {
+    // 永遠にここを回り続ける
+  }
+}
+</code></pre>
+                    </div>
+                    <p class="study_detail"><!--
+                        -->以上〜
+                        似て非なる型があるんだな。こういう違いも使いこなせるようになりたいな。
+                    </p>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

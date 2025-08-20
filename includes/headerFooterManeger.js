@@ -1,8 +1,8 @@
 // 現在のサイトのルートURLを取得
 //ローカル環境
-const basePath = "/";
+//const basePath = "/";
 //実行環境
-//const basePath = "/KamekaBlog/";
+const basePath = "/KamekaBlog/";
 
 //ベースurl
 const baseUrl = `${window.location.origin}${basePath}`;

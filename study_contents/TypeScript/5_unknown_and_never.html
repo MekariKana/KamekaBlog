@@ -43,7 +43,7 @@
                             ・JSONのパース結果
                         </p>
                         <div data-filename="unknown型">
-                        <span>unknown型</span>
+                            <span>unknown型</span>
 <!--コード記載-->
 <pre><code class="language-typescript">
 // 例：APIからデータを受け取る関数
@@ -61,7 +61,7 @@ if (typeof result === "number") {
 </code></pre>
                         </div>
                         <div data-filename="any型">
-                        <span>any型</span>
+                            <span>any型</span>
 <!--コード記載-->
 <pre><code class="language-typescript">
 // 例：APIからデータを受け取る関数
@@ -72,61 +72,62 @@ function getData(): any {
 const result = getData();
 console.log(result.toFixed(2)); // ランタイムエラー！→ toFixedはstringにはない
 </code></pre>
-                    </div>
+                        </div>
 
-                    <p class="study_sub_ttl study_ttl_square">
-                        never型
-                    </p>
-                    <p class="study_detail"><!--
-                        -->never型は関数の戻り値として使うことができる型。
-                        voidと似ていて、「何も返さない」を意味する型。明示的にneverを指定しなければ、型推論ではvoidになる。
-                    </p>
-                    <div class="small_img">
-                        <img src="../../img/study/typescript/5_void_code.jpg">
-                    </div>
-                    <p class="study_detail"><!--
-                        -->voidは「値は返さないが、関数の処理は最後まで完了し呼び出し元に戻る」のに対し、neverは「関数が途中で終了し、処理が呼び出し元に戻らない」という違いがある。
-                        戻り値がvoidの関数をconsole.logで出力すると、「undefined」が出力されるが、戻り値がneverの場合は、処理が呼び出し元に戻らないので何も表示されない。
-                    </p>
-                    <div class="small_img">
-                        <img src="../../img/study/typescript/5_never_browser.jpg">
-                    </div>
-                    <p class="study_detail"><!--
-                        -->＜用途＞
-                        例1）関数の中でthrowで例外を発生させる
-                        -> プログラムの流れを止めてその場で終了させたり、例外処理に飛んだりする
-                    </p>
-                    <div data-filename="app.ts">
-                        <span>app.ts</span>
-<!--コード記載-->
-<pre><code class="language-typescript">
-function throwError(): never {
-  throw new Error("エラーが発生しました！");
-}
-</code></pre>
-                    </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            never型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->never型は関数の戻り値として使うことができる型。
+                            voidと似ていて、「何も返さない」を意味する型。明示的にneverを指定しなければ、型推論ではvoidになる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/5_void_code.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->voidは「値は返さないが、関数の処理は最後まで完了し呼び出し元に戻る」のに対し、neverは「関数が途中で終了し、処理が呼び出し元に戻らない」という違いがある。
+                            戻り値がvoidの関数をconsole.logで出力すると、「undefined」が出力されるが、戻り値がneverの場合は、処理が呼び出し元に戻らないので何も表示されない。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/5_never_browser.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->＜用途＞
+                            例1）関数の中でthrowで例外を発生させる
+                            -> プログラムの流れを止めてその場で終了させたり、例外処理に飛んだりする
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+    <!--コード記載-->
+    <pre><code class="language-typescript">
+    function throwError(): never {
+    throw new Error("エラーが発生しました！");
+    }
+    </code></pre>
+                        </div>
 
-                    <p class="study_detail"><!--
-                        -->例2）無限ループを発生させる
-                        -> while(true)のように永遠に終わらない処理も「呼び出し元に戻らない処理」
-                    </p>
-                    <div data-filename="app.ts">
-                        <span>app.ts</span>
-<!--コード記載-->
-<pre><code class="language-typescript">
-function infiniteLoop(): never {
-  while (true) {
-    // 永遠にここを回り続ける
-  }
-}
-</code></pre>
+                        <p class="study_detail"><!--
+                            -->例2）無限ループを発生させる
+                            -> while(true)のように永遠に終わらない処理も「呼び出し元に戻らない処理」
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+    <!--コード記載-->
+    <pre><code class="language-typescript">
+    function infiniteLoop(): never {
+    while (true) {
+        // 永遠にここを回り続ける
+    }
+    }
+    </code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以上〜
+                            似て非なる型があるんだな。こういう違いも使いこなせるようになりたいな。
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
                     </div>
-                    <p class="study_detail"><!--
-                        -->以上〜
-                        似て非なる型があるんだな。こういう違いも使いこなせるようになりたいな。
-                    </p>
-                    <br>
-                    <a class="link_btn" href="../../study.html">戻る</a>
                 </div>
             </div>
         </div>

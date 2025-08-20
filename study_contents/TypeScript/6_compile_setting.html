@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.6
+                        </div>
+                        <p class="study_ttl">
+                            TypeScriptのコンパイル設定
+                        </p>
+                        <p class="study_detail"><!--
+                            -->コンパイルはコマンドから行う。主なオプションは<a class="link" href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank">コンパイラオプション公式サイト</a>を参照。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            ファイル単位の自動コンパイル設定（Watchモード）
+                        </p>
+                        <p class="study_detail"><!--
+                            -->今までは変更がある度に「tsc xxx.ts」コマンドでコンパイルしていたけど、watchモードオプションを追加し、「tsc xxx.ts --watch」（[-w]でもOK）でコンパイルする。
+                            Watchモードでは指定したファイルを監視し、変更があれば自動でコンパイルしてくれる。
+                            内容にエラーがある場合は、手動コンパイルの時と同様、コンパイルエラーがターミナルに出力される。
+
+                            【watchモードのコンパイルコマンド】
+                            tsc xxx.ts --watch
+                            tsc xxx.ts -w
+                            上記のコマンドを実行すると画像のような画面に切り替わる。
+                            Watchモードをキャンセルする場合、Macの場合は「control + C」でキャンセルできる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/6_watch_mode.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            複数ファイルの一括自動コンパイル設定（Watchモード）
+                        </p>
+                        <p class="study_detail"><!--
+                            -->1つのフォルダが1まとまりのTypeScriptのプロジェクトであることを認識してもらうため、プロジェクトを初期化する以下のコマンドを実行する。
+                            ※必ずプロジェクトのルートフォルダで実行する
+                            コマンド：tsc --init
+                            -> このコマンドでTypeScriptにここがプロジェクトのフォルダであることを認識してもらうことができる。
+
+                            実行すると以下のコマンドが出力され、tsconfig.jsonが作成される。
+                            tsconfig.jsonファイルがあるフォルダとその配下にあたるファイルは全てTypeScriptによって管理されるもの、という意味。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/6_tsc_init.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->この設定をしたことで、[tsc xxx.ts]とファイル名の指定をせず[tsc]コマンドのみで、このプロジェクト全体のtsファイルで変更されたものを探し、コンパイルしてくれる。
+                            Watchモードのオプションをつけて実行すれば、変更のたびに複数ファイルの自動コンパイルをしてくれる。
+
+                            【watchモードのコンパイルコマンド】
+                            tsc -w
+                        </p>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            一括コンパイルから除くファイルを設定する場合（exclude）
+                        </p>
+                        <p class="study_detail"><!--
+                            -->一括で自動コンパイル管理している中に、個別でコンパイルしたいファイルがある場合は、tsconfig.jsonファイルで設定する。
+
+                            【追加する設定】
+                            "exclude": ["node_modules", "ファイル名.ts"]
+                            ※ 除外したい個別ファイルがあるときは、上記の設定を追加する。
+                            -> "mode_modules"は、初期設定でコンパイル対象から除外されているため、"node_modules"のみであれば設定不要。
+                            -> "mode_modules"以外に追加するファイルがある場合は、対象ファイルと一緒に"node_modules"も設定する。
+                            ※ "node_modules"は、package.jsonの"devDependencies(依存関係)"で設定しているライブラリがインストールされる場所。サードパーティのライブラリの中にtsファイルがあったとしても変更する必要はないので、excludeで監視対象から除いておく。
+
+
+                            ＜用途＞
+                            開発用ファイルはコンパイルしない時の設定
+                            "exclude": ["**/*.dev.ts"]
+                            -> "*(ワイルドカード)"を使い、全てのフォルダ(**/)の".dev.ts"がつく全てのファイル(*.dev.ts)は一括コンパイルから除く
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/6_exclude.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            複数の対象ファイルのみ一括コンパイルする方法（include）
+                        </p>
+                        <p class="study_detail"><!--
+                            -->tscコマンドでコンパイルできるtsファイルも、tsconfig.jsonの"include"オプションで設定できる。
+                            "include"と"exclude"は両方設定することもできる。両方設定する場合は、「includeのファイルの中から、excludeのファイルは除外される」という意味になる。
+                            また小さいプロジェクトの場合は、"files"という設定もある。動作はincludeと同じだが、ファイル単位で指定する場合に使用する。
+
+                            【追加する設定】
+                            "include": ["フォルダ1", "フォルダ2"]
+                            "files": ["ファイル名1.ts", "ファイル名2.ts"]
+                            ※ この設定を追加した場合、ここに記載のないファイルは全てコンパイル対象外となる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/6_include.jpg">
+                        </div>
+                        
+                        <p class="study_detail"><!--
+                            -->以上〜
+                            似て非なる型があるんだな。こういう違いも使いこなせるようになりたいな。
+                        </p>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

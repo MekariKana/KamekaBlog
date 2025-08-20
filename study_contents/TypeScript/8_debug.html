@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.19
+                        </div>
+                        <p class="study_ttl">
+                            VSでのDebug方法
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            環境設定
+                        </p>
+                        <p class="study_detail"><!--
+                            -->1.「JavaScript Debugger」の拡張機能を追加する。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/8_JavaScriptDebugger.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->2.[tsconfig.json]ファイルの"<a href="7_tsconfig_setting.html#sourceMap" class="link">sourceMap</a>"をtrue(有効)に設定する。
+                            -> 実際にデバック実行するのはコンパイルされたjsファイルなので、どのtsのコードがどのjsコードと対応しているコードを知るため、mapファイルが必要。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            デバックを実行する
+                        </p>
+                        <p class="study_detail"><!--
+                            -->1.一番左のアイコンの虫マークをクリックし、デバック画面を開く。
+                        </p>
+                        <p class="study_detail"><!--
+                            -->2.「実行とデバック」をクリック
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/8_debug_firstExec.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->3.デバック実行するブラウザを選択(ここではChrome)
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/8_debug_browser.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->4.[launch.json]ファイルが自動で作成される。以下のように設定したら、[tsc]コマンドでコンパイルする。
+                            -> このファイルは、デバック実行の時どのようにChromeを起動するか設定するためのファイル。
+                            ・url：ポートは初期設定で8080になっている。ここでは開発用サーバ(lite-server)が3000で起動しているためポートを3000に修正する。
+                            ・webRoot：{workspaceFolder}とはプレジェクトのルートフォルダを指すプレスフォルダ(環境変数)。このプロジェクトのルートフォルダがサーバのルートであることを前提にするという設定になっているので、変更しなくてOK。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/8_launchJson_setting.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->※サーバーのルートとは、Webサーバが公開する基点となるフォルダ。ルートを変えたら、サーバ起動時に読み込むフォルダが変わる。
+                            Webサーバはブラウザに見せてもいい基準点となるルートフォルダ決め、そこからファイルを探す。
+                            プロジェクトのルートは、Next.jsやCreate React Appなどのツールやlite-serverなどサーバによって決められているので、都度調べて確認する。
+
+                            例）サーバのルートを"my-project/public"に設定した場合
+                            -> "http://localhost:3000/index.html" -> my-project/public/index.htmlが返る
+                            src/main.jsはルートフォルダ配下に含まれないので、直接アクセスできない。index.htmlからmain.jsを読んでいる場合は404エラーになる。
+                        </p>
+                        <div data-filename="フォルダ階層">
+                            <span>フォルダ階層</span>
+    <!--コード記載-->
+<pre><code class="language-html">
+my-project/
+  ├─ public/
+  │    ├─ index.html
+  │    └─ css/
+  │         └─ style.css
+  └─ src/
+       └─ main.js
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->※ 開発用サーバのurl(ポート)の確認方法
+                            1. [package.json]ファイルの"scripts"を確認。"start"や"run dev"など開発用サーバーを呼ぶコマンドに、どのサーバが設定されているか確認。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/8_dev_server.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->2.[npm start]コマンドで開発用サーバを起動。以下のようにターミナルに接続したURLが表示されるのでポートを確認する。
+                        </p>
+                        <div data-filename="tarminal">
+                            <span>terminal</span>
+    <!--コード記載-->
+<pre><code class="terminal">
+[BS] Access URLs:
+ ----------------------------------
+       Local: http://localhost:3000
+    External: http://192.168.xx.xx:3000
+ ----------------------------------
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->-> lite-serverはデフォルトではポート3000に接続される。別途ポートを設定する場合は、bs-config.json または bs-config.jsというファイルで設定する。
+                            この設定ファイルが存在しない場合は、デフォルト設定で動く。
+                            設定ファイルでポートを指定する場合は、以下のようにbs-config.jsonを作成する。
+                        </p>
+                        <div data-filename="bs-config.json">
+                            <span>bs-config.json</span>
+    <!--コード記載-->
+<pre><code class="terminal">
+{
+  "port": 4001,
+  "server": { "baseDir": "./src" }
+}
+</code></pre>
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            デバックツールの画面説明
+                        </p>
+                        <p class="study_detail"><!--
+                            -->変数：今のスコープでアクセスできる変数の中身を確認できるところ
+                            ウォッチ式：任意の式を挿入し、実行結果を監視することができるところ
+                            コールスタック：関数の呼び出し階層を確認するところ
+                            ブレークポイント：コードの実行が一時停止する場所を確認するところ
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/8_debug_screen.jpg">
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            デバックツールの使い方
+                        </p>
+                        <p class="study_detail"><!--
+                            -->1.ブレークポイントを設定する(ソースの行数が書いてある左のスペースをダブルクリックすると、赤い丸印が表示される。)
+                            2.[npm start]コマンドでlite-serverを立ち上げる
+                            3.変数スペースの上の緑の▶︎をクリックしてデバックをスタート
+                            4.ブレークポイントで一時停止するので、右上のコントロールパネルを操作して処理を進める。
+
+                            ＜コントロールパネルの機能＞
+                            |&#x25B9;：処理を再開する
+                            &#8631;（ステップオーバー）：現在の関数の実行を1行進める
+                            ↓（ステップイン）：関数の呼び出し階層の中に入って、更に1階層深い関数をデバックする
+                            ↑（ステップアウト）：1つ上の呼び出し階層に戻るまで実行を進める
+                            &#x21BA;：再起動
+                            &#x2610;：切断
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/8_start_debug.jpg">
+                        </div>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

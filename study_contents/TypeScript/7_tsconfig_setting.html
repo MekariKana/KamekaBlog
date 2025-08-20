@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.7
+                        </div>
+                        <p class="study_ttl">
+                            tsconfig.jsonの設定
+                        </p>
+                        <p class="study_detail"><!--
+                            -->TypeScriptのバージョンアップに伴って、徐々に新しいオプションが増えていく。
+                            バージョンアップしたら公式ドキュメントで変更点を確認して、プロフェクトで役に立つオプションをチェックする。
+                        </p>
+                        <p class="study_sub_ttl">
+                            コンパイルターゲットの設定：Language and Environment
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            target
+                        </p>
+                        <p class="study_detail"><!--
+                            -->どのJavaScriptのバージョンをターゲットしてコンパイルするか設定するオプション。
+                            TypeScriptはJavaScriptに存在しない機能を使うとき、JavaScriptで同じ動作をする別の機能を使ってコンパイルする。
+                            特定のバージョンのブラウザで動作するようプロジェクトに合わせて設定する必要がある。
+                            アプリケーションがモダンなブラウザでしか使われないことがわかっている場合は、新しい機能が備わったJavaScriptのほうがコンパイルされるコードが簡潔になるので好ましい。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_target.jpg">
+                        </div>
+
+                        <p class="study_point study_ttl_square">
+                            lib
+                        </p>
+                        <p class="study_detail"><!--
+                            -->どのような機能やオブジェクトがデフォルトで使えるか設定するオプション。
+                            設定できる項目は<a class="link" href="https://www.typescriptlang.org/tsconfig#lib" target="_blank">公式HP</a>を参照する。
+
+                            コメントアウトしている場合は、targetで設定したバージョンに合わせたデフォルトの設定が適用される。
+                            画像の場合、libの設定値は、target"es6"のデフォルト設定と同じ値を設定しているので、コメントアウトしても同じ挙動になる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_lib.jpg">
+                        </div>
+                        <p class="study_sub_ttl">
+                            コンパイルターゲットの設定：Language and Environment
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            allowjs / checkjs
+                        </p>
+                        <p class="study_detail"><!--
+                            -->allowjs：jsファイルもコンパイル対象に含むオプション。
+                            checkjs：jsファイルのコードもエラーチェック対象に含むオプション。
+
+                            ここでは不要なのでコメントアウト。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            jsx
+                        </p>
+                        <p class="study_detail"><!--
+                            -->reactJsというライブラリを使う時に設定するオプション。
+
+                            ここではreactを使っていないので、コメントアウト。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            declaration / declarationMap
+                        </p>
+                        <p class="study_detail"><!--
+                            -->プロジェクトをライブラリにして他の人に公開するためのオプション。
+                            ”xxx.d.ts”ファイルを宣言ファイルといい、ライブラリを使う上で必要な型定義を書いて公開する。
+
+                            不要なのでコメントアウト。
+                        </p>
+                        <p class="study_point study_ttl_square" id="sourceMap">
+                            sourceMap
+                        </p>
+                        <p class="study_detail"><!--
+                            -->tsファイルをブラウザ上で確認し、デバック実行できるオプション。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_sourcemap.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->この設定をtrueにしコンパイルすると、xxx.js.mapというMapファイルが生成される。
+                            これはJavaScriptファイルとその元になったTypeScriptファイルのどの行が対応しているか、コードの対応付けが書かれたファイル。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_map_files.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->ブラウザをリロードするとSourcesタブでもtsファイルが見れるようになる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_consoleLog_tsfile.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->ブレークポイントを設定しデバック実行もできるようになる。
+                            JavaScriptファイルではなく、直接TypeScriptファイルでデバック実行できるのでとても便利。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_consoleLog_debug.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            outFile
+                        </p>
+                        <p class="study_detail"><!--
+                            -->JavaScriptのファイルを一つにまとめてアウトプットするオプション。
+
+                            不要なのでコメントアウト。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            outDir
+                        </p>
+                        <p class="study_detail"><!--
+                            -->コンパイルしたjsファイルを任意の場所に出力するためのオプション。
+                            プロジェクトが大きくなるにつれてソースコードのファイル数は多くなるので、コンパイルしたファイルを自動でフォルダにまとめて整理できる。
+                            デフォルトの設定では、srcフォルダの構造が出力先フォルダ(画像例では"/dist")にも同じように反映される。
+                            この機能により、TypeScriptをインポートするときと同じパスでJavaScriptをインポートできる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_outDir.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->例の画像では"outDir"の設定値を"/dist"にし、tsファイルは"/src"ディレクトリに移動する。
+                            コマンドtscでコンパイルすると、指定した"/dist"フォルダにjsファイルが出力される。
+                            ※ index.htmlで読み込むjsファイルのパスも、distフォルダに変更することを忘れずに！
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_outDir_files.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            rootDir
+                        </p>
+                        <p class="study_detail"><!--
+                            -->ソースが配置されるルートフォルダを設定するオプション。通常は"src"フォルダになる。
+                            rootDirを設定した場合、コンパイル対象となるソースファイルはrootDirのフォルダ配下にあるファイルであることを明示的に指定することになる。
+                            もし、このフォルダ配下以外にtsファイルがあった場合は、コンパイルエラーを出力してくれる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_scr.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            removeComments
+                        </p>
+                        <p class="study_detail"><!--
+                            -->tsファイル内で記載したコメントを、コンパイル時に削除してjsファイルを作成してくれるオプション。
+                            jsファイルが軽くなるので、設定されることが多い。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_removeComments.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            noEmit
+                        </p>
+                        <p class="study_detail"><!--
+                            -->JavaScriptを出力しないようにするオプション。
+                            これを設定すると、コンパイラはjsファイルを出力せず、tsファイルのコードチェックだけをしてくれる。
+                            大きなプロジェクトで、他のビルドツールを併用する場合や、ファイル出力の時間を節約してチェックだけを行いたい時などに使用する。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            downlevelIteration
+                        </p>
+                        <p class="study_detail"><!--
+                            -->古いバージョンのJavaScriptをターゲットにコンパイルする場合、forループがうまく動作しないことがある。
+                            そのようなときにforループが必ず正しく動作するようコンパイルしてくれるオプション。
+                            しかし、for文に対して出力するコードが大幅に増え、JavaScriptのファイルサイズも大きくなるので、for文を使っている、且つ、うまく動作しないという限られた場面のみで使用するほうがよい。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            noEmitOnError
+                        </p>
+                        <p class="study_detail"><!--
+                            -->コンパイルエラーがある場合は、JavaScriptファイルを出力しないオプション。
+                            全ファイルをWatchモードに設定をしていても、エラーがあるファイルが1つあると全てのファイルが出力されないので注意。
+                            デフォルトはfalseになっているため、コンパイルエラーがあってもファイルは出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_noEmitOnError.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl">
+                            厳格な型チェックの設定
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            strict
+                        </p>
+                        <p class="study_detail"><!--
+                            -->厳格な型チェックのオプション。strictオプションがtrueになっている場合、このブロックの下にある設定は全て有効になる。
+                            不要な設定はfalseに変更するとよい。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_strict.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            noImplicitAny
+                        </p>
+                        <p class="study_detail"><!--
+                            -->暗黙のAny型(型指定していない変数や引数を、TypeScriptが自動的にAnyを割り当てる)ことを禁止するオプション。
+                            この設定をtrueにすると、Any型と型推論されるコードはエラー検知される。
+                        </p>
+                        <div data-filename="引数の例">
+                            <span>引数の例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 引数の型を指定しないとエラー検知される
+function sendAnalytics(data) { // この時点では引数に何が入るか不明なのでAny型と推論->エラー
+    console.log(data);
+}
+
+sendAnalytics('The data');  // 関数呼び出しは、必ず関数定義の後->関数定義の時点では型不明
+</code></pre>
+                        </div>
+                        <div data-filename="変数の例">
+                            <span>変数の例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 変数はプログラム上、使用前に値を代入する(型確定する)ので、この時点ではエラーにならない
+let logged;
+
+function sendAnalytics() {
+    // 変数に代入->使用時(console.log出力時)に推論できるからエラーなし
+    // 代入せずにconsole.logで変数を使用するとエラーになる
+    logged = true;
+    logged = 'Max';
+    console.log(logged);
+}
+
+sendAnalytics();
+</code></pre>
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            strictNullChecks
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Nullかもしれないオブジェクトにアクセスする場合、そのオブジェクトがNullではないことを厳格にチェックするオプション。
+                            この設定がtrueの場合、オブジェクトにアクセスする時、その変数がNullである可能性を排除できない場合はエラーを表示する。
+
+                            画像の例では、もし現在のindex.htmlファイルのオブジェクトにquerySelectorで指定しているbuttonというタグがない場合、変数buttonはNullになる。
+                            Nullかもしれないオブジェクト”button"にアクセスしているので、エラー表示している。
+                            tsconfig.jsonで[strictNullChecks: false;]と設定すれば、エラー検知はされない。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_strictNullChecks.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->＜エラー回避①＞
+                            確実にNullではないとわかっている場合は、代入した値の末尾に"!"(エクスプラネーションマーク)を追加する。
+                        </p>
+                        <div data-filename="!マーク追加">
+                            <span>!マーク追加</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 値の末尾に"!"をつける
+const button = document.querySelector('button')!;
+
+button.addEventListener('click', () =>{
+    console.log('clicked');
+});
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->＜エラー回避②＞
+                            if文でヌルポチェックをした後に変数を使用する。
+                        </p>
+                        <div data-filename="ヌルポチェック">
+                            <span>ヌルポチェック</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const button = document.querySelector('button');
+
+// if文でNullチェックしてから使用する
+if (button) {
+    button.addEventListener('click', () =>{
+        console.log('clicked');
+    });
+}
+</code></pre>
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            strictFunctionTypes
+                        </p>
+                        <p class="study_detail"><!--
+                            -->関数のパラメータや戻り値の型に対して厳格な型チェックをするオプション。
+                            trueにすると、クラスや継承を利用する時に発生しうるバグを検知できる。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            strictBindCallApply
+                        </p>
+                        <p class="study_detail"><!--
+                            -->"bind", "call", "apply"を使用するとき、呼び出し元が指定した引数に誤った値を指定していないかチェックするオプション。
+                            呼び出し元の引数がオリジナル関数が指定した定義と合致していない場合にエラーになる。
+
+                            ＜bindメソッド＞（以下コード参照）
+                            bindメソッドは、関数の"this"を固定したり、引数をあらかじめ設定しておく時に使うメソッド。
+                            1つめの引数にthisに設定したいオブジェクト、2つめ以降の引数にオリジナルの関数が指定しているパラメータを指定する。
+                        </p>
+                        <div data-filename="bindメソッド">
+                            <span>bindメソッド</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const person = {
+  name: "Kame",
+  sayHello() {
+    console.log(this.name);
+  },
+};
+
+// 呼び出し① 通常の呼び出し
+person.sayHello(); // 出力されるthis.nameは"Kame"
+
+// 呼び出し② 変数に代入(コピー)
+const hello = person.sayHello; //関数sayHelloの住所だけをコピー
+hello(); // this(person)の情報が失われ、ただのsayHelloの関数が呼び出される->出力は"undefined"（strict modeの場合）
+
+// 呼び出し③ 変数代入+bindでthisを固定
+const boundHello = person.sayHello.bind(person); //thisの情報にpersonを固定
+boundHello(); // 出力されるthis.nameは"Kame"
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->例）bindの関数エラー
+                        </p>
+                        <div data-filename="bindエラー">
+                            <span>bindエラー</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const button = document.querySelector('button');
+
+const person = {
+    name : 'Kame',
+    sex : 'female',
+    greet(msg: string)  {
+        console.log(msg, this.name);
+    }
+}
+
+if (button) {
+    // 引数に指定したperson.greetはコピーされた関数なのでpersonの情報なしのためbind使用
+    // 1つ目の引数：thisの値、2つ目の引数：greet関数の引数string型の値を設定する必要がある
+    //->必要な引数が足りていないためエラー
+    button.addEventListener('click', person.greet.bind(person));
+
+    //->正しい引数を指定すればエラーが解消される
+    button.addEventListener('click', person.greet.bind(person,'Hi'));
+};
+</code></pre>
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            noImplicitThis
+                        </p>
+                        <p class="study_detail"><!--
+                            -->コード内でthisを使う場合、暗黙的にAny型である場合にエラーを表示するオプション。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            alwaysStrict
+                        </p>
+                        <p class="study_detail"><!--
+                            -->JavaScriptを出力する時に必ずstrictモード(厳格にチェック)にするオプション。
+                            trueに設定すると、jsファイルの1行目に"use strict"と表示される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_alwaysStrict.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl">
+                            その他の設定
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            noUnusedLocals
+                        </p>
+                        <p class="study_detail"><!--
+                            -->使用していないローカル変数は許可しないというオプション。エラーで警告し、コンパイル時もコンパイルエラーになる。
+                            ローカル変数の設定なので、グローバル変数はエラーにならない。グローバル変数の使用場所はTypeScriptには把握できないが、関数内で宣言した変数は使っていないことがすぐわかるので警告が表示される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_noUnusedLocals.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            noUnusedParameters
+                        </p><p class="study_detail"><!--
+                            -->関数のパラメータに指定した変数を関数内で使用していていないと、エラーが警告されるオプション。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_noUnusedParameters.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            noImplicitReturns
+                        </p>
+                        <p class="study_detail"><!--
+                            -->関数の中で分岐している場合、ある時は値を返し、またある時は値を返さない関数になっているとエラーを出すオプション。
+                            例えば画像ではif文で分岐し、trueの時のみreturnし、falseのときは値を返さない関数になっている。このような場面で警告が表示される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/7_noImplicitReturns.jpg">
+                        </div>
+                        <p class="study_point study_ttl_square">
+                            noFallthroughCasesInSwitch
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Switch文でFallthroughを許可しないというオプション。
+                            Fallthroughとは、switch文の中のcase文でbreakせずに次のcase文を実行する、という書き方。これを許可しない場合は、trueに設定する。
+
+                            不要なのでコメントアウト。
+                        </p>
+                        <p class="study_point study_ttl_square">
+                            forceConsistentCasingInFileNames
+                        </p>
+                        <p class="study_detail"><!--
+                            -->ファイル名の大文字、小文字が正しいことをチェックするオプション。
+                        </p>
+                        
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

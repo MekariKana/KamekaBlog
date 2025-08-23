@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.21
+                        </div>
+                        <p class="study_ttl">
+                            モダンなJavaScript
+                        </p>
+                        <p class="study_detail"><!--
+                            -->比較的新しいJavaScriptの機能をモダンJSといい、versionはes6からそれ以降を指す。新しいJavaScriptの機能とは、具体的にはletやconst、アロー関数、分割代入、スプレット構文などの機能のこと。
+                            TypeScriptでこれらの機能を使ってみる。
+                        </p>
+                        <p class="study_detail"><!--
+                            -->最近のブラウザでは使用できるようことが多いが、Intenet Exploreのような古いブラウザではサポートされていないことがある。そのため、最初にモダンなJavaScriptの機能がサポートされているか、<a href="https://compat-table.github.io/compat-table/es6/" target="_blank" class="link">ECMAScript compatibility table</a>で確認する。
+                            例えば、何かJavaScriptで新しい機能が追加され、TypeScriptでサポートされているか知りたい場合や、コンパイルターゲットを決める際はこの表を確認するとよい。TypeScriptは、TypeScriptからJavaScriptへ変換するだけでなく、モダンなJavaScriptから古いJavaScriptへのコード変換も行うことができ、変換するJavaScriptのバージョンはtsconfig.jsonのtargetで設定する。
+
+                            画像の左側のグレー部分に機能一覧(constやletなど)があり、右側[Desktop browsers]にブラウザ一覧がある。このブラウザ一覧をみるとモダンJSの機能は全てサポートされるいるよう。
+                            画像の真ん中らへん[Compilwes/polyfills]にコンパイラ一覧があり、トランスパイラ(Babel, TypeScript)でコンパイルするか、またはpolyfill(core-jsなど)を追加すれば動作することを表す列。
+                            ※トランスパイラ：ソースコードを別の言語へ変換するもの
+                            &emsp;コンパイラ：ソースコードを「機械語」へ変換するもの
+                            ※polyfill：ブラウザが提供できていない新機能を使えるようにするためのライブラリなど
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/9_ECMAScriptTable.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl">
+                            【モダンなJavaScriptの機能】
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            const/let
+                        </p>
+                        <p class="study_detail"><!--
+                            -->const：定数の定義に使う。値の再代入ができない。
+                            let：変数の定義に使う。再代入が可能。
+                            ※letとvarはどちらも再代入可能だか、letが推奨されている
+                        </p>
+                        <p class="study_detail"><!--
+                            -->＜varとletの違い＞
+                            変数のスコープが違う。
+                            ・varはグローバルスコープまたは関数スコープのどちらかしかない。
+                            グローバルスコープ：関数の外で定義されたvarはソースのどこからでも利用できる
+                            関数スコープ：関数の中で定義されたvarは関数の内側でのみ利用できる
+                            以下の画像のように、関数の中の変数を外から参照するとエラーになる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/9_var_scope.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以下のように、関数の外で定義すればエラーは解消される。Javaと一緒だね。
+                        </p>
+                        <div data-filename="varのスコープ">
+                            <span>varのスコープ</span>
+    <!--コード記載-->
+<pre><code class="language-typescript">
+const userName = 'Max';
+let age = 30;
+age = 22;
+
+var result;
+function add(a: number, b: number) {
+    result = a + b;
+    return result;
+}
+
+console.log(result);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->・letは、グローバルスコープ、関数スコープを含む"ブロックスコープ"という概念が採用されている。
+                            以下の画像のように、関数ではない{}で囲まれた構文(if文やswich文など)でも、関数スコープのように{}中で定義された変数は{}内でしか使えない。
+                            var変数は、if文などの{}内は無視してアクセスできる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/9_let_scope.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            アロー関数
+                        </p>
+                        <div data-filename="通常の関数">
+                            <span>通常の関数</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const userName = 'Max';
+let age = 30;
+age = 22;
+
+ function add(a: number, b: number) {
+     let result;
+     result = a + b;
+     return result;
+}
+</code></pre>
+                        </div>
+                        <div data-filename="アロー関数">
+                            <span>アロー関数</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const userName = 'Max';
+let age = 30;
+age = 22;
+
+// "function"を省略できる
+const add = (a: number, b: number): number => {
+    return a + b;
+}
+
+// 1つの式の結果を返す場合、{}とreturnを省略できる
+const add = (a; number, b: numer) => a + b;
+
+// パラメータが1つの場合、パラメータの型を省略できる
+// 下記の場合は型を省略するとany型と推論されてしまうので、printOutputの変数の型として引数型と戻り値を明示している
+const printOutput: (output: string | number) => void = (output) => console.log(output);
+
+// パラメータが1つの場合の実用的な例としては、クリック時に動く関数を端的に書く時など(以下のとおり)
+const button = document.querySelector("button");
+
+if (button) {
+  button.addEventListener("click", (event) => {
+    console.log(event);
+  });
+}
+</code></pre>
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            デフォルト関数パラメータ
+                        </p>
+                        <p class="study_detail"><!--
+                            -->関数のパラメータにデフォルト値を設定することができる。
+                            デフォルト値を使用する場合は、引数の型と一致している必要がある。
+                            
+                            ＜注意！＞
+                            デフォルト値を設定できるのは、右側のパラメータのみ。以下のコードのように引数bには設定できるが、aにはデフォルト値を設定できない。
+                            なぜなら、TypeScriptは引数をスキップすることができず、渡されたパラメータは前から順番に代入される。
+                        </p>
+                        <div data-filename="デフォルト関数パラメータ">
+                            <span>デフォルト関数パラメータ</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// パラメータbにデフォルト値を設定
+const add = (a: number, b:number = 1) => a + b;
+
+// 呼び出す時の引数も1つでOK
+console.log(add(2));
+// 引数を2つ設定してもOK
+console.log(add(2, 5));
+</code></pre>
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            スプレットオペレータ[...]
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Arrayやオブジェクトから全ての値をとりだし、個別の値として展開する機能。他のオブジェクトに特定のオブジェクトの中身を追加したいときに便利な機能。
+                            通常、変数の中にArrayやオブジェクトを代入すると、それは値のコピーではなく参照値のコピーになる。
+                            スプレットオペレータを使うと、Arrayやオブジェクトの値を展開して、変数の中に入れることができる。
+                        </p>
+                        <div data-filename="スプレットオペレータ_Array">
+                            <span>スプレット演算子_Array</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 配列でのスプレットオペレータの使い方
+
+const hobbies = ['Sports', 'Cooking'];
+const activeHobbies = ['Hiking'];
+
+// 配列は参照型なので、値そのものではなく値の参照を保持している。
+// const(定数)であっても参照先のアドレスが変わらなければ、メモリで保持される実際の値(配列やオブジェクトの中身)を変更することができる
+
+// ▼通常の値の追加
+activeHobbies.push(hobbies[0], hobbies[1]);
+
+// ▼スプレットオペレータでの値の追加
+activeHobbies.push(...hobbies);
+</code></pre>
+                        </div>
+                        <div data-filename="スプレットオペレータ_オブジェクト">
+                            <span>スプレット演算子_オブジェクト</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// オブジェクトでのスプレットオペレータの使い方
+
+const person = {
+  name: 'Max',
+  age: 30,
+};
+
+// 普通に変数代入すると、オブジェクトのコピーではなく、参照先のアドレスをコピーしている
+const copiedPerson = person;
+
+// ▼スプレットオペレータでの値の追加
+// keyとvalueの両方が取り出され、copiedPersonに展開されるので、コピー前と同じ形で違う変数に定義できる
+const copiedPerson = {
+  ...person,
+};
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            レストパラメータ(残余引数)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->可変長引数を受け取るパラメータを定義するときに使用する。
+                            スプレット演算子[...]はパラメータを渡すときだけでなく、受け取るときにも使える。関数の引数の数が不定期の場合はスプレット演算子を使って引数を定義する。
+                            スプレット演算子を使うと、渡されたパラメータが1つにマージされ、配列として呼び出した関数に渡される。
+                        </p>
+                        <div data-filename="スプレットオペレータ_オブジェクト">
+                            <span>スプレット演算子_パラメータ</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// レストパラメータとしてのスプレット演算子の利用方法
+// レストパラメータ：...配列名: 型[各値の型]
+const add = (...numbers: number[]) => {
+  // reduceは配列に対して使えるメソッド
+  // -> 全ての配列の要素に何らかの処理を行い、その結果を1つにまとめて返すメソッド
+  // 1つ目の引数は{処理を行う関数},2つ目の引数はcurResultの初期値"0"(計算処理なので)
+  // 1つ目の引数の関数では2つの引数を受け取るので、パラメータに引数を2つ設定
+  // 1つ目のパラメータは現在の計算結果(curResult), 2つ目のパラメータは現在の要素(curValue)
+  // 2つ目の要素はnumbersの要素が1つ1つ入ってくるパラメータ
+  // 最終的な結果はreduceの戻り値(配列要素の合計値)なので、この関数ごとreturnする
+  return numbers.reduce((curResult, curValue) => {
+    // この計算結果がreturnされ、次の処理のcurResultになる
+    return curResult + curValue;
+  }, 0);
+};
+
+const addedNumbers = add(5, 10, 2, 3.7);
+console.log(addedNumbers);
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            分割代入
+                        </p>
+                        <p class="study_detail"><!--
+                            --><span class="study_sub_ttl">1.配列の分割代入</span><!--
+                            -->配列から要素を取り出して、それぞれ別の変数に格納すること。
+                            
+                            ＜分割代入を使わない例＞
+                            const hobbies = ['Sports', 'Cooking'];
+                            
+                            この配列を要素ごとに別の変数に入れる
+                            const hobby1 = hobbies[0]; // 値に1つ目の要素'Sports'を格納
+                            const hobby2 = hobbies[1]; // 値に2つ目の要素'Cooking'を格納
+                            -> このように代入していくと、要素数が多いとコードが長くなり面倒くさい。
+                            分割代入を使えば短縮して書くことができる。
+                        </p>
+                        <div data-filename="分割代入_配列">
+                            <span>分割代入_配列</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const hobbies = ['Sports', 'Cooking', 'Hiking'];
+
+// 配列の分割代入：
+// const/let [変数名1, 変数名2] = 代入する配列名
+const [hobby1, ...remainingHobbies] = hobbies;
+console.log(hobby1, remainingHobbies);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以下のようにコンソール出力される。
+                            ※スプレット演算子にすると、要素を配列にまとめた形で格納される
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/9_destructuring_Array.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            --><span class="study_sub_ttl">2.オブジェクトの分割代入</span><!--
+                            -->オブジェクトのキーを指定して要素を取り出し、変数に代入すること。
+                        </p>
+                        <div data-filename="分割代入_オブジェクト">
+                            <span>分割代入_オブジェクト</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const person = {
+  firstName: 'Max',
+  age: 30,
+};
+
+// オブジェクトの分割代入：
+// 指定するキー名はpersonオブジェクトに存在するプロパティ名でなければいけない
+// const/let {キー名1, キー名2} = 代入するオブジェクト名
+const {firstName, age} = person;
+// 格納先の変数名を変更する場合は、":"で区切って指定する
+const {firstName: userName, age: userAge} = person;
+
+console.log(firstName, age, userName, userAge);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以下のようにコンソール出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/9_destructuring_Object.jpg">
+                        </div>
+                        <br>
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

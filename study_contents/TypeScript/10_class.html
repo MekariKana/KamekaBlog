@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.25
+                        </div>
+                        <p class="study_ttl">
+                            クラスの書き方
+                        </p>
+                        <p class="study_detail"><!--
+                            -->クラスやオブジェクト指向の概念はJavaを学んだときにも勉強したので、ここでは復讐がてらまとめていく。またTypeScriptでのクラスの書き方も見ていく。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            オブジェクト指向プログラミング(Object-oriented Programming(OOP))とは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->オブジェクト指向の考え方とは、コードで現実世界の物体を表現すること。
+                            コードの中で現実世界に似せた物をObjectとして扱うことで、開発者が理解しやすく扱いやすいコードを書くことができる。
+                            アプリケーションを作る場合、ロジックを分割して個別のパーツとして管理できるようにしたものをオブジェクト(Object)という。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            オブジェクト(Object)とは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->アプリケーションを作るとき、ロジックを分割して個別のパーツとして管理できるようにしたもの。
+                            コードの中のオブジェクトとは、クラス(設計図)をもとにして生成される具体的な物を表す。実際の値を持ちデータを保持したり、メソッド(動作)を持ちメソッドを実行したりする。
+                            クラスをもとにして作られたオブジェクトのことを、そのクラスの「インスタンス」という。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            クラス(Class)とは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->クラスはObjectの設計図(理論上の定義)であり、値を持たない。どんなObjectであるか、そのObjectはどういうデータ(プロパティ)を持ち、どんな処理を行うか(メソットがあるか)定義されたもの。
+                            TypeScriptではオブジェクトリテラルでオブジェクトを定義することもできるが、クラスはオブジェクトを定義できるもう一つの方法である。
+                            オブジェクトリテラルで作るObjectは、{}を使ってその場でデータの値を直接定義するため、一度きりの使用や小規模データの保持に向いている。
+                            クラスで生成するObjectは、クラスをもとに複数のObjectを作成でき、同じデータ構造、同じメソットを持ち、データの値だけ違うObjectを繰り返し作成することができる。
+                        </p>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            クラス定義の書き方
+                        </p>
+                        <p class="study_detail"><!--
+                            -->オブジェクトの設計図を定義するためのclassという機能はもともとJavaScriptにも組み込まれていて、それがTypeScriptにおいてもサポートされている。tsconsig.jsonのtargetがes5とes6では変換されたJSファイルの構文が違うが、両方とも使用できる。
+                        </p>
+                        <p class="study_detail"><!--
+                            -->＜構文のポイント＞
+                            ・class名の頭文字は大文字
+                            ・クラス内にプロパティを定義するときは、letやconstは不要
+                            ・constructor(予約語)メソッドというインスタンス作成時の初期化用の関数を用意し、インスタン時にプロパティを設定できる
+                            ・呼び出すときは”new クラス名"
+                            ・クラスのメソッドからフィールドにアクセスするときは、this.nameとして呼び出す
+                        </p>
+                        <div data-filename="クラスの例">
+                            <span>クラスの例</span>
+    <!--コード記載-->
+<pre><code class="language-typescript">
+class Department {
+    // フィールドの定義：キー名と型定義
+    name: string;
+
+    // フィールドに値を設定
+    constructor(n: string) {
+        this.name = n;
+    }
+
+    // Departmentオブジェクトに属するメソッドを追加
+    describe() {
+        // フィールドアクセスにはthisが必須
+        console.log('Department: ' + this.name);
+    }
+}
+
+// インスタンス生成
+const accounting = new Department('Accounting');
+// インスタンスしたオブジェクトの出力
+console.log(accounting);
+// メソッドの出力
+accounting.describe();
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">thisの注意点</span>
+                            フィールドはメソッドのスコープ内の変数として認識されないため、thisをつけず、ローカル変数にもnameがないとグローバル変数(window.nameなど)を参照してしまう
+
+                            <span class="yellow_highlight">バグ回避の方法</span>
+                            引数にダミーパラメータを設定すると、オブジェクトコピーなどインスタンスしていない(フィールドに値を持たない)オブジェクトの生成をエラー検知できる
+                             -> 以下のコードでは、thisは常にDeparmentクラスをベースにしたインスタンスを参照する、という意味 
+                        </p>
+                        <div data-filename="クラスの例">
+                            <span>クラスの例</span>
+    <!--コード記載-->
+<pre><code class="language-typescript">
+describe(this: Department) {
+    console.log('Department: ' + this.name);
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            --> -> 以下の画像はダミーパラメータを設定した時のエラー例
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/10_dummy_parameter.jpg">
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            修飾子
+                        </p>
+                        <p class="study_sub_ttl">
+                            private修飾子
+                        </p>
+                        <p class="study_detail"><!--
+                            -->クラス内のフィールドに外部からアクセスできないよう制限をつけるときにprivate修飾子を使う。
+                            通常、クラスにはフィールドに値を設定するためのメソッドが定義されている。そのメソッドを介さず外部からフィールドの値を直接変更してしまうと、設定時に値のチェック処理などをいれていてもその処理を通さず値が追加、変更されてしまう恐れがある。
+                            そのため、フィールド変数にはprivate修飾子をつけて、内部メソッドからのみアクセスできるよう設定する。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/10_private_field.jpg">
+                        </div>
+                        <p class="study_sub_ttl">
+                            public修飾子
+                        </p>
+                        <p class="study_detail"><!--
+                            -->public修飾子はクラスの外からアクセスできる共通フィールドに使う。
+                            修飾子を何も設定しなければデフォルト設定であるpublicフィールドになるので、あえて明記しなくてもOK。
+                        </p>
+                        <p class="study_sub_ttl">
+                            readonly修飾子
+                        </p>
+                        <p class="study_detail"><!--
+                            -->最初に初期値を設定したら、そのあとは変更したくない値につける修飾子。
+                            readonly修飾子がついているフィールドに再代入しようとすると、エラーが出力される。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/10_readonly.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">修飾子の注意点</span>
+                            JavaScriptでは、publicやprivateのような修飾子の概念はごく最近追加された。過去はアクセス制限の修飾子は存在せず、全てのプロパティは常にpublicだった。またreadonly修飾子はJavaScriptでは存在しない。
+                            TypeScriptではこれら修飾子の機能をサポートしているが、JavaScriptのランタイム上では区別しない。コンパイルターゲットのバージョンが最新でない場合は、TypeScriptのエラーを無視してJavaScripにコンパイルし実行すると、エラーなく動作してしまう。
+                        </p>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            プロパティ初期値の省略
+                        </p>
+                        <p class="study_detail"><!--
+                            -->プロパティを全て定義し、コンストラクターで初期値を設定するのは面倒な場合、フィールドを省略できる。
+                        </p>
+                        <div data-filename="通常のプロパティ定義">
+                            <span>通常のプロパティ定義</span>
+    <!--コード記載-->
+<pre><code class="language-typescript">
+class Department {
+    // フィールドの定義：キー名と型定義
+    private id: string;
+    name: string;
+    private employees: string[] = [];
+
+    // フィールドに値を設定
+    constructor(id: string, name: string) {
+        this.id = id;
+        this.name = name;
+    }
+
+    describe(this: Department) {
+        console.log(`Department (${this.id}): ${this.name}`);
+    }
+}
+
+// インスタンス生成
+const accounting = new Department('d1', 'Accounting');
+// メソッド呼び出し
+accounting.describe();
+</code></pre>
+                        </div>
+                        <div data-filename="プロパティ初期化の省略">
+                            <span>プロパティ初期化の省略</span>
+    <!--コード記載-->
+<pre><code class="language-typescript">
+class Department {
+    // フィールドの定義：idとnameは省略
+    private employees: string[] = [];
+
+    //フィールドに値を設定(修飾子はここでまとめて設定)
+    constructor (private id: string, public name: string) {
+    }
+
+    describe(this: Department) {
+        console.log(`Department (${this.id}): ${this.name}`);
+}
+
+// インスタンス生成
+const accounting = new Department('d1', 'Accounting');
+// メソッド呼び出し
+accounting.describe();
+</code></pre>
+                        </div>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

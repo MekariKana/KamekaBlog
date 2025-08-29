@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.28
+                        </div>
+                        <p class="study_ttl">
+                            プロジェクトのためのクラス
+                        </p>
+                        <p class="study_detail"><!--
+                            -->ここでは実際にアプリ制作やプロジェクトでコードを書くときに使うクラスの機能を勉強する。
+                            Javaでも使うような機能が多いので、理解しやすいかも。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            継承
+                        </p>
+                        <p class="study_detail"><!--
+                            -->継承とは、共通情報(プロパティ)や機能(メソッド)を基本クラスに設定し、基本クラスの機能を引き継ぎつつ、独自の機能も追加したクラスを作るときに使う機能。派生クラスの生成。
+                            例えば、部門クラス(Department Class)には全ての部署に共通するidやname(部署名)、全ての情報を出力するdescribeメソッドなどを用意しておき、IT部署やAccounting部署などに特化したクラスを追加したい場合は、Deparmentクラスを継承したクラスにその部署特有の機能を追加する。
+
+                            ＜ポイント＞
+                            ・「class クラス名 extends 継承元クラス名」でクラスを定義する
+                            ・継承したクラスは、継承元クラスのメソッドやプロパティも使える
+                            ・継承するクラスは1つだけ、複数のクラスから継承することはできない
+                            ・継承したクラスにconstructorが設定されていない場合は、継承元クラスのconstructorが呼び出される
+                            ・継承したクラスでconstructorを設定するは、最初のコードでsuper(継承元クラスのプロパティの値)で基本クラスのconstructorを呼び出さなければならない
+                        </p>
+                        <div data-filename="継承">
+                            <span>継承</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 基本クラス(共通機能)
+class Department {
+    private employees: string[] = [];
+
+    // フィールドに値を追加
+    constructor (readonly id: string, public name: string) {
+        // プロパティの設定はショートカット構文なので省略
+    }
+
+    // 部署が持っている情報を表示
+    describe(this: Department) {
+        console.log(`Department (${this.id}): ${this.name}`);
+    }
+
+    // 従業員の追加
+    addEmployee(employee: string) {
+        this.employee.push(employee);
+    }
+
+    // 従業員メンバーを表示
+    printEmployeeImformation() {
+        console.log(this.employees);
+    }
+}
+
+// 継承
+// IT部署
+class ITDepartment extends Department {
+    // 管理者プロパティを追加
+    admins: string;
+
+    constructor(id: string, admins: string) {
+        super(id, 'IT');
+        this.admins = admins;
+    }
+}
+
+// 会計部署
+class AccountingDepartment extends Department {
+    // プロパティに会計レポートを追加
+    constructor(id: string, private reports: string[]) {
+        super(id, 'Accounting');
+    }
+
+    // Reportプロパティに値を追加
+    addReports(text: string) {
+        this.reports.pushu(text);
+    }
+
+    // Reportを表示
+    printReports() {
+        console.log(this.reports);
+    }
+}
+
+// ITのインスタンス
+const it = new ITDepartment('d1', ['Max']);
+// 基本クラスから継承したメソッド
+it.addEmployee('Anna');
+it.describe();
+
+console.log(it);
+
+// Accountingのインスタンス
+const accounting = new AccountingDepartment('d2', []);
+// 基本クラスから継承したメソッド
+accounting.describe();
+// 経理部署特有メソッド
+accounting.addReport('Something...');
+
+console.log(accounting);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->コンソールの出力は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/11_inheritance.jpg">
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            オーバーライド
+                        </p>
+                        <p class="study_detail"><!--
+                            -->オーバーライドとは、基本クラス(継承元クラス)で定義したメソッドを上書きできる。
+                            メソッド名と引数は基本クラスと同じ、処理内容だけサブクラス特有のものに設定できる。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            protected修飾子
+                        </p>
+                        <p class="study_detail"><!--
+                            -->protectedはprivate同様、クラス外部からアクセスはできないが、基本クラスを継承したサブクラスからのアクセスは許可する修飾子。
+                            基本クラスで定義したprivateフィールドは、基本クラスからしかアクセスできない。そのため基本クラスを継承したクラスからのアクセスであっても以下のようなエラーが出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/11_protected_error.jpg">
+                        </div>
+                        <div data-filename="オーバーライドとprotectedの例">
+                            <span>オーバーライドとprotectedの例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 基本クラス
+class Department {
+    // サブクラスからのアクセスを許可 = protected使用
+    protected employees: string[] = [];
+
+    constructor (readonly id: string, public name: string) {
+        // プロパティ設定はショートカット構文なので省略
+    }
+
+    addEmployee(employee: string) {
+        this.employees.push(employee);
+    }
+
+    printEmployeeImformation {
+        console.log(this.employees);
+    }
+}
+
+// 継承したサブクラス
+class AccountingDepartment extends Department {
+    constructor(id: string, private reports: string[]) {
+        super(id, 'Accounting');
+    }
+
+    addReports(text: string) {
+        this.reports.push(text);
+    }
+
+    printReports() {
+        console.log(this.reports);
+    }
+
+    // 基本クラスのメソッドのオーバーライド
+    addEmployee(name: string) {
+        if(name == 'Max') {
+            retuen;
+        }
+        this.employees.push(name);
+    }
+}
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            抽象クラス(abstract)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->抽象クラスは、何らかの特定のメソッドをサブクラスでオーバーライドして実装することを開発者に強制する機能。他のクラスがその特徴を引き継ぎ、具体的な実装を提供するための基盤となるクラス。
+                            用途は、基本クラスで定義した汎用的なデフォルトメソッドがサブクラスで使えず、サブクラスは独自の実装が必要になることがわかっている場合はオーバーライドを強制し、サブクラスの開発者が忘れずに実装するようにする。(未実装の場合はエラーを出力)
+                            サブクラスは抽象クラスで定義されているとおりの構造で定義しなければいけない。
+                            
+                            <span class="yellow_highlight">注意！</span>
+                            抽象クラスは実装されてないメソッドを含むため、インスタンス化できない。
+                            抽象クラスはあくまで継承されるためだけのクラスなので、サブクラスで実装された具体クラスだけインスタンスできる。
+                            ルールはJavaと同じぽいかな？
+                        </p>
+                        <div data-filename="abstractクラス">
+                            <span>abstractクラス</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 抽象クラス
+// クラス名の前にabstractをつける
+abstract class Department {
+    constructor(protected readonly id: string, public name: string) {
+        // ショートカット構文のため省略
+    }
+
+    // 抽象メソッドを定義 - サブクラスで実装を強制
+    abstract describe(this: Department): void;
+}
+
+// サブクラス
+class ITDepartment {
+    admins string[];
+
+    constractor(id: string, admins: strign[]) {
+        super(id, 'IT');
+        this.admins = admins;
+    }
+
+    // 実装しないとエラーになる
+    describe() {
+        console.log('IT部門 - ID:' + this.id);
+    }
+}
+
+// サブクラス
+class AccoutingDepartment {
+    constructor(id: string, private repots: string[]) {
+        super(id, 'Accounting');
+    }
+
+    // 実装しないとエラーになる
+    describe() {
+        console.log('会計部門 - ID:' + this.id);
+    }
+}
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            getter/setter
+                        </p>
+                        <p class="study_detail"><!--
+                            -->getter/setterの役割は、通常、外部からアクセスできないprivateプロパティの値を取得したり、変更、追加できるようにする機能。
+                            カプセル化(データや処理を隠蔽すること)のような仕組み。呼び出し時はプロパティ呼び出し同様「クラス名.getter/setter名」のように()なしで呼び出せる。
+                        </p>
+                        <div data-filename="getter/setter">
+                            <span>getter/setter</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 基本クラス
+class Department {
+    constructor(readonly id: string, public name: string) {
+        // ショートカット構文のため省略
+    }
+}
+
+// サブクラス
+class AccountingDepartment extends Department {
+    //最新レポートのプロパティ(privateプロパティ)
+    private lastReport: string;
+    constructor(id: string, private reports: string[]) {
+        super(id, 'Accounting');
+        this.lastReport = reports[0];
+    }
+
+    // getterの設定
+    get mostRecentReport() {
+        if(this.lastReport) {
+            return this.lastReport;
+        }
+        throw new Error('レポートが見つかりません。');
+    }
+
+    // setterの設定
+    set mostRecentReport(value: string) {
+        if(!value) {
+            throw new Error('追加するレポートがありません。');
+        }
+
+        // レポート配列に追加
+        this.reports.push(value);
+        // 最新レポートの値を更新
+        this.lastReport = value;
+    }
+
+}
+
+// インスタンス生成
+const accounting = new AccountingDepartment('d1', []);
+// インスタンス時点の値を出力
+console.log(JSON.stringify(accounting));
+
+// 最新レポートをセット(setter呼び出し)
+accounting.mostRecentReport = 'Something..';
+accounting.mostRecentReport = '四半期レポートを追加';
+
+// セッターにて値を設定した後のaccountingを出力
+console.log(JSON.stringify(accounting));
+
+// 最新レポートを取得(getter呼び出し)
+console.log(accounting.mostRecentReport);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記コードのコンソール結果は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/11_setter_getter.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            staicプロパティ/staticメソッド
+                        </p>
+                        <p class="study_detail"><!--
+                            -->静的(static)プロパティ/メソッドとも呼ばれる。具体的なインスタンスとは切り離され存在する物なので、newでインスタンスを生成しなくても、外部からクラスにアクセスしてstaticプロパティやstaticメソッドを使える。
+                            用途としては、Utility的な便利メソッドを論理的にクラス上にグループ化しておいたり、何らかの共通的な定数を定義しておき、誰でも使ええるよう定義したいときなどに使用する。
+                            thisは、[インスタンスされたオブジェクト]を指すため、クラス内のメソッドから[this.プロパティ名]のように呼び出すことはできない。
+                            クラス内のメソッドから呼び出す場合は、[クラス名.プロパティ名]のように呼び出す。
+                        </p>
+                        <div data-filename="staticプロパティ/メソッド">
+                            <span>staticプロパティ/メソッド</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+class Department {
+    // staticプロパティを定義
+    static fiscalYear = 2025;
+
+    constructor(readonly id: string, public name: string) {
+        // staticプロパティの呼び出し方
+        // NG例
+        console.log(this.fiscalYear); // [this.プロパティ名]で呼び出しできないエラー
+        // OK例
+        console.log(Department.fiscalYear); // [クラス名.プロパティ名]で呼び出し
+    }
+
+    // staticメソッドの定義
+    static createEmployee(member: string) {
+        // 新入社員のオブジェクトをリターン
+        return {
+            name: member,
+            joinedOn: this.fiscalYear // staticメソッドからは[this.プロパティ名]でもOK
+        }
+    }
+}
+
+// 外部からもインスタンスなしでアクセス
+const employee1 = Department.createEmployee('Max');
+console.log(employee1);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/11_static.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            シングルトン
+                        </p>
+                        <p class="study_detail"><!--
+                            -->あるクラスのインスタンス(オブジェクト)を常に1つだけ存在しておく。
+                            用途は、staticメソッドやstaticプロパティが使えない場合や、複数のオブジェクトを作れないようにしたい場合に使う。
+                            
+                            ＜例＞
+                            会計部門は会社に1つのためオブジェクトも常に1つしか存在してほしくない
+                            -> newでインスタンスを複数回作れるようにすることを禁止したい。
+                            ①constructorをprivateにする -> クラスの外からnewでオブジェクトを生成できない
+                            ②インスタンスを保持するためのprivate staticフィールドを作成する
+                            ③オブジェクトの生成には、クラス内にstaticのインスタンスを返すメソッドを用意する
+                            -> インスタンスがあるかチェックし、あれば既存のインスタンスを返し、なければnewしたインスタンスを返す処理
+                        </p>
+                        <div data-filename="シングルトンパターン">
+                            <span>シングルトンパターン</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+class AccountingDepartment {
+    // ②インスタンスを保持するフィールド
+    private static incetance: AccountingDepartment;
+
+    // privateコンストラクターで外部からのインスタンス生成を制限
+    private constractor(private id: string, public name: string) {
+        // ショートカット構文のため省略
+    }
+
+    // staticなインスタンス生成メソッド
+    static getIncetance() {
+        // インスタンスフィールドに値があるかチェック
+        if(this.incetance) {
+            // あれば既存のインスタンスを返す
+            return this.incetance;
+        }
+        // なければ新規作成したインスタンスを返す
+        return new AccountingDepartment('d2','Accounting");
+    }
+}
+
+// getIncetanceにアクセスしてインスタンスを取得
+const accounting1 = AccountingDepartment.getIncetance();
+// 2回目も同じインスタンスが取得できる
+const accounting2 = AccountingDepartment.getIncetance();
+// コンソールで取得したインスタンスが同じであることを確認
+console.log(accounting1, accounting2);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力は以下のとおり、2回とも同じインスタンスが生成される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/11_singleton.jpg">
+                        </div>
+
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

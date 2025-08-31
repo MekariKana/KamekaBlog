@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.8.23
+                        </div>
+                        <p class="study_ttl">
+                            インターフェース
+                        </p>
+                        <p class="study_detail"><!--
+                            -->オブジェクトがどういうものであるか定義し、型として使えるようにしたものをインターフェースという。オブジェクトの設計図であるクラスとは異なり、インターフェースはオリジナルの型を定義するためのもの。
+                            インターフェースは複数のクラスで同じ機能の実装を強制するために使用する。実装クラスでインターフェース内の機能が実装されていれば、独自のメソッドやプロパティを追加してもOK。
+                            TypeScript特有の機能でJavaScriptには存在しない。そのため、コンパイル後のJavaScriptではinterfaceのコードは削除される。あくまで開発時、コンパイル時のチェック機能に使う機能で、ランタイム上では使用されない(できない)。
+                            
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            インターフェースの使い方
+                        </p>
+                        <p class="study_detail"><!--
+                            -->＜Point＞
+                            ・interfaceというキーワードをクラスの最初に付けて使う
+                            ・クラスの頭文字は大文字にする（推奨される命名規約）
+                            ・構造だけを定義できるので、プロパティに初期値を定義するとエラーが表示される
+                            ・TypeScriptは実装クラスがインターフェースと同じ構造かチェックする
+                        </p>
+                        <div data-filename="interface">
+                            <span>interface</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// インターフェースの定義
+interface Person {
+    // 初期値は設定しない、[プロパティ名: 型]のみ定義
+    name: string;
+    age: number;
+
+    // メソッドも構造だけ定義
+    greet(phrase: string): void;
+}
+
+// 変数の型にインターフェースを設定
+// 定義は後で追加してもOK
+let user1: Person;
+
+// Personクラスを定義
+user1 = {
+    name: 'Max',
+    age: 32,
+    greet(phrase: string) {
+        console.log(phrase + `, I'm ` + this.name + '.');
+    }
+}
+
+// 呼び出し
+user1.greet('Hello');
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/12_interface.jpg">
+                        </div>
+                        
+                        <p class="study_sub_ttl study_ttl_square">
+                            インターフェースの実装
+                        </p>
+                        <p class="study_detail"><!--
+                            -->インターフェースを実装したクラスは、インターフェースの定義に従わなければいけない。
+                            そのため変数宣言する際、大元のインターフェースを型指定すると、その実装クラスはどれでもインスタンス化して呼び出せる。例えば、変数は1つだけ用意し型をinterefaceで指定、条件分岐してから適した実装クラスをインスタンス化することができる。
+
+                            <span class="yellow_highlight">注意！</span>
+                            ・クラスのプロパティの修飾子には、readonly(読み取り専用、初期化時だけ値を設定できる)のみ使用でき、publicやpravateは利用できない。
+                            ・実装クラスにreadonlyを明記しなくても、インターフェースで指定していれば実装クラスにもreadonlyが受け継がれる。
+                            ・抽象クラスを継承する場合は1つしか継承できないが、インターフェースの実装クラスは複数のインターフェースを継承できる。
+                        </p>
+                        <div data-filename="interface_implements">
+                            <span>interface_implemnets</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// インターフェース定義
+interface Greetable {
+    name: string;
+
+    greet(phrase: string): void;
+}
+
+// 実装クラス1
+class Person1 implements Greetable {
+    name = 'Max';
+
+    greet(phrase: string) {
+        console.log(phrase + '. I am ' + this.name + '.');
+    }
+}
+
+// 実装クラス2
+class Person2 implements Greetable {
+    name = 'Marry';
+    // インターフェースにないプロパティも定義できる
+    age : number;
+
+    constructor(age: number) {
+        this.age = age;
+    }
+
+    greet(phrase: string) {
+        console.log(phrase + '. I am ' + this.name + '. I am ' + this.age + ' years old.');
+    }
+}
+
+// インターフェースで型指定
+let user1: Greetable;
+
+// 分岐の条件を変数に格納
+let userName = 'Max';
+// 条件毎にインスタンスのクラスを変える
+if (userName == 'Max') {
+    user1 = new Person1();
+} else {
+    user1 = new Person2(27);
+}
+
+// 呼び出し
+user1.greet('Hello');
+</code></pre>
+                        </div>
+                        <div data-filename="複数インターフェースを実装">
+                            <span>複数インターフェースを実装</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// インターフェース1
+interface Named {
+    readonly name: string;
+}
+
+// インターフェース2
+interface Greetable {
+    greet(phrase: string): void;
+}
+
+// 複数インターフェースを実装(継承は1つまでだがインターフェース実装は複数OK)
+class Person1 implements Greetable, Named {
+    name = 'Max';
+    greet(phrase: string) {
+        console.log(phrase + '. I am ' + this.name + '.');
+    }
+}
+</code></pre>
+                        </div>
+                         <p class="study_detail"><!--
+                            --><span class="yellow_highlight">インターフェースとカスタム型(type)の違い</span>
+                            型を定義する、という点ではtypeとinterfaceは同じ使い型ができる。この2つは互換性があるため、置き換えて使うことも可能。
+                            違いは、
+                            -> インターフェースはオブジェクトの構造を定義し、それをクラスに実装する場合に使う
+                            -> カスタム型は複雑な型を作る時やユニオン型を使いたい時に使う
+
+                            以下の英単語アプリのコード例で、typeとインターフェースの使い方の違いを記す。
+                        </p>
+                        <div data-filename="英単語アプリ">
+                            <span>英単語アプリ</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 単語カードの基本型：型として使用する、構造定義は一般的にinterfaceを使う
+interface WordCard {
+    id: number;
+    word: string;
+    meaning: string;
+    pronunciation?: string; //"?"はオプショナルプロパティなので、なくてもOK
+}
+
+// ユーザーの難易度分類：typeでユニオン型で指定
+type Difficulty = "easy" | "normal" | "hard";
+
+// 単語カード + 難易度タグを持つ合成型を生成->複雑な型指定なのでtype
+// 別で定義したDifficultyを後で合成することで、基本型を壊さない
+type TaggedWordCard = WordCard & {
+    difficulty: Difficulty
+};
+
+// 合成型に値を定義
+const sample: TaggedWordCard = {
+    id: 1,
+    word: "habit",
+    meaning: "習慣",
+    pronunciation: "hæbɪt",
+    difficulty: "easy"
+}
+
+// 関数で利用
+function printCard(card: TaggedWordCard) {
+    // ``(バッククォート)で囲って${}に変数や式を入れると、結果が文字列に埋め込まれる
+    console.log(`【${card.difficulty}】${card.word}[${card.pronunciation}] : ${card.meaning}`);
+}
+// コンソールに出力
+printCard(sample);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/12_EngWord_app.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            インターフェースの拡張
+                        </p>
+                        <p class="study_detail"><!--
+                            -->インターフェースでも他のインターフェースをextendsで継承することで拡張することができる。
+                            継承することで2つのインターフェースを組み合わせることができる。
+                        </p>
+                        <div data-filename="インターフェースの継承">
+                            <span>インターフェースの継承</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// インターフェース1
+interface Named {
+    readonly name: string;
+}
+
+// インターフェース2に1を継承(複数クラスを継承することができる)
+interface Greetable extends Named, AnotherInterface {
+    greet(phrase: string): void;
+}
+
+// インターフェース1を含むインターフェース2を実装
+class Person1 implements Greetable {
+    name = 'Max';
+    greet(phrase: string) {
+        console.log(phrase + '. I am ' + this.name + '.');
+    }
+}
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            関数型としてのインターフェース
+                        </p>
+                        <p class="study_detail"><!--
+                            -->インターフェースの中に関数名を持たない匿名メソッドのような関数定義を書くことができる。インターフェースの中に関数を書くと、TypeScriptは関数のファンクション型と同じように解釈する。そのため、インターフェースは単純にカスタム型の代わりとして使うことができる。
+                            カスタム型のほうが短くわかりやすいが、プロジェクトの中で誰かがインターフェースの関数型を使っていた時に理解できるよう知っておく。
+
+                            例）以下の2つは同じ構文としてTypeScriptに解釈される
+                            ①関数のfunction型：
+                            &emsp;type AddFn = (a: number, b: number) => number;
+                            ②インターフェース内に関数を定義：
+                            &emsp;interface AddFn {
+                            &emsp;    (a: number, b: number): number;
+                            &emsp;}
+                        </p>
+                        <div data-filename="interfaceの関数型">
+                            <span>interfaceの関数型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// インターフェースの関数型
+interface AddFn {
+    // 関数の型だけを定義
+    // 構文：(引数): 戻り値;
+    (a: number, b): number;
+}
+
+// 変数にインターフェース型を設定
+let add: AddFn;
+
+// 関数定義
+add = (n1: number, n2: number) => {
+    return n1 + n2;
+}
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            オプショナルプロパティ/オプショナルパラメータ
+                        </p>
+                        <p class="study_detail"><!--
+                            -->継承クラスや実装クラスでプロパティやパラメータを任意で省略できる。
+                            プロパティ名の最後尾に"?"をつけると、「実装クラスがこのプロパティを持っているかどうかは、どちらでも良い」ということになる。
+
+                            <span class="yellow_highlight">注意点！</span>
+                            ・実装クラスのプロパティにだけ"?"をつけることはできない。実装クラスはインターフェース定義に沿っている必要があるので、インターフェースで強制されているプロパティを、勝手に任意に変更することはできない。
+                            -> 実装クラスのプロパティをオプショナルにするときは、インターフェースプロパティにも"?"をつける
+                            ・オプショナルプロパティであっても、constructorで初期値を設定しないとエラーになる
+                            ＜対策1＞ パラメータ名にも"?"をつけて、オプショナルパラメータにする
+                            ＜対策2＞パラメータにデフォルト値として"undefined"を設定する
+                        </p>
+                        <div data-filename="オプショナルパラメータ">
+                            <span>オプショナルパラメータ</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+interface Named {
+    // クラスのオプショナルプロパティはinterfaceも'?'をつける
+    readonly name?: string;
+    outputNamed?: string;
+}
+
+// 拡張インターフェース
+interface Greetable extends Named {
+    // オプショナルメソッド(メソッド名の最後尾に'?'をつける)
+    greet?(phrase: string): void;
+}
+
+// 実装クラス
+class Person implements Greetacle {
+    name?: string;
+    // outputNamedは任意で省略
+
+    // インスタンス生成時、パラメータないとエラーになる
+    // 以下の対策1か対策2のどちらかのcontructorを採用する(どっちでもOK)
+    // 対策1：パラメータ名に'?'をつけて、オプショナルパラメータにする
+    constructor(n?: string) {
+        if(n) {
+            this.name = n;
+        }
+    }
+
+    // 対策2：パラメータにデフォルト値を設定
+    constructor(n: string = 'undefined') {
+        this.name = n;
+    }
+
+    greet(phrase: string) {
+        if(this.name) {
+            console.log(phrase + ' I am ' + this.name);
+        } else {
+            console.log(phrase);
+        }
+    }
+}
+
+let user: Greetable;
+// インスタンス生成(対策してればパラメータなくてもエラーにならない)
+user = new Person();
+user.greet(Hello!);
+</code></pre>
+                        </div>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

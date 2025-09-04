@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.9.1
+                        </div>
+                        <p class="study_ttl">
+                            高度な型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->特定の状況で使用できる型を勉強する。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            交差型(Intersection Types)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->交差型とは、複数の型を結合するときに使う機能。
+                            ①オブジェクトの交差型は単なる結合になる(type/interfaceの書き方がある)
+                            ②ユニオン型の交差型は共通の型が交差型の型になる
+                        </p>
+                        <p class="study_sub_ttl">
+                            オブジェクトの交差型
+                        </p>
+                        <div data-filename="オブジェクトの交差型">
+                            <span>オブジェクトの交差型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// カスタム型：{}は型定義(interfaceでもOK)
+type Admin = {
+    name: string;
+    privileges: string[];
+}
+
+type Employee = {
+    name: string;
+    startDate: Date;
+}
+
+// 交差型(&を使って型結合)
+type ElevatedEmployee = Admin & Employee;
+
+const e1: ElevatedEmployee = {
+    name: 'Max',
+    privileges: ['create-server'],
+    startDate: new Date(),
+}
+</code></pre>
+                        </div>
+                        <p class="study_sub_ttl">
+                            interfaceの交差型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->interfaceでも同じ意味のコードを書ける。interfaceで書く場合、interfaceを2つ交差型で結合する方法と、interfaceを複数継承する方法の2つで型の結合ができる。
+                            でも交差型のほうがコードが少し短くなるので好まれる。
+                        </p>
+                        <div data-filename="interfaceの交差型">
+                            <span>interfaceの交差型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// interface1
+interface Admin {
+    name: string;
+    privileges: string[];
+}
+// interface2
+interface Employee {
+    name: string;
+    startDate: Date;
+}
+
+// 交差型(&を使って型結合)
+type ElevatedEmployee1 = Admin & Employee;
+
+// 交差型を使わなくても複数継承で同じ意味になる
+// でもこっちのほうがコードが多い
+interface ElevatedEmployee2 extends Admin, Employee {} 
+
+const e1: ElevatedEmployee1 = {
+    name: 'Max', // 共通プロパティは1つにまとまる
+    privileges: ['create-server'],
+    startDate: new Date(),
+}
+</code></pre>
+                        </div>
+                        <p class="study_sub_ttl">
+                            ユニオン型の交差型
+                        </p>
+                        <p class="study_detail"><!--
+                            -->ユニオン型を含む交差型では、両方の型を満たす必要があるので交差している部分(共通部分)が交差型の型になる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/13_union_number.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">注意！</span>
+                            どんな型でも結合できるが、交差している部分がない場合の交差型はnever型となり、どんな値も入れることができない。(代入できる値は存在しない)
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/13_union_never.jpg">
+                        </div>     
+<!----------------------------------------------->
+                        <p class="study_sub_ttl study_ttl_square">
+                            型ガード(Type Guards)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->if文でブロック内のオブジェクトの型を制限するためのもの。変数や定数に入っている値の型が何か知りたいときに使う。
+                            <span class="study_sub_ttl">型ガードの種類</span><!--
+                            -->①typeof：JavaScript上でのデータ型を調べるもの。numberやstring、booleanなどJavaScriptが知っている型でなければ判断できない。
+                            ②in：オブジェクト型のプロパティが存在しているかを調べるもの。Object型はTypeScript上でしか存在しないので、typeofは使えない。
+                            ③instanceof：クラス型を実装した変数をチェックする場合、クラス構造を調べることができる。inでもクラス構造をチェックできるか、対象のプロパティも書かなければいけないので、クラス名だけでチェックできるinstanceofのほうがクラスの型チェックには好ましい。
+                            
+                            <span class="yellow_highlight">注意！</span>
+                            interfaceはTypeScript特有の機能なので、JavaScriptの機能であるinstanceofはinterfaceの型チェックでは使えない。interfaceの場合はinを使う。
+                        </p>
+                        <div data-filename="①JavaScriptのデータ型チェック">
+                            <span>①JavaScriptのデータ型チェック</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// ユニオン型を定義
+type Combinable = string | number;
+
+// 関数定義(引数にユニオン型をとる)
+function add(a: Combinable, b: Combinable) {
+    // 型の種類によって処理を分岐
+    // 型ガードチェック：どちらかの引数がstringなら
+    if (typeof a === 'string' | typeof b === 'string') {
+        // 文字列結合した値を返す
+        return a.toString() + b.toString();
+    }
+    // 上記以外は加算処理の結果を返す
+    return a + b;
+}
+</code></pre>
+                        </div>
+                        <div data-filename="②オブジェクト型の型チェック">
+                            <span>②オブジェクト型の型チェック</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// カスタム型を定義
+type Admin = {
+    name: string;
+    privileges: string[];
+}
+
+type Employee = {
+    name: string;
+    startDate: Date;
+}
+
+// オブジェクトのユニオン型を変数定義
+type UnknownEmployee = Admin | Employee;
+
+// 関数を定義->引数はオブジェクトのUnion型
+function printEmployeeInformation(emp: UnknownEmployee) {
+    // 2つに共通のプロパティ
+    console.log(emp.name);
+    // Adminにしか存在しないプロパティ
+    // 型ガードチェック：プロパティに含まれるかチェック
+    if('privileges' in emp) {
+        console.log("privileges: " + emp.privileges);
+    }
+    // Employeeにしか存在しないプロパティ
+    // 型ガードチェック：プロパティに含まれるかチェック
+    if('startDate' in emp) {
+        console.log("startDate: " + emp.startDate);
+    }
+}
+
+// 関数を呼び出し
+printEmployeeInformation({
+    name: 'Max', // 共通プロパティ
+    startDate: new Date() // Employee特有プロパティ
+})
+</code></pre>
+                        </div>
+                        <div data-filename="③クラス型の型チェック">
+                            <span>③クラス型の型チェック</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// クラスを定義
+class Car {
+    drive() {
+        console.log("運転中...");
+    }
+}
+
+class Truck {
+    drive() {
+        console.log('トラックを運転中...')
+    }
+
+    // Carにはないメソッド
+    loadCargo(amount: number) {
+        console.log(amount + '個の荷物を乗せています...');
+    }
+}
+
+// ユニオン型で変数定義
+type Vehicle = Car | Truck;
+
+// それぞれのインスタンス生成
+const v1 = new Car();
+const v2 = new Truck();
+
+// 乗り物を使用するメソッド
+function useVehicle(vehicle: Vehicle) {
+    // 共通機能を呼び出し
+    vehicle.drive();
+    // Truck特有メソッド(loadCargo)を呼び出す
+    // 型ガードチェック：メソッドが存在するかチェック
+    if (vehicle instanceof Truck) {
+        vehicle.loadCargo(1000);
+    }
+}
+
+useVehicle(v1);
+useVehicle(v2);
+</code></pre>
+                        </div>
+<!----------------------------------------------->
+                        <p class="study_sub_ttl study_ttl_square">
+                            Union型の値の判別(Dicriminated Unions)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Union型を使う時に型ガードを実装することを楽にする機能。
+                            Union型に設定したinterfaceやカスタム型、クラスなどに共通するプロパティを持たせ、そのプロパティを元にどのオブジェクトか判断する。
+                        </p>
+                        <div data-filename="Union型の型チェック">
+                            <span>Union型の型チェック</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// インターフェースを定義
+interface Bird {
+    // 共通のプロパティ'type'を設定
+    // interfaceは値を持てないのでリテラル型で'bird'を定義
+    // リテラル型 = 指定した文字列だけを許容する型、stringの厳格バージョン
+    type: 'bird';
+    flyingSpeed: number;
+}
+
+interface Horse {
+    // 共通のプロパティ'type'を設定
+    type: 'horse';
+    runningSpeed: number;
+}
+
+// ユニオン型で上記インターフェースを定義
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+    let speed;
+    // 共通プロパティでswitch文の条件に指定
+    switch(animal.type) {
+        // type毎に呼び出すメソッドを変える
+        case 'bird':
+            speed = animal.flyingSpeed;
+            break;
+        case 'horse':
+            speed = animal.runningSpeed;
+    }
+
+    // コンソールに出力
+    console.log('移動速度は' + speed + 'm/分です')
+}
+
+// 関数を呼び出し
+moveAnimal({
+    type: 'bird',
+    flyingSpeed: 10,
+})
+</code></pre>
+                        </div>
+<!----------------------------------------------->
+                        <p class="study_sub_ttl study_ttl_square">
+                            型キャスト(Type Casting)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->TypeScriptが型推論で正しく型を判断できない場合に、TypeScriptに正しい型を伝えることができる。
+                            型キャストを使うと!(エクスクラメーションマーク)と同様、nullではないことを保証してしまうので注意。
+                            
+                            例）pタグをquerySelectorで取得する場合
+                            const paragraph1 = document.querySelector('p');
+                            -> TypeScriptの型推論では「HTMLParagraphElement」型(pタグ)と認識される
+                            
+                            しかし、getElementByIdで取得すると。。。
+                            const paragraph2 = document.getElementById("message-output");
+                            -> TypeScriptはhtmlの解析までは行わないので、この指定したID"message-output"がpタグなのかは判別できない
+                            -> そのため、全ての種類のHTMLタグを表す一般的な型”HTMLElement"を戻り値として推論する
+
+                            これがinputタグたっだ場合(nullではないことを保証する!マークをつける)
+                            -> 同様にuserInputElementはHTMLElement型と推論される
+                            -> inputに要素を取得して値を代入しようとすると、プロパティ特有の機能のためエラーになる
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/13_typeCast_inputTag.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記のように、推論された型以外の型の機能を使いたい時は、型キャストで正しい型を指定する。
+                            型キャストには2つの書き方がある。
+                        </p>
+                        <div data-filename="①＜＞で型を明記">
+                            <span>①＜＞で型を明記</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 要素を取得する前に＜＞で型を明記する
+const userInputElement = <HTMLInputElement>document.getElementById("user-inpuut");
+userInputElement.value = 'こんにちは';
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->reactではJSXと呼ばれる＜＞を使う似たような構文がある。
+                            reactのプロジェクトで構文が混乱しないよう＜＞を使わない②の書き方を使う。
+                        </p>
+                        <div data-filename="②最後尾にasで型を明記">
+                            <span>②最後尾にasで型を明記</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 構文の最後尾に[as xxxx]の形で型を明記する
+const userInputElement = document.getElementById("user-inpuut") as HTMLInputElement;
+userInputElement.value = 'こんにちは';
+
+// 型キャストはnullでないことも保証してしまう
+// nullでないことが保証できずnullチェックをしたい場合は、if文でnullチェックし、特有の機能を使う時に型キャストする
+const userInputElement = document.getElementById("user-input"); // 型キャストも!もつけない
+// nullチェック
+if(userInputElement) {
+    // 型キャスト
+    (userInputElement as HTMLInputElement).value = 'こんにちは';
+}
+</code></pre>
+                        </div>
+<!----------------------------------------------->
+                        <p class="study_sub_ttl study_ttl_square">
+                            インデックス型(Index Types/Index Signatures)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->オブジェクトを使う時に、よりプロパティを柔軟に定義できる機能。
+                            interfaceを定義する際、実装されるオブジェクトではどんなプロパティがあるか種類も数もわからない場合、実装時に柔軟にプロパティを設定できるよう定義するための型がindex型。
+                            使用例としては、ユーザーの入力項目が複数あり、その入力されたフィールドの値をチェックし、それぞれの項目にあったエラーメッセージを表示したい場合など。
+                        </p>
+                        <div data-filename="index型">
+                            <span>index型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 入力フィールドの種類を表すIDと、IDに紐づくエラーを持たせるオブジェクトを作るためのinterface
+interface ErrorContainer {
+    // index型でプロパティを定義：[仮のプロパティ名(何でもいい):プロパティ名の型]: 格納される値の型;
+    [prop: string]: string;
+    // index型と同じ構造であれば、通常のプロパティも設定できる
+    name: string;
+}
+
+// 実装オブジェクト
+const errorBag: ErrorContainer = {
+    // stringに変換できるので、プロパティ名は数字でもOK
+    1: '正しいメールアドレスではありません。',
+    2: 'ユーザー名に記号を含めることはできません。',
+    name: 'スペースが含まれています。'
+}
+</code></pre>
+                        </div>
+<!----------------------------------------------->
+                        <p class="study_sub_ttl study_ttl_square">
+                            関数オーバーロード(Function Overloads)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->1つの関数に対して、複数のシグネチャ(関数やメソッドを識別するためのメソッド名、引数の型や数などの組み合わせ)を定義できる機能。
+                            ユニオン型を引数に指定している場合は、returnする値も取得したパラメータの型によって変わることがある。
+                            その際、対象の関数の直前にシグニチャのパターンを明記することで、TypeScriptに戻り値の型を適切に推論させ、returnした値の型特有の機能を使用することができる。
+                        </p>
+                        <p class="study_detail"><!--
+                            -->▼add関数の戻り値がnumberかstringか判別できないので、string.split()が使えない例
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/13_functionOverload_err.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->▼関数オーバーロードで戻り値を明記することで、string.splitが使える
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/13_functionOverload.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->TypeScriptに対してadd関数を呼び出した結果がstringであるということを、型キャストで知らせてもエラーなくresult.split(' ');は起動する。
+                            しかし、呼び出す度に型キャストするのは最適なやり方ではない。上記の場合であれば、引数にstringが含まれる条件では必ずstirngが戻るということをTypeScript側で判断してもらいたいので、関数オーバーロードを使用するほうが好ましい。
+                        </p>
+                        <div data-filename="型ガード">
+                            <span>型ガード</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// add関数を呼び出し
+const result = add('Hello', 'world') as string; // 戻り値がstringであることを型キャストで保証する
+// エラーなくstringの機能を使うことはできる
+result.split(' ');
+</code></pre>
+                        </div>
+<!----------------------------------------------->
+                        <p class="study_sub_ttl study_ttl_square">
+                            オプショナルチェーン(Optinal Chaining)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->データベースから値を取得した時に、一部の値がうまく取得できないことがある。例えば、登録時に入力が必須となってない項目などが含まれている場合、取得した値がundefinedになっていることがある。
+                            この場合、JavaScript、TypeScriptそれぞれで「値がある場合、その値に対して処理を行う」ことができる機能がある。最初のオブジェクトのチェックで値が存在していなければ、その後の処理は実行されないので、実行時エラーを回避することができる。
+                            TypeScriptの場合はこの機能をオプショナルチェーンという。裏側の仕組みでは、そのプロパティにアクセスする前にif文でチェックするようにコンパイルされる。
+                        </p>
+                        <div data-filename="Optional Chaining">
+                            <span>Optional Chaining</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// データベースから以下のような値を取得した場合
+// ここでは取得したことにして、リテラル型で定義する
+const fetchedUserData = {
+    id: 'u1',
+    name: 'user1',
+    // ネストした情報も取得する
+    job: {
+        title: 'Developer',
+        description: 'TypeScript'
+    }
+}
+
+// 上記のデータ構造で、jobのデータが取得できない場合を考慮した呼び出しは以下のとおり
+// 最初にオブジェクトが存在していることをチェックしてから、さらに深いオブジェクトにアクセスする方法
+// JavaScriptの構文 -> &&を使用
+console.log(fetchedUserData.job && fetchedUserData.job.title);
+// TypeScriptの構文(Optional Chaining) -> ?を使用
+console.log(fetchedUserData.job?.title);
+</code></pre>
+                        </div>
+<!----------------------------------------------->
+                        <p class="study_sub_ttl study_ttl_square">
+                            NULL合体演算子(Nullish Coalescing Operator)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->変数に別の変数を代入する場合、代入した変数の中身が空のことがある。例えばデータベースから取得した値を変数に格納する時など。
+                            そのような時、値を2つ用意し、1つ目の値が取得できなかった時は2つ目に設定したdefault値を返すよう設定することができる。
+
+                            ①||(or演算子)を使う方法
+                            1つ目の値がfalsyな値(null、undefined、false、空文字、0)の場合、2つ目のDefault値を返す
+                            ②??(NUll合体演算子)を使う方法
+                            1つ目の値がnull、またはundefinedの場合、2つ目のDefault値を返す。その他の値の場合は、値を保持し1つ目の値を返す。
+                        </p>
+                        <div data-filename="NULL合体演算子">
+                            <span>NULL合体演算子</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+let userInput = 0;
+
+// falsyな値(null, undefined, 空文字 0, false)の場合は2つ目の値を返す
+const storedData1 = userInput || 'DEFAULT1';
+// null/undefinedの場合のみ2つ目の値を返す
+const storedData2 = userInput ?? 'DEFAULT2';
+
+// コンソールに出力
+console.log(storedData1);
+console.log(storedData2);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/13_nullishCoalescingOperator.jpg">
+                        </div>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

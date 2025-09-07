@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.9.7
+                        </div>
+                        <p class="study_ttl">
+                            Promise型とは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Promiseは非同期処理の結果を扱うための箱のようなもの。[let x; number = 5]のような通常の処理ではすぐに「5」という値をxに代入することができる。
+                            しかし、[let data = fetch("https://xxx.com")]のようにサーバーにデータを取りに行くような処理では、変数dataに値を代入するまでに時間がかかる。
+                            このように「取得するのに時間がかかる値」「いつか手に入る値」を入れる型がPromise型になる。
+                            Promise型を型に設定する場合は[let p: Promise＜string＞;]のように書く。これは、「いつか手に入る値」はstring型が返ってくる、という意味。
+
+                            Promiseの関数定義の基本形は以下のとおり。
+                        </p>
+                        <div data-filename="Promise基本形">
+                            <span>Promiseの基本形</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+new Promise((resolve, reject) => {
+    // executor(実行関数)->何か処理する
+    // 処理が成功したらresolveを呼ぶ
+    // -> resolve(...)を呼ぶと、その値が.then()やawaitに渡される
+    // 処理が失敗したらrejectを呼ぶ
+    // reject(...)を呼ぶと、エラーの理由が.catch()に渡される
+})
+</code></pre>
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            使い方
+                        </p>
+                        <p class="study_detail"><!--
+                            -->関数の結果が以下のような場合は、関数の戻り値の型にPromiseを設定することが多い。
+                            
+                            ①結果がすぐにわからない
+                            例：サーバーからデータをとってくる、ファイルを読み書きする、タイマーで一定時間待つ処理など
+                            
+                            ②処理が成功するか失敗するかわからない処理
+                            例：ネットワークの接続が成功するか失敗するかわからない、データが存在するかわからない
+
+                            例えば以下の「ポテチ購入の処理」では、1秒待って(結果がすぐ取得できない)、かつ処理が成功するか失敗するかわからない処理なので、Promise型を使うのに適している。
+                        </p>
+                        <div data-filename="ポテチ購入の処理">
+                            <span>ポテチ購入の処理</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 関数の戻り値にPromise型を設定
+function buySnack(): Promise<string> {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const isSoldOut = Math.random() < 0.5; // 50%の確率でtrue
+            if (isSoldOut) {
+                reject('売り切れでした。'); // 失敗
+            } else {
+                resolve('ポテチを買ってきました。') // 成功
+            }
+        }, 1000) // 1秒後に処理開始
+    })
+
+}
+
+// 関数の呼び出し
+// resolveで設定したメッセージを引数(msg)で取得
+buySnack().then((msg) => {
+    console.log('成功：' + msg); // resolveのメッセージを出力
+
+// rejectで設定したメッセージを引数(err)で取得
+}).catch((err) => {
+    console.log('失敗：' + err); // rejectのメッセージを出力
+});
+</code></pre>
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            非同期処理とは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Promiseは非同期処理を扱うための器。この非同期処理とは、「Promiseの結果を待つ間に、他の処理を進める」という意味。
+                            他の処理をブロックせずに進めることで、画面がフリーズせずにネットワーク処理やタイマー処理ができる。
+                            待っているのに処理は止まっていないことがメリット。
+
+                            Promise内の処理は、Promiseをnewした瞬間に走るが、resolveやrejectの結果は取得できても呼ばれるまでは使われない状態。
+                        </p>
+                        <div data-filename="非同期処理の挙動がわかる例">
+                            <span>非同期処理の挙動がわかる例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// Promiseのインスタンス生成
+// Promise内の処理が実行される
+const promise = new Promise((resolve) => {
+    // 最初に出力される
+    console.log('スタート');
+
+    // インスタンスの1秒後に起動予定
+    setTimeout(() => {
+        resolve('終わり')
+    }, 1000)
+})
+
+// 1秒待っている間に次の処理が実行される
+console.log('Promise作成完了');
+
+// 関数呼びだし
+promise.the((result) => {
+    // resolveの結果を取得
+    console.log(result);
+})
+</code></pre>
+                        </div>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/15_promise.jpg">
+                        </div>
+                                               
+                        
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.9.22
+                        </div>
+                        <p class="study_ttl">
+                            ジェネリック型(＜＞での型指定)
+                        </p>
+                        <p class="study_detail"><!--
+                            -->ジェネリック型とは追加の型情報のこと。ジェネリック型は"&lt;T&gt;"という形で表現され、Tに入れる型は柔軟に指定できる。
+                            JavaScriptにはない機能なので、コンパイルしたJSファイルからは消える。
+                            型情報を追加で提供することで、型の安全性を高めることができ、そのジェネリック型を使う時に型サポートを受けることができる。
+
+                            例えばArray型では特定の型のデータを格納することを＜＞で指定する。「Array&lt;string&gt;」はArray型にstring型が結合したことを意味する。Arrayに格納されるデータの型がわかれば、Arrayの要素にアクセスした際、その型特有の機能が使える。
+
+                            以下、よく使うジェネリック型を使う例。
+                            ①Array&lt;T&gt;：ジェネリック型に要素の型を明記する
+                            ②Promise&lt;T&gt;：ジェネリック型にresolve/rejectとして返す値の型を明記する
+                            &emsp;->Promise型の使い方は<a href="./15_promiseType.html" class="link" target="_blank">こちら</a>
+                        </p>
+                        <div data-filename="Array型">
+                            <span>Array型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const names: Array&lt;string&gt; = ['Max', 'Anna'];
+// 上記のコードは以下と同じ意味(参考までに記載。コード上では使わない)
+const names2: string[] = ['Max', 'Anna'];
+
+// ジェネリックで型をstringに指定しているので、stringの機能にアクセスできる
+names[0].split(' ');
+</code></pre>
+                        </div>
+                        <div data-filename="Promise型">
+                            <span>Promise型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const promise = new Promise&lt;string&gt;((resolve) => {
+    setTimeout(() => {
+        resolve('The end！');
+    },2000);
+});
+
+// resolveの値をstringだとTypeScriptに知らせているので
+// 受け取った値(data)はstringの機能にアクセスできる
+promise.then(data => {
+    data.split(' ');
+});
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            ジェネリック関数の作成
+                        </p>
+                        <p class="study_detail"><!--
+                            -->関数でジェネリック型を使用する場面は、引数の型を明確にせず柔軟にしておきたいとき。
+                            Object型はいろんな型を受け入れるが、戻り値を正しく推論できない可能性がある。
+                        </p>
+                        <p class="study_detail"><!--
+                            -->＜例＞以下は2つのオブジェクトをマージして1つのオブジェクトにして返す関数である。
+                            元から提供されているassingnメソッドを直接呼び出しても同じ意味になるが、assingnを呼び出す前に処理を追加するときなど更にリッチな処理にしたいときはこのようなメソッドを用意することがある。<!--
+                            -->ここでは追加処理は必要ないので、ただassignメソッドを呼び出すだけのシンプルな処理にする。
+
+                            この関数では、TypeScriptは戻り値をただのobjectとだけ推論する。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_functionType_obj.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->関数margeの戻り値を変数margeObjに格納すると、marge関数の戻り値の型は上記の関数定義した時点で指定していないので、ただのObject型だと推論される。
+                            そのため、変数margeObjにはnameとageという2つのデータを持っているが、そのデータにアクセスできない。
+                            これは既存のObject型にnameやageというプロパティやメソッドが存在しないためである。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_error_of_type_generic.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記の問題に対する1つ目の解決策は、型キャストでそれぞれのデータが入っていることを保証する。
+                            nameとageというデータが存在していることをTypeScriptに伝えれば、変数margeObjの中のプロパティにアクセスできる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_type_cast_generic.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->ただ、この方法だと変数に格納する度に型キャストも書かなければならず、冗長でよくないコードになる。<!--
+                            -->これを解消するための使うのが、ジェネリック型で引数の型を指定する方法である。
+
+                            ＜ジェネリック型引数のPoint＞
+                            ・ジェネリック型引数を使う場面は、引数の型を柔軟にしておきたいとき。関数定義をした時点でnumberやstringなど明確に型を決めたくない場合。
+                            -> ジェネリック型は関数を呼び出した時に動的に型が決まる
+                            ・引数が2つ以上あり、受け取る引数がそれぞれ違う可能性があるときは、"T"(Type)と"U"(Tの次のアルファベット)を使って表現する。
+                        </p>
+                        <div data-filename="Generic型を使った関数">
+                            <span>Generic型を使った関数</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function 関数名&lt;T, U&gt(引数名: T, 引数名2: U) {
+    &emsp;&emsp;// 何らかの処理
+};
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->＜使用例＞
+                            <span class="yellow_highlight">注意</span>
+                            ・assignメソッドでは、一つ目の値にundifinedとnullを許容しない
+                            ->"extends {}"でnullとundefined以外であることを制限する
+                            ・最初の引数は無視できないが、"U"は2つ目の引数でnullやundefinedでも無視できるため、特に制限しない
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_Generic_function_called1.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記と違う引数で呼び出しても、型を柔軟に推論している。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_Generic_function_called2.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->このように関数定義で引数の型を確定したくないときジェネリック型を使うことで、関数を呼び出したときの値で型を推論してくれる。
+                            すでに確定した引数で型推論してくれるので、戻り値の型も正確な型になり、戻り値にも無事アクセスできる。
+                        </p>
+                        <p class="study_detail"><!--
+                            --><span class="study_sub_ttl">型の制約</span><!--
+                            -->このObject.assignはobject型のみ許容するので、このmerge関数の引数もObject型に限定するよう設定する。
+                        </p>
+                        <div data-filename="型の制約の書き方">
+                            <span>型の制約の書き方</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+&lt;T extends 型名&gt;
+
+// 例
+&lt;T extends object&gt;
+&lt;T extends number | string&gt;  // Union型もOK
+&lt;T, U extends object&gt;  // どちらか一方だけに制約をつけられる
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以下のようにobject型のみ受け取るよう制約をつけると、プリミティブ型（number, string など）が渡されたとき、エラーが出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_objectType_genric_exam.jpg">
+                        </div>
+
+                        <p class="study_detail"><!--
+                            --><span class="study_sub_ttl">自作の型を指定</span><!--
+                            -->関数の引数にジェネリック型を使えば、柔軟な型指定ができることを勉強した。引数の型にあいまいさを残して、型を限定しないようにできるのがジェネリック型の特徴。
+                            では、関数の中である特定の機能を持った型だけ許容するよう指定するにはどうするか？
+                            この場合は、自作の型を作り、ジェネリック型に制限を加える。
+                        </p>
+                        <p class="study_detail"><!--
+                            -->まず、以下のような関数では、関数の中でlengthを使う。
+                            型指定をしていないと引数として受け取ったデータがlengthを持っている型かわからないので、lengthチェックでエラーが出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_dont_have_type_GenericType.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記のエラーを解消するために、length機能を持った型のみ許容するよう制約をつける。
+                            そのためにtypeやinterfaceで自作の型を作成する。
+                            例えば、以下のようにinterfaceのプロパティに最低限必要なlengthのみ設定する。この自作の型をジェネリック型に指定すること、lengthがあることは確実に保証されるため、関数の中でlengthが使えるようになる。
+                            ジェネリック型の柔軟さを享受しつつ、TypeScriptの機能でlengthを持たない型を渡される危険も回避できる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_interfaceType_GenericType.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            引数の値にkeyを付与する方法(keyof)
+                        </p>
+                        <p class="study_detail"><!--
+                        -->あるオブジェクトのValueのKeyを引数に指定する場合、ジェネリックの型にkeyofを指定する。
+                        </p>
+                        <div data-filename="keyofを引数に指定">
+                            <span>keyofを引数に指定</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// オブジェクトとキーを受け取り、指定されたキーの値を返す
+// UはTのkeyであることを"keyof T"と書く
+function extractAndConver&lt;T extends object, U extends keyof T&gt; (obj: T, key: U) {
+  return 'Value: ' + obj[key];
+}
+
+// オブジェクトを定義
+const person: {
+  name: string;
+  age: number;
+} = {
+  name: 'Max',
+  age: 30,
+}
+
+// 関数の呼び出し
+console.log(extractAndConvert(person, "name"));
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力は以下のとおり。
+                        </p>
+                        <div class="mini_img">
+                            <img src="../../img/study/typescript/14_typeof_GenericType.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->オブジェクトに存在しないkeyを指定した場合は、エラーが出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_typeof_GenericType_err.jpg">
+                        </div>  
+                        
+                        <p class="study_sub_ttl study_ttl_square">
+                            ジェネリッククラスの作成
+                        </p>
+                        <p class="study_detail"><!--
+                            -->例えば以下のようなクラスを作成する場合、このクラスをインスタンスするときに初めてdata配列や引数のitemの型を、動的に確定させたいです。
+                            ですが、itemの型が決まっていないため、エラーが出力されます。
+                            ※以下のコードにでてくるsplice()メソッドの説明は<a href="#splice" class="link">こちら</a>
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/14_Generic_class_err.jpg">
+                        </div>  
+                        <p class="study_detail"><!--
+                            -->このような柔軟性を求めるクラスを定義するときは、ジェネリック型の使いどころです。
+                        </p>
+                        <div data-filename="ジェネリッククラスに修正">
+                            <span>ジェネリッククラスに修正</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// ジェネリッククラスに変更する(クラス名の後ろに&lt;T&gt;をつける)
+class DataStrage&lt;T&gt; {
+  // 型にジェネリック型配列を定義：T[]
+  private data: T[] = [];
+
+  // dataの配列に引数で受け取ったitemを追加するメソッド
+  // 引数のパラメータにもジェネリック型を指定：(引数: T)
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  // 引数で受け取ったitemをdata配列から削除するメソッド
+  removeItem(item: T) {
+    // indexOfでitemと一致する要素の位置を取得
+    this.data.splice(this.data.indexOf(item));
+  }
+
+  // スプレット演算子[...]で可変長の全ての値を取り出し、返す
+  // 正しく型推論できてる：戻り値がT[]
+  getItems() {
+    return [...this.data];
+  }
+}
+
+// インスタンス化
+// いろんな型のStrage配列を生成できる
+const textStrage = new DataStrage&lt;string&gt;();
+textStrage.addItem('Data1');
+textStrage.addItem('Data2');
+textStrage.removeItem('Data1');
+console.log(textStrage.getItems());
+
+const numStrage = new DataStrage&lt;number&gt;();
+numStrage.addItem(1);
+numStrage.addItem(2);
+numStrage.addItem(3);
+numStrage.removeItem(2);
+console.log(numStrage.getItems());
+
+const objStrage = new DataStrage&lt;object&gt;();
+objStrage.addItem({name: "Max"});
+objStrage.addItem({name: "Anna"});
+objStrage.removeItem({name: "Max"}); // 失敗する
+console.log(objStrage.getItems());
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記のようにただの&lt;T&gt;で設定した場合、object(参照型)の削除処理は失敗する。
+                        </p>
+                        <div class="mini_img">
+                            <img src="../../img/study/typescript/14_object_remove_faulse.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->なぜなら、JavaScriptはオブジェクトを記述する度、別の参照アドレスを割り当てるので、それぞれのオブジェクトの参照先は違うものになってしまうためである。
+                            
+                            objStrage.addItem({name: "Max"});
+                            まず、このとき{name: "Max"}は新しくオブジェクトを生成する。
+                            objStrage.removeItem({name: "Max"});
+                            しかし、ここでも{name: "Max"}は新しいオブジェクトとして生成されてしまう。
+
+                            remobeItemで渡したオブジェクト参照値と最初に登録したaddItemの参照値は一致しないため、indexOfは配列の要素に指定された値はない、と判断する。
+                            indexOfは値なしの場合”-1"を返し、splice()メソッドは負のindexは「末尾から数える」という仕様なので、最後の値を削除する。
+                            そのため、{name: "Max"}を削除しようとしても、最後に追加した値{name: "Anna"}が削除されてしまう。
+                            これを解消するためには、それぞれのメソッドを呼ぶ前に値を変数に格納し、最初に追加した値と最初する値の参照先が同じものを指すようにする。
+                        </p>
+                        <div data-filename="objectの参照先を同一にする">
+                            <span>objectの参照先を同一にする</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+const objStrage = new DataStrage&lt;object&gt;();
+// 同じ参照先になるよう、データを変数に格納
+const obj = {name: "Max"};
+// 引数に変数に格納した値を渡す
+objStrage.addItem(obj);
+objStrage.addItem({name: "Anna"});
+// addItemで渡した同じ変数を渡す
+objStrage.removeItem(obj);
+console.log(objStrage.getItems());
+</code></pre>
+                        </div>
+                        
+                        <p class="study_detail"><!--
+                            -->上記のように呼び出せば、期待した処理になる。
+                            ただ、このように格納する全てのデータを変数に格納するのは冗長なコードになる。
+                            このクラスでは、プリミティブ型しか扱えないよう、ジェネリック型を修正するのが好ましい修正になる。
+                        </p>
+                        <div data-filename="推奨される変更">
+                            <span>推奨される変更</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// プリミティブ型のみ許可する型に修正
+class DataStrage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    // itemが配列の要素に見つからない場合
+    if (this.data.indexOf(item) === -1) {
+      // 何もせずにreturnする(誤った要素を削除しない)
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->オブジェクトを使用することを禁止し、object型はobject型に特化したStrageクラスを作成したほうがよい。
+                            例えばオブジェクトを探すロジックでは、オブジェクトにidを持たせてidをチェックして要素を削除するなど、object型に適した処理を作る必要がある。
+                        </p>
+
+                        <p class="study_detail" id="splice"><!--
+                            --><span class="yellow_highlight">splice()メソッドについて</span>
+                            splice()メソッドはArrayのインスタンスメソッドで、Arrayや配列の要素を取り除いたり、置き換えたり、新しい要素を追加したりできる。
+                            詳しくは<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/splice" class="link" target="_blank">JavaScript公式ページ</a>へ 
+                        </p>
+                        <div data-filename="spliceの使い方">
+                            <span>spliceの使い方</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 操作対象の配列
+const months = ["Jan", "March", "April", "June"];
+
+// 要素の追加：配列.splice(挿入位置のindex, 0, 追加データ)
+months.splice(1, 0, "Feb");
+// 予想される結果: Array ["Jan", "Feb", "March", "April", "June"]
+
+// 要素の置き換え：配列.splice(置き換えたいindex, 1, 置き換えるデータ)
+months.splice(4, 1, "May");
+// 予想される結果: Array ["Jan", "Feb", "March", "April", "May"]
+
+// 要素の削除：配列.splice(削除するデータのindex, 1)
+months.splice(4, 1);
+// 予想される結果: Array ["Jan", "Feb", "March", "April"]
+</code></pre>
+                        </div>
+
+                        
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

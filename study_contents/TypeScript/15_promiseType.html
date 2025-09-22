@@ -32,13 +32,18 @@
                             このように「取得するのに時間がかかる値」「いつか手に入る値」を入れる型がPromise型になる。
                             Promise型を型に設定する場合は[let p: Promise&lt;string&gt;;]のように書く。これは、「いつか手に入る値」はstring型が返ってくる、という意味。
 
-                            Promiseの関数定義の基本形は以下のとおり。
+                            PromiseはJavaScriptに組み込まれたコンストラクタ関数(newで複数のインスタンスを作れる)で、一つの関数を引数として受け取る。
+                            例）new Promise(() => {}); // {}は関数を表す
+                            この関数は最終的にresolveとrejectという2つの関数を受け取る。これらは自動的にブラウザのJavaScriptによって渡されるもの。
+                            またPromiseはなぜなら最終的には何らかの型のデータをresolveやrejectとして返すので、ジェネリック型と一緒に機能する、
+                            以下がPromiseの基本的な使い方となる。
                         </p>
                         <div data-filename="Promise基本形">
                             <span>Promiseの基本形</span>
 <!--コード記載-->
 <pre><code class="language-typescript">
-new Promise((resolve, reject) => {
+// &lt;T&gt;にはresolve/rejectで返す値の型を指定する
+new Promise&lt;T&gt;((resolve, reject) => {
     // executor(実行関数)->何か処理する
     // 処理が成功したらresolveを呼ぶ
     // -> resolve(...)を呼ぶと、その値が.then()やawaitに渡される
@@ -65,11 +70,11 @@ new Promise((resolve, reject) => {
                             <span>ポテチ購入の処理</span>
 <!--コード記載-->
 <pre><code class="language-typescript">
-// 関数の戻り値にPromise型を設定
-function buySnack(): Promise<string> {
+// 関数の戻り値にPromise型&lt;string&gt;を設定
+function buySnack(): Promise&lt;string&gt; {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            const isSoldOut = Math.random() < 0.5; // 50%の確率でtrue
+            const isSoldOut = Math.random() &gt; 0.5; // 50%の確率でtrue
             if (isSoldOut) {
                 reject('売り切れでした。'); // 失敗
             } else {
@@ -107,7 +112,7 @@ buySnack().then((msg) => {
 <pre><code class="language-typescript">
 // Promiseのインスタンス生成
 // Promise内の処理が実行される
-const promise = new Promise((resolve) => {
+const promise = new Promise&lt;string&gt;((resolve) => {
     // 最初に出力される
     console.log('スタート');
 

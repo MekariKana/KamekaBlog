@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.9.24
+                        </div>
+                        <p class="study_ttl">
+                            Genericsのビルドイン
+                        </p>
+                        <p class="study_detail"><!--
+                            -->TypeScriptにはジェネリック型を使用したビルトイン型が最初から組み込まれている。これらはTypeScript特有の機能であり、JavaScriptには存在しない。
+                            このビルドイン型は特定な状況下で有用な機能なので、このような機能があるということを知っておいたほうがいい。
+                            以下では2つ紹介するが、それ以外のビルドイン型は<a href="https://www.typescriptlang.org/docs/handbook/utility-types.html" class="link" target="_blank">こちら</a>
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            buildin型①Partial&lt;T&gt;
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Partial型はジェネリックで指定した型のプロパティを、全て任意のプロパティに変更する型。
+                            最終的にはジェネリック型で指定した型になるが、最初は任意のオプショナルプロパティにしておくことで、オブジェクトを生成した時点でプロパティに値が設定されていなくてもエラーにならない。
+                            
+                            例えば以下のように、インターフェースを実装する関数を作成する。
+                            関数の処理で、変数にインターフェース型を指定し、空の関数を値として格納すると、インターフェースに備わっているはずのプロパティの値がないのでエラーが出力される。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/16_partialType_err.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->このような場合は、Partial型を使い、インターフェースを作成した時点ではプロパティをオプショナルにする。
+                            
+                            <span class="yellow_highlight">注意</span>
+                            Partial&lt;CourseGoal&gt;はPartial型であり、GourseGoal型ではない。
+                            そのため以下のコードのように、型をPartial型に変更したら、returnする値もCourseGoalにキャストしなくてはエラーになる。
+                        </p>
+                        <div data-filename="Partial型の使い方">
+                            <span>Partial型の使い方</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// コースの目標を格納するインターフェース
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+// CourseGoalインターフェースを作成する関数
+function createCourseGoal(
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal {
+  // オブジェクトの戻り値にPartial型を設定
+  let objCourseGoal: Partial&lt;CourseGoal&gt; = {};
+  // それぞれの値をチェックしてからプロパティに値を入れたい
+  // titleが10文字以下なら値を設定
+  if (title.length &lt;= 10) {
+    objCourseGoal.title = title;
+  } else {
+    throw new Error('titleが10文字を超えています。');
+  }
+  // descriptionが300文字以下なら値を設定
+  if (description.length &lt;= 300) {
+    objCourseGoal.description = description;
+  } else {
+    throw new Error('descriptionが300を超えています。');
+  }
+  // dateが現在より後なら値を設定
+  const today = new Date();
+  if (date.getTime() > today.getTime()) {
+    objCourseGoal.completeUntil = date;
+  } else {
+    throw new Error('dateが過去日付になっています。');
+  }
+  // 値を戻す際キャストする(すべてのプロパティが追加されていることを保証する)
+  return objCourseGoal as CourseGoal;
+}
+</code></pre>
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            buildin型②Realonly&lt;T&gt;
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Realonly型は値の追加、変更ができないように固定するための機能。変数だけではくオブジェクトにも使うことができる。
+                            例えば配列などの定数を作成したい場合、参照型なのでconstにしてもpushやpopで値の追加や削除ができてしまう。
+                            値を固定し、変更しようとした際エラーを出力したい場合はReadonly型を使用する。
+                        </p>
+                        <div data-filename="Readonly型の使い方">
+                            <span>Readonly型の使い方</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 以下のコードではエラーにならない
+const names = ['Max', 'Anna'];
+names.push('Manu');
+names.pop();
+
+// Readonly型ならエラー検知できる
+const names: Readonly&lt;string[]&gt; = ['Max', 'Anna'];
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->以下のようにエラーが出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/16_readonlyType_err.jpg">
+                        </div>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

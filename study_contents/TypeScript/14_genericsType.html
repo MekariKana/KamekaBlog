@@ -327,7 +327,7 @@ console.log(objStrage.getItems());
                         
                         <p class="study_detail"><!--
                             -->上記のように呼び出せば、期待した処理になる。
-                            ただ、このように格納する全てのデータを変数に格納するのは冗長なコードになる。
+                            ただ、このように格納する全てのデータを変数に格納すると冗長なコードになる。
                             このクラスでは、プリミティブ型しか扱えないよう、ジェネリック型を修正するのが好ましい修正になる。
                         </p>
                         <div data-filename="推奨される変更">
@@ -358,7 +358,7 @@ class DataStrage<T extends string | number | boolean> {
 </code></pre>
                         </div>
                         <p class="study_detail"><!--
-                            -->オブジェクトを使用することを禁止し、object型はobject型に特化したStrageクラスを作成したほうがよい。
+                            -->object型はobject型に特化したStrageクラスを作成したほうがよい。
                             例えばオブジェクトを探すロジックでは、オブジェクトにidを持たせてidをチェックして要素を削除するなど、object型に適した処理を作る必要がある。
                         </p>
 
@@ -388,7 +388,58 @@ months.splice(4, 1);
 </code></pre>
                         </div>
 
-                        
+                        <p class="study_sub_ttl study_ttl_square">
+                            ジェネリック型とUnion型の違い
+                        </p>
+                        <p class="study_detail"><!--
+                            -->Union型は関数が呼ばれたときに毎回、複数の型のうちのいずれかの型を受け入れる場合に適している。関数やメソッドを呼び出す毎に型を選ぶような柔軟性が必要な場合はUnion型が向いている。
+                            一方でジェネリック型は、クラス全体で複数の型のうちのいずれか1つの型に固定したい場合に適している。
+
+                            例えば、以下のコードはGeneric型の制約にUnion型を使用している。
+                            ジェネリック型はクラス生成時にstring/number/booleanのいずれかの型に確定する。最初に型を指定したら、その後そのクラスで使うジェネリック型は全て最初に指定した型に統一され、その型だけを許容する。
+                        </p>
+                        <div data-filename="Genric型の例">
+                            <span>Generic型</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// ジェネリッククラスに変更する(クラス名の後ろに&lt;T&gt;をつける)
+class DataStrage&lt;T extends string | number | boolean&gt; {
+  // 型にジェネリック型配列を定義：T[]
+  private data: T[] = [];
+
+  // dataの配列に引数で受け取ったitemを追加するメソッド
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  // 引数で受け取ったitemをdata配列から削除するメソッド
+  removeItem(item: T) {
+    if (this.data.indexOf(item) === -1) {
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記のクラスをUnion型に変更するとどうなるか？
+                            Union型の場合、最初にnumber型を指定したとしてもメソッドを呼び出すときstringを引数に渡すことができてしまう。<!--
+                            -->なぜなら、プロパティで設定した配列型と、メソッドを呼び出すときに定義した引数型は別の設定で、関連を持たないからである。
+                            そのため以下のようにメソッドで受け取った引数が、配列の型と一致しない可能性がある旨のエラーが出力される。
+                        </p>
+                        <div class="large_img">
+                            <img src="../../img/study/typescript/14_defference_unionType_genericType.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->このように、Union型はGeneric型より柔軟なので、同じようには使えない。
+                            インターフェース作成時では型を柔軟にし、クラス生成時に決めた型をその後複数メソッドやプロパティで統一して使う画面ではGeneric型を使用する。
+                        </p>   
+
                     </div>
                     <br>
                     <a class="link_btn" href="../../study.html">戻る</a>

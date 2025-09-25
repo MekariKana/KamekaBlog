@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <htmlcss-title></htmlcss-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.9.25
+                        </div>
+                        <p class="study_ttl">
+                            ページ内リンクの位置ズレ解消
+                        </p>
+                        <p class="study_detail"><!--
+                            -->navの位置を固定しているため、ページ内リンクを使うと位置がずれてしまう。
+                            固定ヘッダーがあるとページ内リンクでスクロールした際、リンク先の要素の上端を画面の上端に合わせて表示するため、リンク先がヘッダーの高さ分だけ隠れてしまうのである。
+                        </p>
+                        <div class="study_sub_ttl">
+                            【修正前】
+                        </div>
+                        <video src="../../img/study/html_css/4_before.mp4" autoplay muted playsinline></video>
+
+                        <p class="study_detail">
+                            上記の問題を解消するために、cssでスクロールしたときヘッダーの高さを加味するよう以下のように位置を設定してみた。
+                            
+                            ・padding-top: 30px
+                            要素の上に余白を追加。リンクでスクロールされたときに上端がヘッダーの下に少し下がるようにする。
+                            ・margin-top: -30px
+                            見た目上の位置を元の場所に戻すため、負のマージンで上に引き戻す。
+                        </p>
+                        <div data-filename="cssにanchorクラス追加">
+                            <span>cssにanchorクラス追加</span>
+<!--コード記載-->
+<pre><code class="language-css">
+.anchor {
+  /* ヘッダーの高さは30px */
+  padding-top: 30px;
+  margin-top: -30px;
+}
+</code></pre>
+
+                        </div>
+                        <div data-filename="htmlにanchorクラスを追加">
+                            <span>htmlにanchorクラスを追加</span>
+<!--コード記載-->
+<pre><code class="language-html">
+&lt;div class="anchor" id="other"&gt;
+    &lt;div class="content_ttl"&gt;
+        &lt;h3&gt;その他&lt;/h3&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+                        </div>
+
+                        <div class="study_sub_ttl">
+                            【修正後】
+                        </div>
+                        <p class="study_detail"><!--
+                            -->ブラウザは要素の上端（paddingの上端）でスクロール位置を決めるため、ヘッダーに隠れずに表示されました。
+                        </p>
+                        <video src="../../img/study/html_css/4_after.mp4" autoplay muted playsinline></video>
+                        
+                        <div class="study_sub_ttl">
+                            別のやり方がありました。。。。
+                        </div>
+                        <p class="study_detail"><!--
+                            -->もう少し調べてみると、cssで"scroll-margin-top"という設定があることが判明。
+                            "scroll-margin-top"は、ブラウザがスクロールして要素を表示する際に「上端から余白を空ける」プロパティなのだそう。
+                            これでいいじゃん。。
+                        </p>
+                        <div data-filename="scroll-margin-topに修正">
+                            <span>scroll-margin-topに修正</span>
+<!--コード記載-->
+<pre><code class="language-css">
+.anchor {
+  scroll-margin-top: 30px;
+}
+</code></pre>
+
+                        </div>
+                        <p class="study_detail"><!--
+                            -->要素の見た目を崩さず、これでも同じ挙動になりました^^b
+                        </p>
+                    <div class="study_detail">
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトのcss実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

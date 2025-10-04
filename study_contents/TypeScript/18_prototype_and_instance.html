@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.10.1
+                        </div>
+                        <p class="study_ttl">
+                            コンストラクタ関数(クラス本体)とプロトタイプについて
+                        </p>
+                        <p class="study_detail"><!--
+                            -->デコレーターを勉強しているとき、<a href="17_decorator.html#propertyDecorator" class="link">プロパティデコレーター</a>でこの2つの用語がでてきたので、別途まとめる。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square anchor" id="prototype">
+                            プロトタイプとは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->クラスに定義された共通処理(メソッドなど)にどのようなものがあるか記したメソッド一覧のようなもの。<!--
+                            -->また、インスタンス化して初めて共通処理が使えるようになるので、メソッドはインスタンスした実体のほうに属する。
+                            プロパティはインスタンス化したときコンストラクターで値が設定される。インスタンス各々が違う値を持つので、プロトタイプの情報には含まれない。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square anchor" id="construct">
+                            コンストラクタ関数(クラス本体)とは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->コンストラクタ関数とは、newしてオブジェクトを作る「関数」そのもの(クラス本体)のこと。インスタンス化して初めて動作するので、関数(クラス)自体は実態(オブジェクト)ではない。
+                            しかし、クラスの情報はインスタンス化前でもJavaScriptがコードを読んだ時点で解釈してる(メモリ上にクラスの構造が作られている)。
+                            以下の例の場合、staticプロパティはインスタンス化した実態ではなくクラス本体に属しており、評価されたクラス構造に含まれている。だから、staticプロパティにアクセスするときも、[クラス名.staticプロパティ]の構文で呼ぶ。
+                        </p>
+                        <div data-filename="プロトタイプとインスタンス関数の違い">
+                            <span>プロトタイプとインスタンス関数の違い</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function Log(target: any, propertyName: string | symbol) {
+    console.log("Logデコレーター - start");
+    console.log(target, propertyName);
+}
+
+class Student {
+    @Log
+    name: string = ""; // インスタンス(new)したら実体化(インスタンスに属する)
+    @Log
+    static schoolName = "青空小学校"; // クラスで共有(クラスに属する)
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    greet() {
+        console.log("おはようございます。" + this.name + "です。");
+    }
+}
+
+// インスタンスプロパティとメソッドを出力
+const s1 = new Student("はなこ");
+console.log(s1.name);
+s1.greet();
+
+// staticプロパティ出力
+console.log(Student.schoolName);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                            一番上のインスタンスプロパティのtargetはprototypeが出力され、次のstaticプロパティのtargetはStudentクラス本体が出力されている。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/18_constructAndPrototype.jpg">
+                        </div>                   
+                        
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

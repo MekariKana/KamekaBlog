@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.10.4
+                        </div>
+                        <p class="study_ttl">
+                            デコレーター：Decorator
+                        </p>
+                        <p class="study_detail"><!--
+                            -->デコレーターとはただの関数。TypeScriptで使える特殊な構文で、クラスやそのプロパティ、メソッド、引数などに関数を差し込んで拡張する仕組みのこと。
+                            TypeScriptのデコレーターには4種類のデコレーターがある。
+                            TypeScriptの公式ドキュメントは<a href="https://js.studio-kingdom.com/typescript/handbook/decorators" class="link" target="_blank">こちら</a>
+                        </p>
+                        <p class="study_detail"><!--
+                            --><span class="study_sub_ttl">設定</span><!--
+                            -->ts.configで<a href="7_tsconfig_setting.html#decoratorsSetting" class="link">experimentalDecorators</a>をtureにする。
+                        </p>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            クラスデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            -->クラスに対して実行されるデコレーター。クラスをラップしたり、情報を追加できる。
+                            以下の例では、Logger関数自体がデコレーターとして使われるので、クラスのコンストラクタを引数に受け取る。
+
+                            <span class="yellow_highlight">Point</span>
+                            ・デコレーターとして定義した関数は、デコレーターを適用したクラスが呼ばれるタイミングで動作する。
+                            インスタンス化のタイミングではない。
+                        </p>
+                        <div data-filename="クラスデコレーター例">
+                            <span>クラスデコレーター例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+ // デコレーターを作成
+// 引数：他のクラスのconstructorを受け取る
+function Logger(targetConst: Function) {
+    console.log("ログ出力中。。。");
+    console.log(targetConst);
+}
+
+// 自分でLoggerを呼び出すのではなく、デコレーターを追加する
+// デコレーターの指定方法：@関数名
+// クラス定義したときにLoggerが呼ばれる
+@Logger
+class Person {
+    name = 'Max';
+
+    constructor() {
+        console.log("Personオブジェクトを作成中。。。")
+    }
+}
+
+// インスタンス生成
+const pers = new Person();
+
+// コンソールにオブジェクトを出力
+console.log(pers);   
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                            まず最初にPersonクラスに追加したLoggerデコレーターが呼ばれる。（"ログ出力中。。。"とPersonのconstructorが出力）
+                            次にインスタンス生成時に再度Personのconstructorが呼ばれ、最後にconsole.logで呼び出したpersオブジェクトが出力される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_classDecorators_output.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            デコレーターファクトリー
+                        </p>
+                        <p class="study_detail"><!--
+                            -->デコレーターを使用するときに、引数を渡してデコレーターで使う値をカスタマイズできる仕組み。
+                            クラスデコレーターはそのまま関数をデコレーターとして使用していたが、デコレーターファクトリーは関数を実行して、戻り値をデコレーターとして使用する。
+
+                            以下の例では、クラスの前に追加した@LoggerでLogger関数を実行し、戻り値として「function (target: Function) {...}」というデコレーター関数を返している。<!--
+                            -->これは、返ってきた関数がデコレーターとして適用されており、この戻り値の関数にPersonクラスやDepartmentクラスのconstructorが渡される。
+                            つまり、Logger自体はデコレーターを作る工場で、実際のデコレーターは戻り値の関数ということである。
+                        </p>
+                        <div data-filename="デコレーターファクトリー例">
+                            <span>デコレーターファクトリー例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// デコレーターファクトリーを作成
+// 引数：カスタマインズしたい値
+function Logger(logMsg: string) {
+    // 関数を返す
+    // 引数：呼び出し元の関数のconstructor
+    return function(targetConst: Function) {
+        // 引数の値をコンソールに出力(呼び出し側が決められる)
+        console.log(logMsg);
+        console.log(targetConst);
+    }
+}
+
+// デコレーターの指定方法：@関数名(引数)
+@Logger("Person - log start")
+class Person {
+    name = 'Max';
+
+    constructor() {
+        console.log("Personオブジェクトを作成中。。。")
+    }
+}
+
+// 引数をカスタマイズ
+@Logger("Department - log start")
+class Department {
+    name = 'Finance';
+
+    constructor() {
+        console.log("Financeオブジェクトを作成中。。。")
+    }
+}
+</code></pre>
+                        </div><p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                            「log - start」の前のクラス名が、クラス毎にカスタムできている。(引数で指定したとおりに出力されている)
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_decoratorFactory_output.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl">
+                            メタプログラミング
+                        </p>
+                        <p class="study_detail"><!--
+                            -->メタプログラミングとは、プログラムの操作するプログラムを書くこと。元あるロジックを補強したり、自動生成したり、挙動を変えるプログラムを指す。
+                            メタプログラミングは、いろんなクラスやHTMLに同じ処理を追加するときに使用できる。
+                            例えば、作成した関数をサードパーティーライブラリとして他のユーザーにも共有し、他のユーザーは[@関数名]を使って関数をインポートして使用することができる。
+                            
+                            例）デコレーターファクトリーを使ってHTMLにDOM要素を追加する
+                            1.htmlファイルにDOM要素を追加するためのDivタグを用意する
+                            ※要素を取得するためのidを付与
+                        </p>
+                        <div data-filename="index.html">
+                            <span>index.html</span>
+<!--コード記載-->
+<pre><code class="language-html">
+&lt;body&gt;
+    &lt;div id="app"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->2.tsファイルに関数と関数を呼び出すクラスをプログラムする
+                            ※生成した関数内の処理で引数を使用しない場合、引数名は”_”(アンダーバー)で記載する
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// HTMLテンプレートを受け取り、DOM要素に表示する関数
+// 引数：template->挿入するHTMLテンプレート、hookId->挿入するDOM要素のid
+function WithTemplate(template: string, hookId: string) {
+    // デコレーター関数を生成
+    // 引数：呼び出し元クラスのconstrunctor(関数内で使用しないので引数名は"_")
+    return function(_: Function) {
+        // 挿入するDOM要素を取得
+        const hookEl = document.getElemntById(hookId);
+        if (hookEl) {
+            // 挿入する要素名に引数で受け取ったHTMLを代入
+            hookEl.innerHTML = template;
+        }
+    }
+}
+
+// デコレーターをインポート
+@WithTemplate('&lt;h1&gt;Departmentオブジェクト&lt;/h1&gt;', 'app')
+class Department {
+    // 処理なし
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                            デコレーターをインポートしたクラスが引数で渡したHTML要素が表示されている。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_add_HTMLelements_1.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->上記のtsファイルを少し修正し、クラスに設定したプロパティをHTMLに表示する。
+                            ※上記ではデコレーター関数の引数の型をFuncitonにしている。
+                            Function型だとnewできないただの関数も含んでしまうためエラーになるので、any型にする。
+                            anyにすれば「何でも許可」、つまり型チェックを外すことができる。型の安全性は失われるが、簡易的にここではanyを使う。
+                        </p>
+                        <div data-filename="app.ts">
+                            <span>app.ts</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// HTMLのDOM要素に、呼び出し元クラスのプロパティを設定する
+function WithTemplate(template: string, hookId: string) {
+    // 引数をFunction型にするとエラーになるのでany型にする
+    return function(constructor: any) {
+        // 挿入するDOM要素を取得
+        const hookEl = document.getElementById(hookIid);
+        // 呼び出し元クラスをインスタンス化
+        const p = new constructor();
+        
+        if (hookEl) {
+            // 引数で受け取ったHTMLをDOM要素に追加
+            hookEl.innerHTML = termplate;
+            // 上記で追加したtemplateのh1タグのtextを、クラスのプロパティに置き換え
+            hookEl.querySelector('h1')!.textContent = p.name;
+        }
+    }
+}
+
+// デコレーターをインポート
+@WithTemplate('&lt;h1&gt;Departmentオブジェクト&lt;/h1&gt;', 'app')
+class Department {
+    // プロパティ
+    name = 'Finance';
+
+    constructor() {
+        console.log("Financeオブジェクトを作成中。。。")
+    }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_add_HTMLelements_2.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            --><a href="https://angular.dev/guide/components?utm_source=chatgpt.com" class="link" target="_">Angular</a>(JavaScriptのフレームワーク)でも、もっと高度だが同じような機能がある。
+                        </p>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            複数のデコレーターの追加
+                        </p>
+                        <p class="study_detail"><!--
+                            -->デコレーターを1つのクラスに複数使用することもできる。
+                            
+                            実行される処理の順番
+                            ①クラスで定義された上から順番にデコレーターファクトリーが実行される
+                            ②ファクトリー関数が返したデコレーター本体は、下から順にクラスに適用される
+
+                            以下の例の場合、
+                            1. @Logger(...)でLoggerファクトリーが実行
+                            2. @WithTemplate(...)でWithTemplateファクトリーが実行
+                            
+                            クラス定義が全て読み込まれたら、デコレーター本体が逆順に適用される
+                            3. WithTemplateデコレーターが実行
+                            4. Loggerデコレーターが実行
+
+                            5. インスタンス化したら、constructorが実行
+                        </p>
+                        <div data-filename="複数デコレーターの処理順">
+                            <span>複数デコレーターの処理順</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// デコレーター①
+function Logger(logMsg: string) {
+    console.log("Loggerファクトリ - start")
+
+    return function(constructor: Function) {
+        console.log(logMsg); // [Looger - start]を出力
+    }
+}
+
+// デコレーター②
+function WithTemplate(template: string, hookId: string) {
+    console.log("WithTemplateファクトリ - start")
+
+    return function(constructor: Function) {
+        console.log("WithTemplate - start");
+    }
+}
+
+// 複数デコレーターをインポートしたクラス
+@Logger("Logger - start")
+@WithTemplate('&lt;h1&gt;Financeオブジェクト&lt;/h1&gt;', 'app')
+class calledDecorator() {
+    constructor() {
+        console.log("呼び出し元クラス - コンストラクター");
+    }
+}
+
+const obj = new calledDecorator();
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_several_docorators.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square anchor" id="propertyDecorator">
+                            プロパティデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            -->デコレーターを使うにはクラスが必要だが、クラス以外のプロパティやメソッドにもデコレーターを付与することができる。デコレーターは付与されたアイテムに応じて、決まった情報を引数として渡す仕組みになっている。
+                            プロパティデコレーターの場合は、関数のシグネチャ(メソッド名と引数リストのセット)が<a href="https://js.studio-kingdom.com/typescript/handbook/decorators#property-decorators"" class="link" target="_blank">公式ドキュメント</a>で決めれらている。
+                        </p>
+                        <div data-filename="プロパティデコレーターのシグネチャ">
+                            <span>プロパティデコレーターのシグネチャ</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+function PropertyDecorator(target: any, propertyKey: string | symbol): void;
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">Point</span>
+                            ・クラス定義が評価されるとき、デコレーターは実行される
+                            ・引数の設定は以下のとおり
+                            &emsp;target：この情報がどこに属しているかの住所。any型(クラスデコレーターのようにFunctionに限定できない)
+                            &emsp;->インスタンスメンバーの場合は、呼び出し元クラスの<a href="18_prototype_and_instance.html#prototype" class="link">プロトタイプ</a>(設計書)が引数に設定される
+                            &emsp;->staticメンバーの場合は、<a href="18_prototype_and_instance.html#construct" class="link">コンストラクタ関数(クラス本体)</a>が引数として渡される
+                            &emsp;※staticメンバーにデコレーターが付与されると、クラスのインスタンス化前にデコレーターが実行されるので、クラス本体の情報をそのままtargetとして渡す
+                            &emsp;propertyKey：クラスの識別子として何を使ってるかわからないので限定しない
+                        </p>
+                        <div data-filename="プロパティデコレーターの例">
+                            <span>プロパティデコレーターの例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// デコレーター関数
+function Log(target: any, propertyName: string| Symbol) {
+    console.log("Propertyデコレーター");
+    // 引数の内容を出力
+    console.log(target, propertyName);
+}
+
+// デコレーターはクラスが読み込まれたタイミングで実行される
+class Prooduct {
+    @Log
+    title: string = "";
+    // privateにしてクラスの外部からのアクセスを拒否("_"を変数につける)
+    private _price: number = 0.05;
+
+    // priceのセッター
+    set price(val: number) {
+        if (val > 0) {
+            this._price = val;
+        } else {
+            throw new Error('不正な価格です - 0以下は設定できません。')
+        }
+    }
+
+    construcror(t: string, p: number) {
+        this.title = t;
+        this._price = p;
+    }
+
+    // 税込の値段を返すメソッド
+    getPricewithTax(tax: number) {
+        return this._price * (1 + tax);
+    }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                            targetの値はプロトタイプになっている。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_propertyDecorator_output.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square anchor" id="accessorDecorator">
+                            アクセサーのデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            -->アクセサーのデコレーターの関数シグネチャも公式ドキュメントで決まっている。
+                            引数は3つ受け取る。
+                            1.target：プロパティデコレーター同様、インスタンスのアクセサーならプロトタイプが渡され、staticアクセサーであればコンストラクタ関数(クラス本体)が渡される。
+                            型を限定できないのでany型で定義する。
+                            2.name：アクセサーの名前。
+                            3.descriptor：propertyDescriptor型。これはTypeScriptに組み込まれてる型。
+
+                            以下の例では、上記の<a href="#propertyDecorator" class="link">プロパティデコレーター</a>も付与した状態で、アクセサーデコレーターを追加する。
+                        </p>
+                        <div data-filename="アクセサーデコレーター例">
+                            <span>アクセサーデコレーター例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// アクセサーデコレーター
+function Log2(target: any, name: string, descriptor: PropertyDescriptor){
+    console.log("Accessorデコレーター");
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+// デコレーターはクラス定義が登録されたタイミングで実行される
+class Prooduct {
+    // プロパティデコレーターを付与
+    @Log
+    title: string = "";
+    // クラスの外部からのアクセスを拒否
+    private _price: number = 0.05;
+
+    // アクセサーデコレーターを付与
+    @Log2
+    set price(val: number) {
+        if (val > 0) {
+            this._price = val;
+        } else {
+            throw new Error('不正な価格です - 0以下は設定できません。')
+        }
+    }
+
+    construcror(t: string, p: number) {
+        this.title = t;
+        this._price = p;
+    }
+
+    // 税込の値段を返すメソッド
+    getPricewithTax(tax: number) {
+        return this._price * (1 + tax);
+    }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                            まずプロパティデコレーターが動作し、その後にアクセサーデコレーターが起動する。
+                            引数の内容として、targetは<a href="18_prototype_and_instance.html#prototype" class="link">プロトタイプ</a>を返し、アクセサー名は"price"、最後にdescriptionとしてPropertyDescriptor型のアクセサー情報を返している。
+                            descriptionの内容は、getは定義していないのでundefinedとなっており、setのみ関数がある(f)となっている。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_accessorDecorator.jpg">
+                        </div>   
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            メソッドデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            -->上記と同様にメソッドデコレーターも公式ドキュメントで関数シグネチャが決まっている。
+                            引数は<a href="#accessorDecorator" class="link">アクセサーデコレーター</a>と同じ。
+
+                            以下の例では、上記のプロパティデコレーター、アクセサーデコレーターも残した状態でメソッドデコレーターを追加する。
+                        </p>
+                        <div data-filename="メソッドデコレーター例">
+                            <span>メソッドデコレーター例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// メソッドデコレーター
+function Log3(target: any, name: string | symbol, descriptor: PropertyDescriptor) {
+    console.log("methodデコレーター");
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+// デコレーターは基本的にクラス定義が登録されたタイミングで実行される
+class Prooduct {
+    // プロパティデコレーター付与
+    @Log
+    title: string = "";
+    private _price: number = 0.05;
+
+    // アクセサーデコレーター付与
+    @Log2
+    set price(val: number) {
+        if (val > 0) {
+            this._price = val;
+        } else {
+            throw new Error('不正な価格です - 0以下は設定できません。')
+        }
+    }
+
+    construcror(t: string, p: number) {
+        this.title = t;
+        this._price = p;
+    }
+
+    // 税込の値段を返すメソッド
+    // メソッドデコレーター付与
+    @Log3
+    getPricewithTax(tax: number) {
+        return this._price * (1 + tax);
+    }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                            メソッドデコレーターはアクセサーデコレーターとほぼ同じ内容を受け取る。descriptionの中身が少し違うくらい。
+                            メソッドのDescriptorにはvalueとwritableというプロパティがあり、これはJavaScript上での違い。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_methodDecorator.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            パラメーターデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            -->パラメーターデコレーターも公式ドキュメントで関数シグネチャが決まっている。
+                            引数は3つ受け取る。
+                            1.target：他同様、プロトタイプかコンストラクタ関数を受け取る。
+                            2.name：メソッド名を受け取る。パラメーター名ではないので注意。
+                            3.position：最初のパラメーターを0として、パラメーターの位置を受け取る。number型。
+                            デコレーターを付与する位置はパラメーターの前につける。パラメーターのデコレーターは全てのパラメーターに追加することができ、それぞれのパラメーターに独立して別々にデコレーターを設置できる。
+
+                            以下の例では、上記のプロパティデコレーター、アクセサーデコレーター、メソッドデコレーターも残した状態でパラメーターデコレーターを追加する。
+                        </p>
+                        <div data-filename="パラメーターデコレーター例">
+                            <span>パラメーターデコレーター例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// パラメーターデコレーター
+function Log4(target: any, name: string | symbol, position: number) {
+    console.log("parameterデコレーター");
+    console.log(target);
+    console.log(name);
+    console.log(position);
+}
+
+// デコレーターは基本的にクラス定義が登録されたタイミングで実行される
+class Prooduct {
+    // プロパティデコレーター付与
+    @Log
+    title: string = "";
+    private _price: number = 0.05;
+
+    // アクセサーデコレーター付与
+    @Log2
+    set price(val: number) {
+        if (val > 0) {
+            this._price = val;
+        } else {
+            throw new Error('不正な価格です - 0以下は設定できません。')
+        }
+    }
+
+    construcror(t: string, p: number) {
+        this.title = t;
+        this._price = p;
+    }
+
+    // 税込の値段を返すメソッド
+    // メソッドデコレーター付与
+    @Log3
+    // パラメーターデコレーター付与
+    getPricewithTax(@Log4 tax: number) {
+        return this._price * (1 + tax);
+    }
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/17_parameterDecorator.jpg">
+                        </div>
+
+                        <p class="study_detail"><!--
+                            -->以上で主なデコレーターの機能は終わり。
+                            とりあえずデコレーターはインスタンスしたときや関数が呼ばれたときに実行するんじゃなくて、クラスが評価されたときに実行されること、実行順はデコレーターファクトリは上から、デコレーター本体は下から処理されることは重要だから覚えておこう。
+                            使い方は使っていくうちに覚えるかな〜
+                        </p>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

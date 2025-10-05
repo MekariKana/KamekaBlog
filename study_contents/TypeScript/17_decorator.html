@@ -28,7 +28,9 @@
                         </p>
                         <p class="study_detail"><!--
                             -->デコレーターとはただの関数。TypeScriptで使える特殊な構文で、クラスやそのプロパティ、メソッド、引数などに関数を差し込んで拡張する仕組みのこと。
-                            TypeScriptのデコレーターには4種類のデコレーターがある。
+                            TypeScriptのデコレーターには<a href="#classDecorator" class="link">クラスデコレーター</a>、<a href="#propertyDecorator" class="link">プロパティデコレーター</a>、<a href="#accessorDecorator" class="link">アクセサーデコレーター</a>、<a href="#methodDecorator" class="link">メソッドデコレーター</a>、<a href="#parameterDecorator" class="link">パラメーターデコレーター</a>の4種類がある。
+                            それぞれの使い方を以下に記していく。
+
                             TypeScriptの公式ドキュメントは<a href="https://js.studio-kingdom.com/typescript/handbook/decorators" class="link" target="_blank">こちら</a>
                         </p>
                         <p class="study_detail"><!--
@@ -36,7 +38,7 @@
                             -->ts.configで<a href="7_tsconfig_setting.html#decoratorsSetting" class="link">experimentalDecorators</a>をtureにする。
                         </p>
 
-                        <p class="study_sub_ttl study_ttl_square">
+                        <p class="study_sub_ttl study_ttl_square anchor" id="classDecorator">
                             クラスデコレーター
                         </p>
                         <p class="study_detail"><!--
@@ -86,7 +88,7 @@ console.log(pers);
                             <img src="../../img/study/typescript/17_classDecorators_output.jpg">
                         </div>
 
-                        <p class="study_sub_ttl study_ttl_square">
+                        <p class="study_sub_ttl">
                             デコレーターファクトリー
                         </p>
                         <p class="study_detail"><!--
@@ -249,7 +251,7 @@ class Department {
                             --><a href="https://angular.dev/guide/components?utm_source=chatgpt.com" class="link" target="_">Angular</a>(JavaScriptのフレームワーク)でも、もっと高度だが同じような機能がある。
                         </p>
 
-                        <p class="study_sub_ttl study_ttl_square">
+                        <p class="study_sub_ttl">
                             複数のデコレーターの追加
                         </p>
                         <p class="study_detail"><!--
@@ -446,7 +448,7 @@ class Prooduct {
                             <img src="../../img/study/typescript/17_accessorDecorator.jpg">
                         </div>   
 
-                        <p class="study_sub_ttl study_ttl_square">
+                        <p class="study_sub_ttl study_ttl_square anchor" id="methodDecorator">
                             メソッドデコレーター
                         </p>
                         <p class="study_detail"><!--
@@ -507,7 +509,7 @@ class Prooduct {
                             <img src="../../img/study/typescript/17_methodDecorator.jpg">
                         </div>
 
-                        <p class="study_sub_ttl study_ttl_square">
+                        <p class="study_sub_ttl study_ttl_square anchor" id="parameterDecorator">
                             パラメーターデコレーター
                         </p>
                         <p class="study_detail"><!--

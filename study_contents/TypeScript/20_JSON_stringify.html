@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.11.15
+                        </div>
+                        <p class="study_ttl">
+                            JSON.stringifyについて
+                        </p>
+                        <p class="study_detail"><!--
+                            -->アクセサーデコレーターで、デコレーターの呼び出し前後で変更された値を比較しようとJSON.stringify()を使用したがうまく処理の前後が確認できなかった。
+                            結局、<a href="19_returntype_decorator.html#descriptorDeff" class="link">差異を比較するための関数</a>を作成したが、JSON.stringifyが変更前後を記録できなかった理由について調べてみた。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            JSON.stringify()とは
+                        </p>
+                        <p class="study_detail"><!--
+                            -->JSON.stringifyはJavaScriptの"値"をJSON形式の文字列に変換する関数。
+                            つまりJSON.stringifyの引数の値を「その瞬間に文字列に変換する」だけ。だから冒頭で説明したように、変更前後の差異を確認するのに変更前の値をJSON.stringifyで変数に格納すればいいと思った。
+                            しかし、この関数の欠点は「プログラムとしての動作」つまり関数・プロトタイプ(classの情報)・シンボルなどは保存できない仕様である。
+
+                            <span class="yellow_highlight">注意点</span>
+                            関数は文字列化できない
+                            ->関数は「データ」ではなく「処理(実行するためのコード)」なので、JSON(データ交換用フォーマット)では表現できない
+                        </p>
+                        <div data-filename="関数が表示されない例">
+                            <span>関数が表示されない例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+console.log(
+    JSON.stringify({
+        name: "Taro",
+        greet: function() { console.log("hi"); }
+    })
+);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->出力結果は以下のとおり、nameのみ出力し、functionの値を持っているgreetプロパティは表示されない。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/20_function_disappear.jpg">
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            JSONが扱えるデータの種類
+                        </p>
+                        <p class="study_detail"><!--
+                            -->JSONで扱えるデータは以下の6種類のみ
+                            ・number
+                            ・string
+                            ・boolean
+                            ・null
+                            ・array
+                            ・object(ただし値はプリミティブ型・配列・オブジェクトのみ)
+                            上記以外の関数やundefined、symbolはJSONでは表現できない。
+
+                            <span class="yellow_highlight">Point</span>
+                            JSON.stringifyが文字列変換できるのは"静的な値"のみ
+                        </p>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

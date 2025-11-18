@@ -351,7 +351,8 @@ function Log(target: any, propertyName: string| Symbol) {
 class Prooduct {
     @Log
     title: string = "";
-    // privateにしてクラスの外部からのアクセスを拒否("_"を変数につける)
+    // privateにしてクラスの外部からのアクセスを拒否
+    // "_"を変数につける理由：setter名と区別するため。また内部専用プロパティ(外部からは触れない)ことを明示する暗黙的なルール
     private _price: number = 0.05;
 
     // priceのセッター
@@ -387,13 +388,21 @@ class Prooduct {
                             アクセサーのデコレーター
                         </p>
                         <p class="study_detail"><!--
-                            -->アクセサーのデコレーターの関数シグネチャも公式ドキュメントで決まっている。
-                            引数は3つ受け取る。
+                            -->アクセサーとはプロパティの値をセットする専用の関数である。
+                            <span class="study_sub_ttl">アクセサーの性質</span><!--
+                            -->・TypeScriptでは通常、getterとsetterは同じプロパティ名で扱う
+                            ・同じプロパティ名にすれば、ひとつのプロパティに対して、getter関数とsetter関数がペアで登録される
+                            ・どちらのアクセサーが呼ばれたかの判断は、 アクセス方法で自動的に使い分けられる
+                            -> const p = new xxxクラス()の場合：「p.name」はgetter/ 「p.name =」は代入なのでsetter
+                            <span class="study_sub_ttl">アクセサデコレーターとは</span><!--
+                            -->クラスのgetterやsetterに適用できるデコレーターで、特定のプロパティの取得や設定のタイミングで追加の処理を行いたいときに使う。
+                            アクセサーのデコレーターの関数シグネチャも公式ドキュメントで決まっている。引数は以下の3つを受け取る。
                             1.target：プロパティデコレーター同様、インスタンスのアクセサーならプロトタイプが渡され、staticアクセサーであればコンストラクタ関数(クラス本体)が渡される。
                             型を限定できないのでany型で定義する。
-                            2.name：アクセサーの名前。
-                            3.descriptor：propertyDescriptor型。これはTypeScriptに組み込まれてる型。
-
+                            2.name：デコレーターが付与されたアクセサーの名前。
+                            3.descriptor：propertyDescriptor型。これはgetter/setterを含むオブジェクトで、TypeScriptに組み込まれてる型。
+                            
+                            引数で渡されるPropertyDecoratorを使って、 引数で渡されるPropertyDecoratorを使ってプロパティを細かく設定することができ、アクセス時の動作を上書き・変更できる。
                             以下の例では、上記の<a href="#propertyDecorator" class="link">プロパティデコレーター</a>も付与した状態で、アクセサーデコレーターを追加する。
                         </p>
                         <div data-filename="アクセサーデコレーター例">
@@ -441,12 +450,27 @@ class Prooduct {
                         <p class="study_detail"><!--
                             -->出力結果は以下のとおり。
                             まずプロパティデコレーターが動作し、その後にアクセサーデコレーターが起動する。
-                            引数の内容として、targetは<a href="18_prototype_and_instance.html#prototype" class="link">プロトタイプ</a>を返し、アクセサー名は"price"、最後にdescriptionとしてPropertyDescriptor型のアクセサー情報を返している。
-                            descriptionの内容は、getは定義していないのでundefinedとなっており、setのみ関数がある(f)となっている。
+                            最初に「Accessorデコレーター」と表示され、その後は順にデコレーターが付与されたクラスの情報を表す「<a href="18_prototype_and_instance.html#prototype" class="link">target</a>」、アクセサー名の「name」、最後にPropertyDescriptorのプロパティ内容が表示される。
+                            descriptorの内容は、getは定義していないのでundefinedとなっており、setのみ関数がある(f)となっている。
                         </p>
                         <div class="small_img">
                             <img src="../../img/study/typescript/17_accessorDecorator.jpg">
-                        </div>   
+                        </div>
+                        <p class="study_detail"><!--
+                            --><span class="yellow_highlight">targetとPropertyDescriptorの違い</span>
+                            [target]
+                            ・デコレーターが付与されたクラスのプロトタイプ(クラスから生成されるインスタンスが参照する親オブジェクト)。
+                            ->どのクラスのメンバーかわかるように使われる
+
+                            [descriptor(PropertyDescriptor)]
+                            ・getter/setterの動作を表す詳細情報
+                            ->どんなアクセサーが設定されてたか、フラグ(enumerable/configurable)の設定などを操作するための実体の情報
+                            
+                            <span class="yellow_highlight">PropertyDescriptorのプロパティの種類</span>
+                            get/set: getter/setterの内容を表すオブジェクト、元のクラスのget/setに変更や、存在しないアクセサーを追加できる
+                            configurable: プロパティの設定を変更・削除できるか制御できる
+                            enumerable: オブジェクトをループしたときに、このプロパティが出力されるかどうか制御できる
+                        </p>
 
                         <p class="study_sub_ttl study_ttl_square anchor" id="methodDecorator">
                             メソッドデコレーター

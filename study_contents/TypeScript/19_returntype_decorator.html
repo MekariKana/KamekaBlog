@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2025.11.2
+                        </div>
+                        <p class="study_ttl">
+                            デコレーターの戻り値
+                        </p>
+                        <p class="study_detail"><!--
+                            --><a href="17_decorator.html#classDecorator" class="link">クラスデコレーター</a>、<a href="17_decorator.html#methodDecorator" class="link">メソッドデコレーター</a>、<a href="17_decorator.html#accessorDecorator" class="link">アクセサーデコレーター</a>は値を返すことができる。
+                            デコレーターファクトリーでデコレーターをreturnするということではなく、デコレーター関数の中で値をreturnすることができるということ。どんな値を返せるかはデコレーターの種類によって違う。
+                        </p>
+                        <p class="study_sub_ttl study_ttl_square">
+                            クラスデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            --><a href="17_decorator.html#classDecorator" class="link">クラスデコレーター</a>の場合は、コンストラクタ関数をreturnすることができる。デコレーター関数が引数で受け取ったconstructorを別のもの(コンストラクタ関数やclassなど)に置き換えることができる。
+                            以下の例では、対象のデコレーターが追加されたクラスを、新しいクラス(コンストラクタ関数)で置き換えている。
+                            
+                            <span class="yellow_highlight">Point</span>
+                            このように書くことで、DOMへのテンプレートの表示ロジックは、クラスをインスタンス化したときに実行される。
+                            デコレーター関数は通常、デコレーターが付与されたクラスが評価されたときに実行されるが、以下のように戻り値に定義したクラスやコンストラクタ関数はインスタンス時に実行される。
+                        
+                            <span class="study_sub_ttl">以下の例のジェネリック型定義(&lt;T extends {new(..._: any[]): {name: string}}&gt;)の詳細</span><!--
+                            -->T：classを受け取るので&lt;T extends {new(引数)}&gt;と書く、{new(引数)}がclassを意味する
+                            new：コンストラクタ関数のこと
+                            ...args：コンストラクタ関数の引数は柔軟にするためレストパラメーター(...)、型はany[]にする
+                            {}：new関数の戻り値はオブジェクト{}を指定
+                            {name: string}：新しいconstructorでnameプロパティを使用しているので、originalConstrutorはnmaeプロパティが含まれる関数のみ許可する
+                        </p>
+                        <div data-filename="クラスデコレーターreturn例">
+                            <span>クラスデコレーターのreturn例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// デコレーターファクトリー
+function WithTemplate(template: string, hookId: string) {
+    console.log("WithTemplateファクトリ");
+
+    // デコレーター関数(クラスが定義された時に実行される)
+    return function&lt;T extends {new(..._: any[]): {name: string}}&gt; (originalConstructor: T) {
+        console.log("WithTemplateデコレーター");
+
+        // デコレーター関数の戻り値(インスタンス時に実行される)
+        // ここではデコレーター関数の引数で受け取ったコンストラクタ関数(originalConstructor)を継承し、処理を追加する
+        return class extends originalConstructor {
+            // このクラスのconstructorを追加
+            // このデコレーターの呼び出し元クラスのconstructorは、以下の内容に置き換えられる
+            // 引数はoriginalConsutoructorの引数に合わせる。引数は使用しないので、引数名は"_"に変更する
+            construcor() {
+                super();
+                const hookEl = document.getElementById(hookId);
+                if (hookEl) {
+                    hookEl.innerHTML = temlate;
+                    hookEl.querySelector.textContent = this.name;
+                }
+            }
+        }
+    }
+
+}
+
+// デコレーターの呼び出し
+@WithTemplate('&lt;h1&gt;Financeオブジェクト&lt;/h1&gt;','app')
+class calledDecorator {
+    name = 'Finance';
+
+    constructor() {
+        console.log("デコレーター付与クラス");
+    }
+}
+
+// インスタンス化
+// この時、デコレーター関数の戻り値が実行される
+const obj = new calledDecorator();
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->実行結果は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/19_include_new.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->また、インスタンス化(new calledDecorator)を消すと、クラスへの追加処理(デコレーターの戻り値)は実行されない。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/19_exclude_new.jpg">
+                        </div>
+
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            アクセサーデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            --><a href="17_decorator.html#accessorDecorator" class="link">アクセサーデコレーター</a>はクラスのgetterやsetterに適用できるデコレーター。
+                            
+                            アクセサーに変更を加えてデコレーターの戻り値に設定したコード例は以下のとおり。
+                        </p>
+                        <div data-filename="アクセサーデコレーターreturn例">
+                            <span>アクセサーデコレーターreturn例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// アクセサーデコレーターの例
+// ProptertyDescriptorを上書きし、戻り値に設定する
+function LogAccessor(target: any, propertyName: string, descriptor: PropertyDescriptor): PropertyDescriptor {
+    // 変更前のdescriptorをコピーし保持する
+    const before = {...descriptor}; // シャローコピー
+
+    // 変更前アクセサーを定数に格納
+    const originalGetter = descriptor.get;
+    const originalSetter = descriptor.set;
+
+     // Getterを上書き
+     if(originalGetter) {
+        descriptor.get = function() {
+            console.log(`Getting value of "${propertyName}"`);
+            // originalGetterが存在していれば、this(このオブジェクト)を呼び出し、getterの戻り値をresultに格納
+            const result = originalGetter?.call(this);
+            return result;
+        }
+     }
+
+     // Setterを上書き（最初の文字を大文字にする）
+     if(originalSetter) {
+        descriptor.set = function(val: string) {
+            console.log(`Setting value of "${propertyName}"`);
+            // 一文字目を切り離して大文字にし、二文字目以降と結合
+            const formatted = val.charAt(0).toUpperCase() + val.slice(1);
+            originalSetter?.call(this, formatted);
+        }
+     }
+
+     // 変更箇所をコンソールに出力
+     printDescriptorDiff(before, descriptor);
+    
+    return descriptor;
+}
+
+// デコレーターを使用するクラス
+class Person {
+    private _name: string = "";
+
+    // SetterとGetterの関数名を同じnameのため、デコレーターの付与は1つでOK。
+    @LogAccessor
+    set name(pName: string) {
+        this._name = pName;
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    greet() {
+        console.log(`こんにちは、${this._name}です`);
+    }
+}
+
+// クラスのインスタンス生成
+const p1 = new Person();
+// nameをset
+p1.name = "hanako";
+// nameをGet
+console.log(p1.name);
+// greetの呼び出し
+p1.greet();
+</code></pre>
+                        </div>
+                        <p class="study_detail" id="descriptorDiff"><!--
+                        -->変更前後の値を確認するために呼び出したprintDescriptorDiffは以下。
+                        </p>
+                        <div data-filename="差異を出力する関数">
+                            <span>差異を出力する関数</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 変更前後のdescriptorの差異を出力する関数
+function printDescriptorDiff(bf: PropertyDescriptor, af: PropertyDescriptor) {
+    console.log(" ==Descriptor difference ==");
+
+    for (const key of Object.keys(af)) {
+        if (bf[key as keyof PropertyDescriptor] !== af[key as keyof PropertyDescriptor]) {
+            console.log(` ${key}が変更されました`);
+            console.log("Before:", bf[key as keyof PropertyDescriptor]);
+            console.log("After:", af[key as keyof PropertyDescriptor]);
+        }
+    }
+
+    console.log("=========================");
+}
+</code></pre>
+                        </div>
+                        <p class="strdy_detail">
+                            最初は普通に変更前後をコンソール出力しようとしたが、うまくいかなかった。その理由は以下のとおり。
+                            <span class="yellow_highlight">変更前後の値を比較する処理の失敗遍歴</span>
+                                ＜失敗1＞
+                                console.logでdescriptorの変更前後の値をコンソール出力したが、変更前が保持されない。
+                                [理由]
+                                ・JavaScriptはインタープリター言語なので逐次実行される
+                                ・console.logの内部処理は、オブジェクトの「値」ではなく「参照先アドレス」を保持している
+                                ・画面やコンソールを表示(render)する時に、参照アドレス先の値を再評価して、表示している
+                                ・結果、表示のタイミングでは変更前も後も同じ参照アドレスを持っているので、内容が同じになってしまう
+
+                                ＜失敗2＞
+                                <a href="20_JSON_stringify.html" class="link">JSON.stringgify()</a>で変更前の値を保持したが、<!--
+                                -->関数は保持されないため、Descriptorのアクセサー(setやget)も表示されなかった
+
+                                以上の失敗を経て、Object.entries()を使って変更前後の差分を取る方法を選択。
+                                アクセサーデコレーター内で変更前後を比較するために使用した関数は以下のとおり。
+                            </p>
+                        <p class="study_detail"><!--
+                            -->コンソールの出力結果は以下のとおり。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/19_propertyDescriptor_of_accessor.jpg">
+                        </div>
+
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            メソッドデコレーター
+                        </p>
+                        <p class="study_detail"><!--
+                            -->
+                            <span class="yellow_highlight">プロパティの種類</span>
+                            value: 値や関数をセットできる
+                            writable: プロパティが書き込み可能かどうか制御できる
+                            configurable: プロパティの設定を変更・削除できるか制御できる
+                            enumerable: オブジェクトをループしたときに、このプロパティが出力されるかどうか制御できる
+                        </p>
+                        <div data-filename="デコレーターファクトリー例">
+                            <span>デコレーターファクトリー例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+</code></pre>
+                        </div>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/15_promise.jpg">
+                        </div>
+
+                        <p class="study_sub_ttl study_ttl_square">
+                            
+                        </p>
+                        <p class="study_detail"><!--
+                            -->
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/15_promise.jpg">
+                        </div>
+
+
+                        <p class="study_sub_ttl study_ttl_square">
+                        </p>
+                        <p class="study_detail"><!--
+                            -->
+                        </p>
+                        <div data-filename="デコレーターファクトリー例">
+                            <span>デコレーターファクトリー例</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+</code></pre>
+                        </div>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/15_promise.jpg">
+                        </div>                  
+                        
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

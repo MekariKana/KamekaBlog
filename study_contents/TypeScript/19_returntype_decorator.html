@@ -29,6 +29,7 @@
                         <p class="study_detail"><!--
                             --><a href="17_decorator.html#classDecorator" class="link">クラスデコレーター</a>、<a href="17_decorator.html#methodDecorator" class="link">メソッドデコレーター</a>、<a href="17_decorator.html#accessorDecorator" class="link">アクセサーデコレーター</a>は値を返すことができる。
                             デコレーターファクトリーでデコレーターをreturnするということではなく、デコレーター関数の中で値をreturnすることができるということ。どんな値を返せるかはデコレーターの種類によって違う。
+                            ※メソッドデコレーターは<a href="21_Autobind" class="link">メソッドデコレーター（Autobind）</a>で説明
                         </p>
                         <p class="study_sub_ttl study_ttl_square">
                             クラスデコレーター
@@ -113,6 +114,12 @@ const obj = new calledDecorator();
                         </p>
                         <p class="study_detail"><!--
                             --><a href="17_decorator.html#accessorDecorator" class="link">アクセサーデコレーター</a>はクラスのgetterやsetterに適用できるデコレーター。
+                            
+                            <span class="yellow_highlight">プロパティの種類</span>
+                            get: getの値を変更すれば、設定したgetメソsッドを返す
+                            set: setの値を変更すれば、設定したsetメソッドを返す
+                            configurable: プロパティの設定を変更・削除できるか制御できる
+                            enumerable: オブジェクトをループしたときに、このプロパティが出力されるかどうか制御できる
                             
                             アクセサーに変更を加えてデコレーターの戻り値に設定したコード例は以下のとおり。
                         </p>
@@ -232,54 +239,6 @@ function printDescriptorDiff(bf: PropertyDescriptor, af: PropertyDescriptor) {
                         <div class="small_img">
                             <img src="../../img/study/typescript/19_propertyDescriptor_of_accessor.jpg">
                         </div>
-
-
-                        <p class="study_sub_ttl study_ttl_square">
-                            メソッドデコレーター
-                        </p>
-                        <p class="study_detail"><!--
-                            -->
-                            <span class="yellow_highlight">プロパティの種類</span>
-                            value: 値や関数をセットできる
-                            writable: プロパティが書き込み可能かどうか制御できる
-                            configurable: プロパティの設定を変更・削除できるか制御できる
-                            enumerable: オブジェクトをループしたときに、このプロパティが出力されるかどうか制御できる
-                        </p>
-                        <div data-filename="デコレーターファクトリー例">
-                            <span>デコレーターファクトリー例</span>
-<!--コード記載-->
-<pre><code class="language-typescript">
-</code></pre>
-                        </div>
-                        <div class="small_img">
-                            <img src="../../img/study/typescript/15_promise.jpg">
-                        </div>
-
-                        <p class="study_sub_ttl study_ttl_square">
-                            
-                        </p>
-                        <p class="study_detail"><!--
-                            -->
-                        </p>
-                        <div class="small_img">
-                            <img src="../../img/study/typescript/15_promise.jpg">
-                        </div>
-
-
-                        <p class="study_sub_ttl study_ttl_square">
-                        </p>
-                        <p class="study_detail"><!--
-                            -->
-                        </p>
-                        <div data-filename="デコレーターファクトリー例">
-                            <span>デコレーターファクトリー例</span>
-<!--コード記載-->
-<pre><code class="language-typescript">
-</code></pre>
-                        </div>
-                        <div class="small_img">
-                            <img src="../../img/study/typescript/15_promise.jpg">
-                        </div>                  
                         
                     </div>
                     <br>

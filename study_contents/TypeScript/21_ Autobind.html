@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2026.7.22
+                        </div>
+                        <p class="study_ttl">
+                            メソッドデコレーター（Autobind）
+                        </p>
+                        <p class="study_detail"><!--
+                            -->メソッドデコレーターはPropatyDescriptorの設定を値として返すことができる。
+                            戻り値として返すPropertyDescriptorの内容よって、もともとのメソッドの設定や処理を変えることができる。
+
+                            <span class="yellow_highlight">メソッドデコレーターのPropertyDescriptorのプロパティの種類</span>
+                            value: 値や関数をセットできる。値や関数をそのまま保持する。
+                            writable: プロパティが書き込み可能かどうか制御できる
+                            configurable: プロパティの設定を変更・削除できるか制御できる
+                            enumerable: オブジェクトをループしたときに、このプロパティが出力されるかどうか制御できる
+                            
+                            get/set：必要なときだけ設定する。valueと同時に使えない。
+                            get->プロパティの値が読み取られる度に実行される処理を定義
+                            set->プロパティに値が設定される度に実行される処理を定義
+
+                            メソッドデコレーターの設定を変更する例として、Autobindデコレーターを作成する。
+                            まずは、ボタンをクリックすると「クリックしました！」というメッセージが、コンソールに出力される機能で動作を確認していく。
+                        </p>
+                        <div data-filename="HTML">
+                            <span>HTML</span>
+<!--コード記載-->
+<pre><code class="language-html">
+&lt;body&gt;
+    &lt;div id="app"&gt;&lt;/div&gt;
+    &lt;button&gt;クリックしてください&lt;/button&gt;
+&lt;/body&gt;
+</code></pre>
+                        </div>
+
+                        <div data-filename="HTMLのボタンを取得するコード">
+                            <span>HTMLのボタンを取得するコード</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// ボタンがクリックされた時に起動する動作を定義
+class Printer {
+    msg = 'クリックしました！';
+
+    showMessage() {
+        console.log(this.msg);
+    }
+}
+
+// オブジェクト生成
+const p = new Printer();
+
+// ボタンの要素を取得
+const button = document.querySelector('button')!;
+// showMessageメソッドを実行
+button.addEventListener('click', p.showMessage);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->このコードではメッセージは出力されす、意図した動作はしない。以下のように、undefindとなる。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/21_bf_autobind.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->なぜなら、button.addEventListener('click', p.showMessage)の部分で、addEventListenerのコールバック関数にp.showMessageを渡しているから。
+                            このp.showMessageは、「関数」を取り出しているだけで、Printerクラスの情報は持っていない。
+                            逆にEventの対象となった要素(button)の情報を持っているので、addEventLitenerがshowMessageを呼び出す時、showMessageのthisはbuttonクラスを指すことになる。しかしbutton.msgは存在しないのでundefindとなる。
+
+                            この解決策として、button.addEventListener('click', p.showMessage.bind(p));と修正する。
+                            bindは、「thisを指定したオブジェクト(p)に固定した、新しい関数を作る」メソッドなので、bind(p)を入れるとthisはpオブジェクトを参照するようになる。
+
+                            このbindをいちいち定義するのは面倒なので、メソッドが呼び出されたらそのメソッドのthisは、所属するクラスを自動で参照する「Autobindデコレーター」を作成する。
+                        </p>
+                        <div data-filename="デコレーターを付与">
+                            <span>デコレーターを付与</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+class Printer {
+    msg = 'クリックしました！';
+
+    @Autobind
+    showMessage() {
+        console.log(this.msg);
+    }
+}
+</code></pre>
+                        </div>
+                        <div data-filename="Autobind作成">
+                            <span>Autobind作成</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// 対象メソッドの実行時に、メソッド内のthisがメソッドが所属しているオブジェクトを自動で参照する機能
+function Autobind(_target: any, _methodname: string, descriptor: PropertyDescriptor) {
+    // 元のメソッドのオブジェクトを取り出す
+    const originalMethod = descriptor.value; //function showMessage() {console.log(this.msg);}
+    
+    // このデコレーターが返却するPropertyDescriptorを作成する
+    const adjDescriptor: PropertyDescriptor = {
+        // プロパティを定義
+        configurable: true,
+        enumerable: false,
+        // getterを追加(元のプロパティにはない)
+        // このプロパティのvalueをbind済みの関数に設定して、getから返す
+        get() {
+            // bindを行った後の関数を作成
+            const boundFn = originalMethod.bind(this); //showMessageのthisに呼び出し元のオブジェクトが設定される
+            return boundFn;
+        }
+    }
+    return adjDescriptor;
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->get()内のthisは、getメソッドを呼び出したオブジェクトを参照する。
+                            このgetメソッドは、p.showMessageが評価されたタイミングで呼び出され、thisをpでbindした状態でaddEventListenerに設定される。
+                            つまり実行の順序は以下のとおり。
+                            ① addEventLitenerのp.showMessage が評価される
+                                    ↓
+                            ② ＠Autobindにより新しく定義されてるgetterを発見、実行する
+                            ※この時点ではp.showMessageはpからアクセスされる
+                                    ↓
+                            ③ bind(this = p)した関数を作る
+                                    ↓
+                            ④ EventListenerに登録
+                            [例]button.addEventListener('click', boundFn);
+                                    ↓
+                            ⑤ ブラウザからボタンをクリックされる
+                            ブラウザはis = buttonで呼び出そうとする
+                                    ↓
+                            ⑥ bind済み関数(showMessage.bind(p))が実行される
+
+                            ＠Autobindで正しく起動するようになった。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/21_af_autobind.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->このように、メソッドデコレーターでは、新しいPropertyDescriptorを作成して返すことで、メソッドの動作やプロパティの設定を変更できる。
+                        </p>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

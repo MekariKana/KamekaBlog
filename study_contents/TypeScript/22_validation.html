@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <typescript-title></typescript-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2026.7.24
+                        </div>
+                        <p class="study_ttl">
+                            バリデーションの作成
+                        </p>
+                        <p class="study_detail"><!--
+                            -->デコレーターを使用して、バリデーション機能のサンプルを作成する。
+                        </p>
+                        <div data-filename="HTMLの入力フォール">
+                            <span>HTMLの入力フォーム</span>
+<!--コード記載-->
+<pre><code class="language-html">
+&lt;body&gt;
+    &lt;div id="app"&gt;&lt;/div&gt;
+    &lt;form&gt;
+        &lt;input type="text" placeholder="コースのタイトル" id="title" /&gt;
+        &lt;input type="text" placeholder="価格" id="price" /&gt;
+        &lt;button type="submit">保存する&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+</code></pre>
+                        </div>
+                        <div data-filename="form要素を取得">
+                            <span>form要素を取得</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+class Course {
+    @Required
+    title: string;
+    @Required
+    @PositiveNumber
+    price: number;
+
+    constructor(t: string, p: number) {
+        this.title = t;
+        this.price = p;
+    }
+}
+
+// フォームの要素を取得
+const courseForm = document.querySelector('form')!;
+// formがsubmitされた時のeventを追加する
+courseForm.addEventListener('submit', event => {
+    // eventのpreventDefalt(httpリクエストをしない設定)を呼び出す
+    event.preventDefault();
+    // titleとpriceのオブジェクトを取得し、HTMLInputElementにキャスト
+    const titleEl = document.getElementById('title') as HTMLInputElement;
+    const priceEl = document.getElementById('price') as HTMLInputElement;
+
+    // 各オブジェクトからvalueプロパティを取得し、変数に格納
+    const title = titleEl.value;
+    const price = +priceEl.value;
+
+    // Corseのインスタンスを生成
+    const createdCourse = new Course(title, price);
+
+    // バリデーションの実行
+    if (!valudate(createdCourse)) {
+        alert('正しく入力してください。');
+        return;
+    }
+    console.log(createdCourse);
+})
+</code></pre>
+                        </div>
+                        <div data-filename="バリデーションロジック">
+                            <span>バリデーションロジック</span>
+<!--コード記載-->
+<pre><code class="language-typescript">
+// クラス・プロパティ毎のバリデーション設定を保存
+interface ValidatorConfig {
+    // キー(クラス名)はindex型で定義
+    [prop: string]: {
+        // バリデーターのListを保持 例['required', 'positive']
+        [validatableProp: string]: string[] 
+    }
+}
+
+// interface型のオブジェクトを定義
+// 最初は空のobjectだが、デコレーターが実行された時に値が入力される
+const registeredValidators: ValidatorConfig = {};
+
+// registeredValidatorsに値を設定
+function Required(target: any, propName: string) {
+    registeredValidators[target.constructor.name] = { // クラス名(例：Course)をキーに保存
+        // 新しいオブジェクトで上書きしないよう、すでに登録されている内容を追加
+        ...registeredValidators[target.constructor.name],
+        // 新しいキー・バリューを追加
+        // キーはプロパティ名(例：title)、値はバリデーション名(例：required)
+        [propName]: [
+            // 登録済みバリデーションを消さないよう、キー(propName)から登録済みバリデーションを取得
+            // [target.constructor.name]?：クラス名が存在する時だけ[propName]を取得
+            // ?? []：左の結果がnull or undefinedなら[](空の配列)を追加
+            ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+            "required",
+        ]
+    }
+}
+
+function PositiveNumber(target: any, propName: string) {
+    registeredValidators[target.constructor.name] = {
+        ...registeredValidators[target.constructor.name],
+        [propName]: [
+            ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+            "positive",
+        ]
+    }
+}
+
+// 引数のobjectに必要なバリデーションを判別し、実行する
+function valudate(obj: any) {
+    // objがregisteredValidatorsのどのクラスのインスタンスか、コンストラクター名を取得
+    const objValidatorConfig = registeredValidators[obj.constructor.name];
+    // registeredValidatorsにバリデーション設定がない場合、検証するものがないのでtrue
+    if(!objValidatorConfig) {
+        return true;
+    }
+
+    let isValid = true;
+    // クラスに登録してあるバリデーターリストを取得
+    for (const prop in objValidatorConfig) {
+        // 上記で取得したproperty名をキーにし、validation名を取得
+        for (const validator of objValidatorConfig[prop]){
+            // コンソールでバリデーター内容の確認
+            console.log(prop);
+            switch (validator) {
+                case 'required':
+                    // !!obj[prop]：propの値が空じゃなければtrue
+                    // 1つでもfalseがあればisValidはfalseになる
+                    isValid = isValid && !!obj[prop];
+                    // switchを抜ける
+                    break;
+                case 'positive':
+                    // obj[prop] > 0：0以上ならtrue
+                    isValid = isValid && obj[prop] > 0;
+                    break;
+            }
+        }
+    }
+    // バリデーターが1つもない場合はfor文を通らないので、デフォルト返却値を設定
+    return isValid;
+}
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->正しく起動を確認。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/22_success_validator.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->エラーも起動。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/typescript/22_fail_validator.jpg">
+                        </div>
+                        <p class="study_sub_ttl study_ttl_square">
+                            デコレーターのまとめ
+                        </p>
+                        <p class="study_detail"><!--
+                            -->デコレーターとは、クラス・メソッド・プロパティなどに後から機能や設定を追加するための関数。
+                            「＠xxxxxx」という形式で対象の上に書き加えることで、対象のクラスやメソッドが作られるタイミングで自動的に定義した関数が呼ばれる。
+                            バリデーターでは@Requiredでプロパティに入力必須というルールを追加、@Autobindではメソッドの動きを変更しthisに呼び出し元のオブジェクトを固定するなど、好きな関数を追加できる。
+                            
+                            デコレーターを使用することで、同じ処理を何度も書く必要はなくなる。
+                        </p>
+                    </div>
+                    <br>
+                    <a class="link_btn" href="../../study.html">戻る</a>
+                </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssのjsを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+</html>

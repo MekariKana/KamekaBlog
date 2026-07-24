@@ -215,24 +215,25 @@ function printDescriptorDiff(bf: PropertyDescriptor, af: PropertyDescriptor) {
 }
 </code></pre>
                         </div>
-                        <p class="strdy_detail">
-                            最初は普通に変更前後をコンソール出力しようとしたが、うまくいかなかった。その理由は以下のとおり。
+                        <p class="study_detail"><!--
+                            -->最初は普通に変更前後をコンソール出力しようとしたが、うまくいかなかった。その理由は以下のとおり。
+
                             <span class="yellow_highlight">変更前後の値を比較する処理の失敗遍歴</span>
-                                ＜失敗1＞
-                                console.logでdescriptorの変更前後の値をコンソール出力したが、変更前が保持されない。
-                                [理由]
-                                ・JavaScriptはインタープリター言語なので逐次実行される
-                                ・console.logの内部処理は、オブジェクトの「値」ではなく「参照先アドレス」を保持している
-                                ・画面やコンソールを表示(render)する時に、参照アドレス先の値を再評価して、表示している
-                                ・結果、表示のタイミングでは変更前も後も同じ参照アドレスを持っているので、内容が同じになってしまう
+                            ＜失敗1＞
+                            console.logでdescriptorの変更前後の値をコンソール出力したが、変更前が保持されない。
+                            [理由]
+                            ・JavaScriptはインタープリター言語なので逐次実行される
+                            ・console.logの内部処理は、オブジェクトの「値」ではなく「参照先アドレス」を保持している
+                            ・画面やコンソールを表示(render)する時に、参照アドレス先の値を再評価して、表示している
+                            ・結果、表示のタイミングでは変更前も後も同じ参照アドレスを持っているので、内容が同じになってしまう
 
-                                ＜失敗2＞
-                                <a href="20_JSON_stringify.html" class="link">JSON.stringgify()</a>で変更前の値を保持したが、<!--
-                                -->関数は保持されないため、Descriptorのアクセサー(setやget)も表示されなかった
+                            ＜失敗2＞
+                            <a href="20_JSON_stringify.html" class="link">JSON.stringgify()</a>で変更前の値を保持したが、<!--
+                            -->関数は保持されないため、Descriptorのアクセサー(setやget)も表示されなかった
 
-                                以上の失敗を経て、Object.entries()を使って変更前後の差分を取る方法を選択。
-                                アクセサーデコレーター内で変更前後を比較するために使用した関数は以下のとおり。
-                            </p>
+                            以上の失敗を経て、Object.entries()を使って変更前後の差分を取る方法を選択。
+                            アクセサーデコレーター内で変更前後を比較するために使用した関数は以下のとおり。
+                        </p>
                         <p class="study_detail"><!--
                             -->コンソールの出力結果は以下のとおり。
                         </p>

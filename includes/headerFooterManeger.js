@@ -33,6 +33,7 @@ class SpecialHeader extends HTMLElement {
                     <li><a class="nav-link" href="${baseUrl}portfolio.html">Portfolio</a></li>
                     <li><a class="nav-link" href="${baseUrl}study.html">Study</a></li>
                     <li><a class="nav-link" href="${baseUrl}profile.html">Profile</a></li>
+                    <li><a class="nav-link" href="${baseUrl}toeic.html">TOEIC</a></li>
                     <li><a class="nav-link" href="${baseUrl}contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -41,7 +42,7 @@ class SpecialHeader extends HTMLElement {
 }
 
 //フッターの挿入
-class SpecialFooter　extends HTMLElement {
+class SpecialFooter extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <footer class="footer">

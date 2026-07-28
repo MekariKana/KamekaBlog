@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <div class="content_ttl">
+                    <h3>TOEICスコア推移</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="toeic_block">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>受験日</th>
+                                        <th>Listening</th>
+                                        <th>Reading</th>
+                                        <th>合計</th>
+                                        <th>前回比</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>2026/3/15</td>
+                                        <td>380</td>
+                                        <td>285</td>
+                                        <td>665</td>
+                                        <td>-</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2026/4/19</td>
+                                        <td>365</td>
+                                        <td>330</td>
+                                        <td>695</td>   
+                                        <td>+30</td>         
+                                    </tr>
+
+                                    <tr>
+                                        <td>2026/5/17</td>
+                                        <td>390</td>
+                                        <td>345</td>
+                                        <td>735</td>
+                                        <td>+40</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2026/7/12</td>
+                                        <td>395</td>
+                                        <td>370</td>
+                                        <td>765</td>
+                                        <td>+30</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content_ttl">
+                    <h3>パート別推移</h3>
+                </div>
+                <div class="content_detail">
+                    <div class="toeic_block">
+                        <p>★：Part1以外で正答率が一番よかったPart</p>
+                        <p>赤文字：正答率70パーセント以下</p>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>受験日</th>
+                                        <th>Part1 写真</th>
+                                        <th>Part2 応答</th>
+                                        <th>Part3 会話</th>
+                                        <th>Part4 説明文</th>
+                                        <th>Part5 文法</th>
+                                        <th>Part6 穴埋め</th>
+                                        <th>Part7A シングル</th>
+                                        <th>Part7B マルチ</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>2026/3/15</td>
+                                        <td>100%</td>
+                                        <td>72%</td>
+                                        <td>74%</td>
+                                        <td>77%</td>
+                                        <td>77%</td>
+                                        <td>81%★</td>
+                                        <td class="unfer70">45%</td>
+                                        <td class="unfer70">36%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026/4/19</td>
+                                        <td>83%</td>
+                                        <td>84%</td>
+                                        <td class="unfer70">59%</td>
+                                        <td>87%★</td>
+                                        <td>77%</td>
+                                        <td class="unfer70">63%</td>
+                                        <td>76%</td>
+                                        <td class="unfer70">48%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026/5/17</td>
+                                        <td>83%</td>
+                                        <td>72%</td>
+                                        <td>82%</td>
+                                        <td class="unfer70">67%</td>
+                                        <td>77%</td>
+                                        <td>81%</td>
+                                        <td>86%★</td>
+                                        <td class="unfer70">36%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026/7/12</td>
+                                        <td>100%</td>
+                                        <td>72%</td>
+                                        <td>82%</td>
+                                        <td>77%</td>
+                                        <td>87%</td>
+                                        <td class="unfer70">63%</td>
+                                        <td>97%★</td>
+                                        <td class="unfer70">48%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3/15からの推移</td>
+                                        <td class="same">→ 維持</td>
+                                        <td class="same">→ 横ばい</td>
+                                        <td class="good">⬆ +8</td>
+                                        <td class="same">→ 回復</td>
+                                        <td class="good">⬆ +10</td>
+                                        <td class="warning">⚠ ブレあり</td>
+                                        <td class="good">⬆ +52</td>
+                                        <td class="good">⬆ +12</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <special-footer></special-footer>
+        
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="includes/headerFooterManeger.js"></script>
+    </body>
+</html>

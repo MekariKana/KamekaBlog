@@ -309,6 +309,93 @@ nav ul li a.current {
   margin-bottom: 10px;
 }
 
+/* TOEIC.html--------------------------- */
+
+/* =========================
+   コンテナ
+========================= */
+
+.toeic_block .table-container{
+    max-width:1100px;
+    margin:0 auto;
+}
+
+.toeic_block h2{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:2rem;
+    color:#2f4f6f;
+}
+
+/* 横スクロール */
+.toeic_block .table-wrapper{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+/* =========================
+   テーブル
+========================= */
+
+.toeic_block table{
+    width:100%;
+    min-width:850px;
+    border-collapse:collapse;
+    background:#fff;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.toeic_block thead{
+    background:#79a1b1;
+    color:#fff;
+}
+
+.toeic_block th,td{
+    padding:14px 18px;
+    text-align:center;
+    border-bottom:1px solid #e5e5e5;
+    white-space:nowrap;
+}
+
+.toeic_block td:first-child{
+    text-align:left;
+    font-weight:bold;
+}
+
+.toeic_block tbody tr:nth-child(even){
+    background:#fafbfd;
+}
+
+.toeic_block tbody tr:hover{
+    background:#eef6ff;
+}
+
+/* =========================
+   色
+========================= */
+
+.toeic_block .good{
+    color:#170cef;
+    font-weight:bold;
+}
+
+.toeic_block .warning{
+    color:#d97706;
+    font-weight:bold;
+}
+
+.toeic_block .same{
+    color:#666;
+    font-weight:bold;
+}
+
+.toeic_block .unfer70{
+    color: red;
+    font-weight:bold;
+}
+
 /* contact.html--------------------------- */
 
 .contact_block {
@@ -706,7 +793,6 @@ nav ul li {
 nav ul li a {
   display: block;
 }
-
 /*--------------*/
   .header_img img {
     width: 100%;
@@ -782,6 +868,15 @@ nav ul li a {
     width: 100%;
   }
 
+  h2{
+    font-size:1.6rem;
+  }
+
+  .toeic_block th,td{
+      padding:12px;
+      font-size:0.95rem;
+  }
+
   .small_img img{
     max-width: 100%;
   }
@@ -793,5 +888,22 @@ nav ul li a {
   .mini_img img{
     max-width: 40%;
   }
+}
+
+@media (max-width:480px){
+
+    body{
+        padding:12px;
+    }
+
+    h2{
+        font-size:1.3rem;
+    }
+
+  .toeic_block th,td{
+        padding:10px;
+        font-size:0.85rem;
+    }
+
 }
 

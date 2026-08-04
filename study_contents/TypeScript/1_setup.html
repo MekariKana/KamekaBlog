@@ -52,9 +52,12 @@
                             インストールからコンパイル
                         </p>
                         <p class="study_detail"><!--
-                            -->1.TypeScriptの<a class="link" href="https://www.typescriptlang.org">公式サイト</a>にアクセスし、Downlodeページを開く。
+                            -->0.まず以下「jsonファイルの設定」の項目1「npm init -y」を実行する。
+                                 ※npm installをすると、インストールしたパッケージの情報を"devDependencies"に記録するので、先にpackage.jsonが必要
 
-                               2.ダウンロード方法を確認し、ターミナルを開いて「npm install -g typescript」のコマンドでインストールする。
+                               1.TypeScriptの<a class="link" href="https://www.typescriptlang.org">公式サイト</a>にアクセスし、Downlodeページを開く。
+
+                               2.ダウンロード方法を確認し、ターミナルを開いて「npm install -g typescript」または「npm install --save-dev typescript@5.6.3」のコマンドでインストールする。
                                ※MacやLinuxでは権限が足りない場合、頭にsudoをつけて「sudo npm install -g typescript」で実行する
                                ※npmはNode.jsパッケージの機能。TypeScriptは裏側でNode.jsの機能も含んでいるためNode.jsのインストールも必要。
                                まだインストールしていない場合はNode.jsの公式サイト(https://nodejs.org/ja)から最新版をインストールしてからTypeScriptをインストールする
@@ -72,6 +75,7 @@
                             -->以下の設定は、jsファイルを変更したら自動でブラウザがリロードされるための設定。
                             1.ターミナルで「npm init」コマンドを実行し、package.jsonファイルを作成する。
                             ->色々質問されるが、全てEnterキーをおせばdefault設定になる。
+                            ->または「npm init -y」とする(-yオプション：全てyesで答える)。
 
                             2.「npm install xx」でpackage.jsonに様々な依存関係を追加できるので、
                             「npm install --save-dev lite-server」を実行する、

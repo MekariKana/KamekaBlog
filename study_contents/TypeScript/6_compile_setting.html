@@ -29,7 +29,7 @@
                         <p class="study_detail"><!--
                             -->コンパイルはコマンドから行う。主なオプションは<a class="link" href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank">コンパイラオプション公式サイト</a>を参照。
                         </p>
-                        <p class="study_sub_ttl study_ttl_square">
+                        <p class="study_sub_ttl study_ttl_square" id="compile">
                             ファイル単位の自動コンパイル設定（Watchモード）
                         </p>
                         <p class="study_detail"><!--
@@ -38,8 +38,9 @@
                             内容にエラーがある場合は、手動コンパイルの時と同様、コンパイルエラーがターミナルに出力される。
 
                             【watchモードのコンパイルコマンド】
-                            tsc xxx.ts --watch
+                            tsc xxx.ts --watch(グローバルのTypescriptバージョン使用)
                             tsc xxx.ts -w
+                            npx xxx.ts -w(プロジェクトのTypescriptバージョン使用)
                             上記のコマンドを実行すると画像のような画面に切り替わる。
                             Watchモードをキャンセルする場合、Macの場合は「control + C」でキャンセルできる。
                         </p>
@@ -68,6 +69,7 @@
 
                             【watchモードのコンパイルコマンド】
                             tsc -w
+                            又は npx tsc -w
                         </p>
 
                         <p class="study_sub_ttl study_ttl_square">

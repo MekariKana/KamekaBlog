@@ -49,14 +49,14 @@ echo $name # "かめさん"が表示される
                         </div>
                         <p class="study_detail"><!--
                             -->「環境変数」は、プログラムが動く「環境」に関する情報を定義した変数。
-                            環境変数を設定すると、複数のプログラムで使う共通の情報を渡すことができる。
+                            環境変数を設定すると、複数のプログラムで使う共通の情報を共有することができる。
                             【代表例】
                             JAVA_HOME：Javaの実行ファイルの場所(JAVA_HOME=/opt/homebrew/opt/openjdk/bin)
                             PATH：コマンドの実行ファイルを探す場所(PATH=/opt/homebrew/bin:...)
                             HOME：自分のホームディレクトリ(HOME=/Users)
                             SHELL：使用してるシェルの実行ファイルの場所(SHELL=/bin/zsh)
                             
-                            ちなみに「export MY_NAME="かめさん"」とすれば、「MY_NAME」という自分独自の変数を設定することもできる。
+                            ちなみに「export MY_NAME="かめさん"」とすれば、「MY_NAME」という自分独自の環境変数を設定することもできる。
                         </p>
                         <div data-filename="変数と環境変数の違い">
                             <span>変数と環境変数の違い</span>
@@ -70,8 +70,8 @@ export JAVA_HOME="Java25のパス" # このシェルから起動する子プロ�
 </code></pre>
                         </div>
                         <p class="study_detail">
-                            上記のような環境変数を設定したら、そのBashから呼び出すプログラム内の＄JAVA_HOMEの変更はJava25が適用される。
-                            ※ただJAVA_HOMEはあくまでJavaの所在地の設定なので、Javaコマンドを使用する際は以下のPATHの設定も必要となる。
+                            例えば、上記のような環境変数を設定したら、そのシェル(Bash)から呼び出される子プロセスで使用する＄JAVA_HOMEは、Java25が適用される。
+                            ※ただJAVA_HOMEはあくまでJavaの所在地の設定なので、Javaコマンドでこの設定を適用したい場合は以下のPATHの設定も必要となる。
                         </p>
                         <div class="study_sub_ttl">
                             <div class="study_dot">&#9787;</div>
@@ -80,13 +80,13 @@ export JAVA_HOME="Java25のパス" # このシェルから起動する子プロ�
                         <p class="study_detail"><!--
                             -->PATHは環境設定のひとつ。
                             コマンド(java -vやnode -vなど)は、命令された実行ファイルを探して実行する指示役。
-                            コマンドで命令された時に実行対象のプログラムを探す場所を設定する変数がPATH。
+                            コマンドで命令された時に実行対象のプログラムを探す場所が、PATHに設定されたフォルダになる。
                         </p>
                         <div data-filename="PATHの例">
                             <span>PAHTの例</span>
 <!--コード記載-->
 <pre><code class="language-bash">
-# JAVA_HOMEに優先して使うJava Versionを指定
+# JAVA_HOME：優先して使うJava Versionを指定
 export JAVA_HOME="Java25のパス"
 
 # PATHにJAVA_HOMEを追加
@@ -94,23 +94,25 @@ export PATH="$JAVA_HOME/bin:$PATH" # 前から優先して実行ファイルを�
 </code></pre>
                         </div>
                         <p class="study_detail"><!--
-                            -->上記のようにPATHを設定すると、Javaを実行する時まずJava25のフォルダから実行ファイルを探し、なければ親プロセスなどでもともと設定してある環境設定$PATHのフォルダから実行ファイルを探す。
-                            コマンドの実行ファイルの検索場所は主にPATHからなので、設定したVarsionの実行ファイルがないなどのエラーはまずPathを確認する。
+                            -->上記のようにPATHを設定すると、Javaを実行する時まずJava25のフォルダから実行ファイルを探す。なければ親プロセスでもともと設定してある環境設定($PATH)の場所から実行ファイルを探す。
+                            コマンドから指示された処理(実行ファイル)を探す場所は主にPATHなので、設定したVarsionの実行ファイルがない等のエラーはまず$PATHに該当のバージョンの実行ファイルがあるか確認する。
                         </p>
                         <p class="study_detail">
                             <span class="yellow_highlight">注意！</span>
                             この設定は「親プロセス」には適用されない。
                             
                             例：zshからbashを呼び出して、bashでJAVA_HOMEやPAHTを設定した場合
-                            zsh→bash→Meven→Java のように実行される場合、bashで設定した環境設定は、bash以下に引き継がれ、zshから実行されるものには適用できない。
-                            また、zshからbashを呼び出す場合zshの設定をbashにコピーするようなものなので、bashを退出(exit)したらこの環境設定はリセットされる。
+                            zsh→bash→Meven→Java のように実行される場合、bashで設定した環境設定は、bash以下に引き継がれ、zshから実行されるものには適用されない。
+                            また、この場合zshの設定をbashにコピーするようなものなので、bashを退出(exit)したらこの環境設定はリセットされる。
 
-                            逆にOSの環境設定として登録したら、OSから起動されるプログラムで使用する実行ファイルはまず最初にOS自体に登録してるパスを探すし、シャットダウンしても設定は残る。
+                            <span class="yellow_highlight">OSの環境設定</span>
+                            逆にOSの環境設定として登録したら、この設定はシャットダウンしても残る。
                             （Macの場合、環境変数SHELL=/bin/zshにある「./zshrc」ファイルにJAVA_HOMEやPATHを設定しておくと、zsh起動時に最初に.zshrcを読み込んむので、随時設定を維持できる。）
-                            
-                            <span class="yellow_highlight">整理</span>
-                            OS側で設定している環境設定は子プロセスに引き継がれるが、呼び出し側のプログラムやアプリで独自に実行ファイルの場所を指示していれば、そちらが優先される。
-                            例：VScodeからJavaを起動する際、VScodeのJava拡張機能がJDK(Java開発環境一式)の場所を直接指定していることもある。その場合は、アプリ側の設定を使用したいバージョンファイルがあるパスに変更する。
+
+                            また親プロセスの環境設定は子プロセスに引き継がれるので、OSから起動されるプログラムはOSの環境設定から実行ファイルを探す。
+                            しかし、呼び出し側のプログラムやアプリで独自に実行ファイルの場所を指定していれば、そちらが優先されることもある。
+                            例：VScodeからJavaを起動する際、VScodeのJava拡張機能がJDK(Java開発環境一式)の場所を直接指定していることもある。これはOS環境設定より優先される。
+                            例のようにアプリ側で使用する実行ファイルの場所を指定している場合は、この設定を使用したいバージョンのフォルダパスに変更する。
                         </p>
                     </div>
                     <div class="study_detail">

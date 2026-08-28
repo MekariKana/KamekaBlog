@@ -51,7 +51,7 @@ echo $name # "かめさん"が表示される
                             -->「環境変数」は、プログラムが動く「環境」に関する情報を定義した変数。
                             環境変数を設定すると、複数のプログラムで使う共通の情報を共有することができる。
                             【代表例】
-                            JAVA_HOME：Javaの実行ファイルの場所(JAVA_HOME=/opt/homebrew/opt/openjdk/bin)
+                            JAVA_HOME：JDKの場所(JAVA_HOME=/opt/homebrew/opt/openjdk/.../Home)
                             PATH：コマンドの実行ファイルを探す場所(PATH=/opt/homebrew/bin:...)
                             HOME：自分のホームディレクトリ(HOME=/Users)
                             SHELL：使用してるシェルの実行ファイルの場所(SHELL=/bin/zsh)
@@ -71,14 +71,72 @@ export JAVA_HOME="Java25のパス" # このシェルから起動する子プロ�
                         </div>
                         <p class="study_detail">
                             例えば、上記のような環境変数を設定したら、そのシェル(Bash)から呼び出される子プロセスで使用する＄JAVA_HOMEは、Java25が適用される。
-                            ※ただJAVA_HOMEはあくまでJavaの所在地の設定なので、Javaコマンドでこの設定を適用したい場合は以下のPATHの設定も必要となる。
+                            ※ただJAVA_HOMEはあくまでJDKの所在地の設定なので、Javaコマンドでこの設定を適用したい場合は以下の<a href="#path" class="link">PATH</a>の設定も必要となる。
                         </p>
                         <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">JAVA_HOMEとは</div>
+                        </div>                     
+                        <p class="study_detail"><!--
+                            -->JAVA_HOMEは環境設定のひとつで、Java開発環境（JDK）のホームディレクトリを設定する変数。
+                            Javaを使用するプログラムはjava実行ファイルだけを使うとは限らないので、JDK全体を基準にしてそこから必要なものを探せるようルートを設定しておく。
+                            そのため、Java実行ファイルを使用する時は「$JAVA_HOME/bin/java」となる。
+                            ちなみにHomebrewでのjavaフォルダを以下で整理しておく。
+
+                            <span class="yellow_highlight">Homebrewとは</span>
+                            Macに入れた開発ツールをまとめて管理するための道具。
+                            例えばJavaをインストールする場合、通常①公式サイトからダウンロード②インストーラーを実行③Macに配置、という手順を踏む。
+                            でもHomebrewを使うと、コマンド「brew install openjdk@25」でインストールできる。
+                        </p>
+                        <div data-filename="Homebrewコマンド">
+                            <span>Homebrewコマンド</span>
+<!--コード記載-->
+<pre><code class="language-bash">
+# インストール
+brew innstall openjdk@25
+
+# 検索
+brew search openjdk
+
+# アップデート
+brew update
+
+# インストール済みソフト更新
+brew upgrade
+
+# アンインストール
+brew unistall openjdk@25
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->またHomebrewはソフトウェアをパッケージとして管理できる。
+                            HomebrewでJDKをインストールした場合、いくつかjavaフォルダができる。
+
+                            ①/opt/homebrew/opt/openjdk@25/bin
+                            /opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home/bin/へのリンク。
+                            javaやjavacをコマンドとして見つけてもらうためのPATHに、登録しやすくするための短いルート。
+
+                            ②/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home/bin
+                            JDKのHomeディレクトリ。JDK本体(/opt/homebrew/Cellar/openjdk@25/25.0.4.1/libexec/openjdk.jdk/Contents/Home/)へのショートカット。
+                            バージョン管理のために用意されたもの。
+
+                            ③/opt/homebrew/Cellar/openjdk@25/25.0.4.1/libexec/openjdk.jdk/Contents/Home/
+                            実際のJava25がインストールされている場所。
+
+                            ★なぜCellerとopt、2つ別に管理するのか？
+                            バージョンアップした時に、PATHをいちいち変更しなくて済むように、管理用にショートカットフォルダを用意している。
+                            例えば、Java 15.0.4.1がjava 25.0.1にバージョンアップした場合、Cellar/openjdk@25/25.0.4.1と25.0.5の2つのフォルダが存在する可能性がある。
+                            そのとき「JAVA_HOME="/opt/homebrew/Cellar/openjdk@25/25.0.4.1/libexec/..."」となっていると、バージョンアップするたびにパスを変更しなくてはいけないし、もし設定変更し忘れたら古いバージョンを使ってしまう可能性がある。
+                            しかし「JAVA_HOME="/opt/homebrew/opt/openjdk@25/libexec/..."」とoptのフォルダを指定しておくと、homebrewがopt内のリンクを新しいバージョンのJDKフォルダに付け替えてくれるので、自動的に新しいバージョンを指すことになる。
+                            だからバージョン番号を含むCellarの実態を直接指定するより、optを使用した方が扱いやすい。
+
+                        </p>
+                        <div class="study_sub_ttl" id="path">
                             <div class="study_dot">&#9787;</div>
                             <div class="study_point">PATHとは</div>
                         </div>                     
                         <p class="study_detail"><!--
-                            -->PATHは環境設定のひとつ。
+                            -->PATHも環境設定のひとつ。
                             コマンド(java -vやnode -vなど)は、命令された実行ファイルを探して実行する指示役。
                             コマンドで命令された時に実行対象のプログラムを探す場所が、PATHに設定されたフォルダになる。
                         </p>

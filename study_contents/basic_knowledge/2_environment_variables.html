@@ -109,8 +109,9 @@ brew unistall openjdk@25
 </code></pre>
                         </div>
                         <p class="study_detail"><!--
-                            -->またHomebrewはソフトウェアをパッケージとして管理できる。
-                            HomebrewでJDKをインストールした場合、いくつかjavaフォルダができる。
+                            -->またHomebrewは単に「ソフトウェアをひとつの箱に入れる」のではなく、ソフトウェア一式を「1つの管理単位」として、インストール・更新・削除などをまとめて扱えるようにしてくれる。
+                            
+                            例：HomebrewでJDKをインストールした場合、いくつかjavaフォルダができる。
 
                             ①/opt/homebrew/opt/openjdk@25/bin
                             /opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home/bin/へのリンク。
@@ -130,6 +131,7 @@ brew unistall openjdk@25
                             しかし「JAVA_HOME="/opt/homebrew/opt/openjdk@25/libexec/..."」とoptのフォルダを指定しておくと、homebrewがopt内のリンクを新しいバージョンのJDKフォルダに付け替えてくれるので、自動的に新しいバージョンを指すことになる。
                             だからバージョン番号を含むCellarの実態を直接指定するより、optを使用した方が扱いやすい。
 
+                            このように単純にopenjdk@25をインストールするのではなく、簡単に扱えるようにしてくれる。
                         </p>
                         <div class="study_sub_ttl" id="path">
                             <div class="study_dot">&#9787;</div>

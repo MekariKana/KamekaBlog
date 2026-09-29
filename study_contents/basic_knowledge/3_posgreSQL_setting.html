@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <!--シンタックスハイライトのcssの読み込み-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/default-dark.min.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                <basicknowledge-title></basicknowledge-title>
+                <div class="content_detail">
+                    <div class="study_block">
+                        <div class="date">
+                            作成日: 2026.9.24
+                        </div>
+                        <p class="study_ttl">
+                            DBパスの環境変数の設定
+                        </p>
+                        <p class="study_detail"><!--
+                        -->posgleSQLのコマンド(psql)がターミナルから使えなかったので、Macの環境変数へ設定する。
+                        </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">ターミナルで起動確認</div>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->1. コマンド[which psql]で「psql not found」と表示された
+
+                            2. コマンド[find /opt/homebrew /usr/local -name psql 2>/dev/null]を実行すると
+                            「/opt/homebrew/Cellar/libpq/17.4/bin/psql」と表示された
+                            -> psql自体は入っていて、上記のアドレスに存在してるけどPATHに登録されてないことが判明
+                            ※コマンドの意味：find 探す場所 条件 -> 探す場所「/opt/homebrew /usr/local」条件「-name psql」
+                            2>/dev/null -> 不要なエラー(2)はゴミ箱(/dev/null)に捨てて、画面に表示しない
+                            
+                            3. 試しにPATHを通す。コマンド[export PATH="/opt/homebrew/Cellar/libpq/17.4/bin:$PATH"]実行
+                            
+                            4. コマンド[psql --version]で確認。「psql (PostgreSQL) 17.4」と表示され、psqlが使用できることを確認
+                            
+                            5. 恒久的にPATHを設定する
+                            コマンド[echo 'export PATH="/opt/homebrew/Cellar/libpq/17.4/bin:$PATH"' >> ~/.zshrc
+                            source ~/.zshrc]
+                            
+                            6. コマンド[psql --version]で確認。
+                        </p>
+                    <div class="study_detail">
+                        <a class="link_btn" href="../../study.html">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <special-footer></special-footer>
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="../../includes/headerFooterManeger.js"></script>
+
+        <!--studyページのタイトルを読み込むcssを実行-->
+        <script src="../../includes/studyTitle.js"></script>
+
+        <!--シンタックスハイライトcssを実行-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>       
+        <script>
+                hljs.highlightAll();      
+        </script>
+    </body>
+
+</html>

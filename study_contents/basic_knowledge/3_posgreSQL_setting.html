@@ -24,17 +24,17 @@
                             作成日: 2026.9.24
                         </div>
                         <p class="study_ttl">
-                            DBパスの環境変数の設定
-                        </p>
-                        <p class="study_detail"><!--
-                        -->posgleSQLのコマンド(psql)がターミナルから使えなかったので、Macの環境変数へ設定する。
+                            DBパスの環境変数の設定とDB作成
                         </p>
                         <div class="study_sub_ttl">
                             <div class="study_dot">&#9787;</div>
-                            <div class="study_point">ターミナルで起動確認</div>
+                            <div class="study_point">DBパスを環境変数に設定</div>
                         </div>
                         <p class="study_detail"><!--
-                            -->1. コマンド[which psql]で「psql not found」と表示された
+                        -->posgleSQLのコマンド(psql)がターミナルから使えなかったので、Macの環境変数へ設定する。
+                        </p>
+                        <p class="study_detail"><!--
+                            -->1. コマンド[which psql]でファイル確認。「psql not found」と表示された
 
                             2. コマンド[find /opt/homebrew /usr/local -name psql 2>/dev/null]を実行すると
                             「/opt/homebrew/Cellar/libpq/17.4/bin/psql」と表示された
@@ -52,6 +52,62 @@
                             
                             6. コマンド[psql --version]で確認。
                         </p>
+                        <div class="study_sub_ttl">
+                            <div class="study_dot">&#9787;</div>
+                            <div class="study_point">PosgreSQLでDB作成</div>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->1.Server > PostgreSQL を右クリック。Create > Databaseをクリック。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/basic_knowledge/3_create_DB.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->2. DBの設定項目が表示されるので、Database項目にDB名を入力しSaveをクリック。
+                            "OID"はObject Identifierで、PostgreSQL内部でデータベースなどのオブジェクトを識別するための番号。
+                            通常はPostgreSQL側が自動的に管理するので、自分で入力する必要はない。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/basic_knowledge/3_setting_DBname.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->3. todo_DBを右クリック。Query Toolを選択。右側にSQLを書く画面が開く。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/basic_knowledge/3_query_display.jpg">
+                        </div>
+                        <p class="study_detail"><!--
+                            -->テーブル作成のSQLを入力し、[実行▶︎]する。
+                            ※「id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY」の意味
+                            id: カラム名
+                            BIGINT: データ型
+                            GENERATED ALWAYS AS IDENTITY: DBが自動採番
+                            PRIMARY KEY: この列を主キーにする
+                            
+                            ちなみにBIGINTかつGENERATED ALWAYS AS IDENTITYはまとめてBIGSERIALで設定もできる。
+                            「id BIGSERIAL PRIMARY KEY」も同じ意味になる
+                        </p>
+                        <div data-filename="SQL">
+                            <span>SQL</span>
+<!--コード記載-->
+<pre><code class="language-sql">
+CREATE TABLE todos (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+</code></pre>
+                        </div>
+                        <p class="study_detail"><!--
+                            -->4. SQLを書いたら右上の▶︎で実行。
+                            SELECT文などは下に実行内容が表示される。
+                        </p>
+                        <div class="small_img">
+                            <img src="../../img/study/basic_knowledge/3_exec_SQL.jpg">
+                        </div>
                     <div class="study_detail">
                         <a class="link_btn" href="../../study.html">戻る</a>
                     </div>

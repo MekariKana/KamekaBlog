@@ -42,26 +42,81 @@ if (hash.startsWith("#search-")) {
 // キーワードをハイライトするメソッド
 function highlightKeywords(element, keywords) {
 
-    let html = element.innerHTML;
+    for (const keyword of keywords) {
 
-    for(const keyword of keywords) {
-        if(!keyword) {
+        if (!keyword) {
             continue;
         }
 
-        const escapedKeyword = 
+        // 検索文字を正規表現で安全に使えるようにする
+        const escapedKeyword =
             keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-        const regex = new RegExp(
-            `(${escapedKeyword})`,
-            "gi"
-        );
+        const regex =
+            new RegExp(escapedKeyword, "gi");
 
-        html = html.replace(
-            regex,
-            "<mark>$1</mark>"
-        );
+        const walker =
+            document.createTreeWalker(
+                element,
+                NodeFilter.SHOW_TEXT
+            );
+
+        const textNodes = [];
+
+        while (walker.nextNode()) {
+            textNodes.push(walker.currentNode);
+        }
+
+        for (const textNode of textNodes) {
+
+            const text = textNode.nodeValue;
+
+            // キーワードがなければ次へ
+            if (!regex.test(text)) {
+                continue;
+            }
+
+            // test()で使った位置をリセット
+            regex.lastIndex = 0;
+
+            const fragment =
+                document.createDocumentFragment();
+
+            let lastIndex = 0;
+            let match;
+
+            while ((match = regex.exec(text)) !== null) {
+
+                // キーワードより前の文字
+                fragment.appendChild(
+                    document.createTextNode(
+                        text.slice(lastIndex, match.index)
+                    )
+                );
+
+                // キーワード部分
+                const mark =
+                    document.createElement("mark");
+
+                mark.textContent = match[0];
+
+                fragment.appendChild(mark);
+
+                lastIndex =
+                    match.index + match[0].length;
+            }
+
+            // キーワードより後ろの文字
+            fragment.appendChild(
+                document.createTextNode(
+                    text.slice(lastIndex)
+                )
+            );
+
+            textNode.parentNode.replaceChild(
+                fragment,
+                textNode
+            );
+        }
     }
-
-    element.innerHTML = html;
 }

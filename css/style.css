@@ -16,7 +16,7 @@ a {
 }
 
 a:hover {
-  opacity:0.5;
+  opacity:0.8;
 }
 
 p {
@@ -27,6 +27,43 @@ p {
   max-width: 1200px;
   width: 95%;
   margin: 0 auto;
+}
+
+.site-search {
+  text-align: right;
+}
+
+.site-search input {
+  border: solid 1px #79a1b1;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.site-search button {
+  background-color: #79a1b1;
+  border: none;
+  padding: 5px 10px 5px;
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.site-search button:hover {
+  opacity: 0.8;
+}
+
+.site-result {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.site-element {
+  margin-bottom: 10px;
+}
+
+.site-ttl {
+  color: #9b9a9a;
 }
 
 /* ハンバーガーメニューのスタイル */
@@ -457,7 +494,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 input[type="reset"] {
@@ -474,7 +511,7 @@ input[type="reset"] {
 }
 
 input[type="reset"]:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .botton_area {
@@ -582,7 +619,9 @@ video {
 .yellow_highlight {
   font-weight: bold;
   background: linear-gradient(transparent 60%, yellow 30%);
-  display: inline-block;
+  color: inherit;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   margin-bottom: 5px;;
 }
 
@@ -695,7 +734,7 @@ video {
 }
 
 .link:hover{
-  opacity: 60%;
+  opacity: 80%;
 }
 
 @media screen and (max-width: 768px) {
@@ -717,7 +756,7 @@ video {
 }
 
 .hamburger:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* 黒背景（非表示時） */

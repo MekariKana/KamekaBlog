@@ -16,6 +16,10 @@ class SpecialHeader extends HTMLElement {
                     <img src="${baseUrl}img/logo.svg" alt="KamekaBlog_logo">
                     <h1>KamekaBlog</h1>
                 </div>
+                <div class="site-search">
+                    <input type="search" id="siteSearchInput" placeholder="サイト内検索">
+                    <button id="siteSearchButton">検索</button>
+                </div>
             </header>
             <nav class="w_inner">
                 <div class="hamburger" id="hamburger">
@@ -56,6 +60,31 @@ class SpecialFooter extends HTMLElement {
 
 customElements.define("special-header", SpecialHeader)
 customElements.define("special-footer", SpecialFooter)
+
+//headerのサイト内検索機能--------------------------------------
+const searchinput = document.getElementById("siteSearchInput");
+const searchButton = document.getElementById("siteSearchButton");
+
+function search() {
+    const keyword = searchinput.value.trim();
+
+    if(!keyword) {
+        return;
+    }
+
+    location.href = 
+        `${baseUrl}search.html?keyword=${encodeURIComponent(keyword)}`;
+}
+
+// 検索ボタンをクリックした時の挙動
+searchButton.addEventListener("click", search);
+
+// Enterを押した時の挙動
+searchinput.addEventListener("keydown", (event) => {
+    if(event.key === "Enter") {
+        search();
+    }
+});
 
 //headerメニューをハンバーガーにする処理--------------------------------------
 //ハンバーガーメニューの変数

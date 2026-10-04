@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KamekaBlog</title>
+        <meta name="description" content="初心者エンジニアの知識プログです。">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <special-header></special-header>
+
+        <div class="container w_inner">
+            <div class="container_block">
+                    <div class="profile_block">
+                        <div class="content_ttl">
+                            <h3>サイト内検索</h3>
+                        </div>
+                        <div class="content_detail">
+                            <!-- 検索結果タイトル -->
+                            <p class="site-result" id="searchKeyword"></p>
+                            <!-- 検索結果 -->
+                            <div id="searchResults"></div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <special-footer></special-footer>
+        
+        <!--ヘッダーフッターを読み込むcssを実行-->
+        <script src="includes/headerFooterManeger.js"></script>
+        <script src="includes/search.js"></script>
+        <script src="includes/searchJump.js"></script>
+    </body>
+</html>

@@ -94,10 +94,10 @@ async function searchPages() {
                     .indexOf(matchedKeywords[0].toLowerCase());
 
                 // 前後五文字を取得
-                const start = Math.max(0, index - 5);
+                const start = Math.max(0, index - 15);
                 const end = Math.min(
                     text.length,
-                    index + matchedKeywords[0].length + 5
+                    index + matchedKeywords[0].length + 15
                 );
 
                 const excerpt = text.substring(start, end);
